@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "nest start --watch",
+    "dev:debug": "nest start --watch --debug 127.0.0.1:9229",
     "build": "nest build",
     "start": "node dist/main.js",
     "typecheck": "tsc --noEmit -p tsconfig.json",
