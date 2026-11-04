@@ -1,0 +1,15 @@
+{
+  "name": "digital-swu",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": ["apps/*", "packages/*"],
+  "engines": { "node": ">=24.15.0" },
+  "scripts": {
+    "dev:web": "npm run dev -w @digital-swu/web",
+    "dev:api": "npm run dev -w @digital-swu/api",
+    "build": "npm run build -w @digital-swu/contracts && npm run build -w @digital-swu/api && npm run build -w @digital-swu/web",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "db:generate": "npm run db:generate -w @digital-swu/api",
+    "db:migrate": "npm run db:migrate -w @digital-swu/api"
+  }
+}

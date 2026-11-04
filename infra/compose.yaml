@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgis/postgis:17-3.5
+    environment:
+      POSTGRES_DB: digital_swu
+      POSTGRES_USER: digital_swu
+      POSTGRES_PASSWORD: local_dev_only
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+volumes:
+  postgres_data:

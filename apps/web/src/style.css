@@ -1,0 +1,6 @@
+:root { font-family: system-ui, sans-serif; color: #173b35; background: #f5f8f4; }
+body { margin: 0; }
+main { max-width: 720px; margin: 48px auto; padding: 0 20px; }
+h1 { margin-bottom: 8px; }
+.canvas-host { max-width: 100%; overflow: hidden; border: 1px solid #a9c9bd; border-radius: 8px; }
+.note { color: #52665f; }
