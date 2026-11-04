@@ -1,22 +1,41 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { isWalkable, movePlayer, nearbyPlace, PLACES, SPAWN } from './campus.ts';
+import { BUILDINGS, ENTITIES, MAP_HEIGHT, MAP_WIDTH, SPAWN, canEnter, facingTarget, isWalkable, moveOne, terrainAt } from './campus.ts';
 
-test('spawn and all interaction markers are reachable', () => {
+test('spawn, doors and example entities fit the expanded map', () => {
   assert.equal(isWalkable(SPAWN), true);
-  for (const place of PLACES) {
-    assert.equal(isWalkable(place.entrance), true, place.id);
-    assert.equal(nearbyPlace(place.entrance)?.id, place.id);
+  for (const building of BUILDINGS) {
+    assert.ok(building.x > 0 && building.y > 0);
+    assert.ok(building.x + building.width < MAP_WIDTH && building.y + building.height < MAP_HEIGHT);
+    const outside = { x: building.door.x, y: building.door.y + 1 };
+    assert.equal(isWalkable(outside), true, building.id);
+    assert.equal(facingTarget(outside, 'up', false)?.type, 'building');
   }
+  for (const entity of ENTITIES) assert.ok(entity.at.x > 0 && entity.at.x < MAP_WIDTH - 1 && entity.at.y > 0 && entity.at.y < MAP_HEIGHT - 1, entity.id);
 });
 
-test('movement respects building and map boundaries', () => {
-  assert.deepEqual(movePlayer({ x: 2.8, y: 2 }, -1, 0), { x: 2.8, y: 2 });
-  assert.deepEqual(movePlayer({ x: 0.2, y: 5 }, -1, 0), { x: 0.2, y: 5 });
-  assert.deepEqual(movePlayer({ x: 5, y: 5 }, 0.2, 0), { x: 5.2, y: 5 });
+test('movement respects trees, water, buildings and NPCs', () => {
+  assert.equal(terrainAt({ x: 0, y: 12 }), 'tree');
+  assert.equal(terrainAt({ x: 15, y: 18 }), 'water');
+  assert.equal(isWalkable({ x: 5, y: 5 }), false);
+  assert.equal(isWalkable({ x: 19, y: 12 }), false);
+  assert.deepEqual(moveOne({ x: 1, y: 12 }, 'left'), { x: 1, y: 12 });
+  assert.deepEqual(moveOne(SPAWN, 'right'), { x: SPAWN.x + 1, y: SPAWN.y });
 });
 
-test('interaction only appears near an entrance', () => {
-  assert.equal(nearbyPlace(SPAWN), null);
-  assert.equal(nearbyPlace({ x: 4, y: 2 })?.id, 'library');
+test('library access requires card and correct facing', () => {
+  const library = BUILDINGS.find((building) => building.id === 'library');
+  assert.ok(library);
+  const outside = { x: library.door.x, y: library.door.y + 1 };
+  assert.equal(facingTarget(outside, 'up', false)?.type, 'building');
+  assert.equal(facingTarget(outside, 'down', false), null);
+  assert.equal(canEnter(library, false), false);
+  assert.equal(canEnter(library, true), true);
+});
+
+test('collected card no longer appears as an interaction target', () => {
+  const card = ENTITIES.find((entity) => entity.id === 'card');
+  assert.ok(card);
+  assert.equal(facingTarget({ x: card.at.x - 1, y: card.at.y }, 'right', false)?.type, 'entity');
+  assert.equal(facingTarget({ x: card.at.x - 1, y: card.at.y }, 'right', true), null);
 });
