@@ -10,6 +10,7 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "outDir": "./dist",
+    "sourceMap": true,
     "rootDir": "./src",
     "types": ["node"]
   },

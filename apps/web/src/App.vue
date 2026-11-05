@@ -2,10 +2,32 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import type Phaser from 'phaser';
 import type { HealthStatus } from '@digital-swu/contracts';
+import type { CampusScene, InteriorScene, GameStatus, GameHooks } from './game/CampusScene';
+import type { Direction } from './game/campus';
 
 const canvasHost = ref<HTMLDivElement | null>(null);
 const apiStatus = ref('检查中');
+const nearby = ref<{ name: string; description: string } | null>(null);
+const selected = ref<{ title: string; body: string } | null>(null);
+const status = ref<GameStatus>({ scene: '校园', floor: 1, position: { x: 15, y: 12 }, facing: 'down', sprint: false, hasCard: false });
 let game: Phaser.Game | undefined;
+let disposed = false;
+let canvasObserver: ResizeObserver | undefined;
+function activeScene(): CampusScene | InteriorScene | undefined { return game?.scene.getScenes(true)[0] as CampusScene | InteriorScene | undefined; }
+function setDirection(direction: Direction, pressed: boolean): void { activeScene()?.setDirection(direction, pressed); }
+function directionLabel(direction: Direction): string {
+  return { up: '上', down: '下', left: '左', right: '右', 'up-left': '左上', 'up-right': '右上', 'down-left': '左下', 'down-right': '右下' }[direction];
+}
+function fitCanvas(): void {
+  const host = canvasHost.value;
+  if (!host?.parentElement) return;
+  const available = host.parentElement.clientWidth;
+  const scale = Math.floor(available / 384);
+  const width = scale >= 1 ? scale * 384 : available;
+  if (host.style.width === `${width}px`) return;
+  host.style.width = `${width}px`;
+  if (game) requestAnimationFrame(() => { if (!disposed) game?.scale.refresh(); });
+}
 
 onMounted(async () => {
   if (canvasHost.value) {
@@ -31,14 +53,11 @@ onMounted(async () => {
   try {
     const response = await fetch('/api/health');
     if (!response.ok) throw new Error(String(response.status));
-    const data = (await response.json()) as HealthStatus;
+    const data = await response.json() as HealthStatus;
     apiStatus.value = data.status === 'ok' ? '已连接' : '不可用';
-  } catch {
-    apiStatus.value = '未连接（可单独启动前端）';
-  }
+  } catch { if (apiStatus.value !== '场景加载失败') apiStatus.value = '未连接'; }
 });
-
-onUnmounted(() => game?.destroy(true));
+onUnmounted(() => { disposed = true; canvasObserver?.disconnect(); game?.destroy(true); });
 </script>
 
 <template>

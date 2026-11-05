@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vue-tsc --noEmit && vite build",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "test": "node --experimental-strip-types --test src/game/campus.test.mjs"
   },
   "dependencies": {
     "@digital-swu/contracts": "0.1.0",
