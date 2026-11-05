@@ -1,5 +1,5 @@
 export interface Point { x: number; y: number }
-export type Direction = 'up' | 'down' | 'left' | 'right';
+export type Direction = 'up' | 'down' | 'left' | 'right' | 'up-left' | 'up-right' | 'down-left' | 'down-right';
 export type Terrain = 'grass' | 'path' | 'tall-grass' | 'water' | 'tree';
 
 export interface Building {
@@ -31,7 +31,7 @@ export const SPAWN: Point = { x: 15, y: 12 };
 
 // Fictional prototype layout; none of these tiles claim real campus coordinates.
 export const BUILDINGS: readonly Building[] = [
-  { id: 'library', name: '图书馆', description: '收集通行卡后，从门前按 E 进入阅览室。', x: 4, y: 3, width: 7, height: 5, roof: 0x4e8c83, door: { x: 7, y: 7 }, floors: 1, requiresCard: true },
+  { id: 'library', name: '图书馆', description: '收集通行卡后，从门前向上移动进入阅览室。', x: 4, y: 3, width: 7, height: 5, roof: 0x4e8c83, door: { x: 7, y: 7 }, floors: 1, requiresCard: true },
   { id: 'teaching', name: '教学楼', description: '教室查询尚未接入；可进入室内示意场景。', x: 21, y: 3, width: 7, height: 5, roof: 0xb9765c, door: { x: 24, y: 7 }, floors: 1 },
   { id: 'canteen', name: '食堂', description: '餐饮信息尚未接入；可进入室内示意场景。', x: 4, y: 16, width: 7, height: 5, roof: 0xcb9b57, door: { x: 7, y: 20 }, floors: 1 },
   { id: 'activity', name: '活动中心', description: '三层室内示例，可在楼梯处切换楼层。', x: 21, y: 16, width: 7, height: 5, roof: 0x6a82b2, door: { x: 24, y: 20 }, floors: 3 },
@@ -47,8 +47,14 @@ export const ENTITIES: readonly Entity[] = [
   { id: 'cat', kind: 'animal', name: '校园猫', description: '一只在草地上散步的动物范例。', at: { x: 22, y: 13 } },
 ];
 
+export function directionFromAxes(dx: number, dy: number): Direction | null {
+  const horizontal = dx < 0 ? 'left' : dx > 0 ? 'right' : '';
+  const vertical = dy < 0 ? 'up' : dy > 0 ? 'down' : '';
+  return (vertical && horizontal ? `${vertical}-${horizontal}` : vertical || horizontal || null) as Direction | null;
+}
+
 export function step(point: Point, direction: Direction): Point {
-  return { x: point.x + (direction === 'right' ? 1 : direction === 'left' ? -1 : 0), y: point.y + (direction === 'down' ? 1 : direction === 'up' ? -1 : 0) };
+  return { x: point.x + (direction.includes('right') ? 1 : direction.includes('left') ? -1 : 0), y: point.y + (direction.includes('down') ? 1 : direction.includes('up') ? -1 : 0) };
 }
 
 export function same(a: Point, b: Point): boolean { return a.x === b.x && a.y === b.y; }
@@ -73,9 +79,28 @@ export function isWalkable(point: Point): boolean {
   return !ENTITIES.some((entity) => entity.kind === 'npc' && same(entity.at, point));
 }
 
-export function moveOne(from: Point, direction: Direction): Point {
+export function moveOne(from: Point, direction: Direction, walkable: (point: Point) => boolean = isWalkable): Point {
   const next = step(from, direction);
-  return isWalkable(next) ? next : from;
+  const dx = next.x - from.x;
+  const dy = next.y - from.y;
+  if (!dx || !dy) return walkable(next) ? next : from;
+  const alongX = { x: from.x + dx, y: from.y };
+  const alongY = { x: from.x, y: from.y + dy };
+  const openX = walkable(alongX);
+  const openY = walkable(alongY);
+  if (openX && openY && walkable(next)) return next;
+  // Slide beside a wall, but never pass diagonally through its corner.
+  if (openX && !openY) return alongX;
+  if (openY && !openX) return alongY;
+  return from;
+}
+
+export function doorOutsideAt(point: Point): Building | null {
+  return BUILDINGS.find((building) => point.x === building.door.x && point.y === building.door.y + 1) ?? null;
+}
+
+export function doorForMove(from: Point, direction: Direction): Building | null {
+  return direction === 'up' ? doorOutsideAt(from) : null;
 }
 
 export type InteractionTarget = { type: 'building'; building: Building } | { type: 'entity'; entity: Entity };

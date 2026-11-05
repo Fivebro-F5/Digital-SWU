@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { BUILDINGS, ENTITIES, MAP_HEIGHT, MAP_WIDTH, SPAWN, TILE, canEnter, facingTarget, isWalkable, same, step, terrainAt, type Building, type Direction, type Point } from './campus';
+import { BUILDINGS, ENTITIES, MAP_HEIGHT, MAP_WIDTH, SPAWN, TILE, canEnter, directionFromAxes, doorForMove, doorOutsideAt, facingTarget, isWalkable, moveOne, same, terrainAt, type Building, type Direction, type Point } from './campus';
 
 export interface GameStatus { scene: string; floor: number; position: Point; facing: Direction; sprint: boolean; hasCard: boolean }
 export interface GameHooks {
@@ -118,18 +118,25 @@ abstract class GridScene extends Phaser.Scene {
     this.sprint = this.keys?.SHIFT?.isDown ?? false;
     if (this.hooks.isDialogOpen()) return;
     if (this.moving || !this.keys) return;
-    const direction = (['up', 'down', 'left', 'right'] as Direction[]).find((d) => this.held[d] || this.keys[d.toUpperCase()]?.isDown || this.keys[{ up: 'W', down: 'S', left: 'A', right: 'D' }[d]]?.isDown);
+    const pressed = (direction: 'up' | 'down' | 'left' | 'right', alternate: string) => this.held[direction] || this.keys[direction.toUpperCase()]?.isDown || this.keys[alternate]?.isDown;
+    const dx = Number(Boolean(pressed('right', 'D'))) - Number(Boolean(pressed('left', 'A')));
+    const dy = Number(Boolean(pressed('down', 'S'))) - Number(Boolean(pressed('up', 'W')));
+    const direction = directionFromAxes(dx, dy);
     if (direction) this.tryMove(direction);
   }
   protected tryMove(direction: Direction): void {
+    const turned = this.facing !== direction;
     this.facing = direction;
-    const next = step(this.position, direction);
-    if (!this.canMove(next)) { this.report(); return; }
+    if (this.beforeMove(direction)) return;
+    const next = moveOne(this.position, direction, (point) => this.canMove(point));
+    if (same(next, this.position)) { if (turned) this.report(); return; }
+    const distance = Math.hypot(next.x - this.position.x, next.y - this.position.y);
     this.position = next;
     this.moving = true;
-    this.tweens.add({ targets: this.player, x: center(next.x), y: center(next.y), duration: this.sprint ? 68 : 132, onComplete: () => { this.moving = false; this.player.setDepth(center(next.y)); this.arrived(); this.report(); } });
+    this.tweens.add({ targets: this.player, x: center(next.x), y: center(next.y), duration: Math.round((this.sprint ? 68 : 132) * distance), onUpdate: () => { this.player.x = Math.round(this.player.x); this.player.y = Math.round(this.player.y); }, onComplete: () => { this.player.setPosition(center(next.x), center(next.y)); this.moving = false; this.player.setDepth(center(next.y)); this.arrived(); this.report(); } });
     this.report();
   }
+  protected beforeMove(_direction: Direction): boolean { return false; }
   protected abstract canMove(point: Point): boolean;
   protected abstract arrived(): void;
   protected abstract report(): void;
@@ -154,31 +161,40 @@ export class CampusScene extends GridScene {
       this.sprites.set(entity.id, sprite);
     }
     this.player = drawCharacter(this, this.position.x, this.position.y, 0xc64f5b);
-    this.cameras.main.setBounds(0, 0, MAP_WIDTH * TILE, MAP_HEIGHT * TILE).startFollow(this.player, true, 0.18, 0.18);
+    this.cameras.main.setBounds(0, 0, MAP_WIDTH * TILE, MAP_HEIGHT * TILE).startFollow(this.player, true, 1, 1);
     this.cameras.main.roundPixels = true;
     this.setupInput(); this.report();
   }
   protected canMove(point: Point): boolean { return isWalkable(point); }
+  protected beforeMove(direction: Direction): boolean {
+    const building = doorForMove(this.position, direction);
+    if (!building) return false;
+    if (!canEnter(building, this.hasCard)) this.hooks.onMessage('需要通行卡', '先在中央道路拾取蓝色通行卡，再向图书馆门内移动。');
+    else this.scene.start('interior', { building, hasCard: this.hasCard, returnAt: { ...this.position } });
+    return true;
+  }
   protected arrived(): void {
     if (same(this.position, ENTITIES.find((entity) => entity.id === 'card')!.at) && !this.hasCard) this.handleEntity(ENTITIES.find((entity) => entity.id === 'card')!);
   }
   protected report(): void {
     const target = facingTarget(this.position, this.facing, this.hasCard);
-    this.hooks.onNearby(target ? (target.type === 'building' ? target.building.name : target.entity.name) : null, target ? (target.type === 'building' ? target.building.description : target.entity.description) : undefined);
+    const door = doorOutsideAt(this.position);
+    this.hooks.onNearby(target ? (target.type === 'building' ? target.building.name : target.entity.name) : door?.name ?? null, target ? (target.type === 'building' ? target.building.description : target.entity.description) : door ? `${door.description} 向上移动即可进门。` : undefined);
     this.hooks.onStatus({ scene: '校园', floor: 1, position: { ...this.position }, facing: this.facing, sprint: this.sprint, hasCard: this.hasCard });
   }
   interact(): void {
     if (this.hooks.isDialogOpen()) return;
     const target = facingTarget(this.position, this.facing, this.hasCard);
-    if (!target) { this.hooks.onMessage('周围很安静', '面向建筑入口或实体，按 E 可以互动。'); return; }
+    if (!target) {
+      const door = doorOutsideAt(this.position);
+      if (door) this.handleBuilding(door);
+      else this.hooks.onMessage('周围很安静', '面向实体按 E 可以互动；走到门前向内移动即可进门。');
+      return;
+    }
     if (target.type === 'building') this.handleBuilding(target.building); else this.handleEntity(target.entity);
   }
   private handleBuilding(building: Building): void {
-    if (!canEnter(building, this.hasCard)) { this.hooks.onMessage('需要通行卡', '先在中央道路拾取蓝色通行卡，再回到图书馆入口。'); return; }
-    // Clicks reveal the location; entering still requires standing outside the door.
-    const outside = { x: building.door.x, y: building.door.y + 1 };
-    if (!same(this.position, outside) || this.facing !== 'up') { this.hooks.onMessage(building.name, `${building.description} 站在门外，面向门按 E 进入。`); return; }
-    this.scene.start('interior', { building, hasCard: this.hasCard, returnAt: outside });
+    this.hooks.onMessage(building.name, canEnter(building, this.hasCard) ? `${building.description} 走到门外，向上移动即可进入。` : '需要通行卡。先在中央道路拾取蓝色通行卡，再从门外向上移动。');
   }
   private handleEntity(entity: (typeof ENTITIES)[number]): void {
     if (entity.id === 'card') {
@@ -228,16 +244,21 @@ export class InteriorScene extends GridScene {
     text(this, center(5), 7 * TILE + 7, '出口', 9);
   }
   protected canMove(point: Point): boolean { return point.x > 0 && point.x < 11 && point.y > 0 && point.y < 7; }
+  protected beforeMove(direction: Direction): boolean {
+    if (this.position.x !== 5 || this.position.y !== 6 || direction !== 'down') return false;
+    this.scene.start('campus', { returnAt: this.returnAt, hasCard: this.hasCard });
+    return true;
+  }
   protected arrived(): void { /* Interaction is intentional via E. */ }
   protected report(): void {
-    const atExit = this.position.x === 5 && this.position.y === 6 && this.facing === 'down';
+    const atExit = this.position.x === 5 && this.position.y === 6;
     const atStair = this.building.floors > 1 && Math.abs(this.position.x - 9) + Math.abs(this.position.y - 2) <= 1;
-    this.hooks.onNearby(atExit ? '出口' : atStair ? '楼梯' : null, atExit ? '按 E 返回校园。' : atStair ? '按 E 切换楼层。' : undefined);
+    this.hooks.onNearby(atExit ? '出口' : atStair ? '楼梯' : null, atExit ? '向下移动返回校园。' : atStair ? '按 E 切换楼层。' : undefined);
     this.hooks.onStatus({ scene: this.building.name, floor: this.floor, position: { ...this.position }, facing: this.facing, sprint: this.sprint, hasCard: this.hasCard });
   }
   interact(): void {
     if (this.hooks.isDialogOpen()) return;
-    if (this.position.x === 5 && this.position.y === 6 && this.facing === 'down') { this.scene.start('campus', { returnAt: this.returnAt, hasCard: this.hasCard }); return; }
+    if (this.position.x === 5 && this.position.y === 6) { this.hooks.onMessage('出口', '向下移动即可返回校园。'); return; }
     if (this.building.floors > 1 && Math.abs(this.position.x - 9) + Math.abs(this.position.y - 2) <= 1) {
       this.floor = this.floor % this.building.floors + 1;
       this.paintRoom(); this.player = drawCharacter(this, this.position.x, this.position.y, 0xc64f5b);

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { BUILDINGS, ENTITIES, MAP_HEIGHT, MAP_WIDTH, SPAWN, canEnter, facingTarget, isWalkable, moveOne, terrainAt } from './campus.ts';
+import { BUILDINGS, ENTITIES, MAP_HEIGHT, MAP_WIDTH, SPAWN, canEnter, directionFromAxes, doorForMove, facingTarget, isWalkable, moveOne, terrainAt } from './campus.ts';
 
 test('spawn, doors and example entities fit the expanded map', () => {
   assert.equal(isWalkable(SPAWN), true);
@@ -23,7 +23,28 @@ test('movement respects trees, water, buildings and NPCs', () => {
   assert.deepEqual(moveOne(SPAWN, 'right'), { x: SPAWN.x + 1, y: SPAWN.y });
 });
 
-test('library access requires card and correct facing', () => {
+test('combined inputs move diagonally without cutting through blocked corners', () => {
+  assert.equal(directionFromAxes(1, -1), 'up-right');
+  assert.equal(directionFromAxes(-1, 1), 'down-left');
+  assert.equal(directionFromAxes(0, 0), null);
+  assert.deepEqual(moveOne({ x: 1, y: 1 }, 'down-right', () => true), { x: 2, y: 2 });
+  const wall = (point) => !(point.x === 2 && point.y === 1);
+  assert.deepEqual(moveOne({ x: 1, y: 1 }, 'down-right', wall), { x: 1, y: 2 });
+  assert.deepEqual(moveOne({ x: 1, y: 1 }, 'down-right', (point) => point.x !== 2 && point.y !== 2), { x: 1, y: 1 });
+  assert.deepEqual(moveOne({ x: 1, y: 1 }, 'down-right', (point) => point.x !== 2 || point.y !== 2), { x: 1, y: 1 });
+});
+
+test('every exterior door is triggered only from its outside tile while moving inward', () => {
+  for (const building of BUILDINGS) {
+    const outside = { x: building.door.x, y: building.door.y + 1 };
+    assert.equal(doorForMove(outside, 'up')?.id, building.id);
+    assert.equal(doorForMove(outside, 'up-right'), null);
+    assert.equal(doorForMove(outside, 'down'), null);
+    assert.equal(doorForMove({ x: outside.x + 1, y: outside.y }, 'up'), null);
+  }
+});
+
+test('library access requires card', () => {
   const library = BUILDINGS.find((building) => building.id === 'library');
   assert.ok(library);
   const outside = { x: library.door.x, y: library.door.y + 1 };
