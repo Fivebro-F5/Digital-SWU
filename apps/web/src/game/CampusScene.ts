@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import libraryImageUrl from '../../../../picture/assets/campus-environment/buildings/library.png?url';
+// 原校园场景使用 terrainAt 查询地形。
 import { BUILDINGS, ENTITIES, MAP_HEIGHT, MAP_WIDTH, SPAWN, TILE, canEnter, directionFromAxes, doorForMove, doorOutsideAt, facingTarget, isWalkable, moveOne, same, terrainAt, type Building, type Direction, type Point } from './campus';
 
 export interface GameStatus { scene: string; floor: number; position: Point; facing: Direction; sprint: boolean; hasCard: boolean }
@@ -10,6 +12,20 @@ export interface GameHooks {
 }
 
 const center = (n: number) => n * TILE + TILE / 2;
+const birdFrameUrls = import.meta.glob<string>(
+  '../../../../picture/角色单帧/bird/original/{idle,walk,run}/*.png',
+  { eager: true, query: '?url', import: 'default' },
+);
+const birdDirections = ['up', 'down', 'left', 'right'] as const;
+const birdActions = {
+  idle: { frames: 1, frameRate: 1, repeat: 0 },
+  walk: { frames: 4, frameRate: 8, repeat: -1 },
+  run: { frames: 4, frameRate: 15, repeat: -1 },
+} as const;
+type BirdAction = keyof typeof birdActions;
+const birdFrameKey = (animation: string, frame: number) =>
+  `${animation}-${String(frame).padStart(3, '0')}`;
+// 恢复原校园地图的草地、道路、水域和树木配色。
 const colors = { grass: 0x92bd70, grassDark: 0x77a95e, path: 0xd9ca9d, pathDark: 0xc1b483, water: 0x5c9ab1, waterLight: 0x83bdc2, trunk: 0x755943, leaf: 0x4f8e59, dark: 0x344c48 };
 
 function rect(scene: Phaser.Scene, x: number, y: number, w: number, h: number, color: number, depth = 0): Phaser.GameObjects.Rectangle {
@@ -60,6 +76,14 @@ function drawBuilding(scene: Phaser.Scene, building: Building, click: () => void
   const px = building.x * TILE; const py = building.y * TILE;
   const w = building.width * TILE; const h = building.height * TILE;
   const d = py + h;
+  // 图书馆和其他建筑共用点击区域，图书馆优先绘制贴图。
+  scene.add.zone(px + w / 2, py + h / 2, w, h).setInteractive({ useHandCursor: true }).on('pointerdown', click);
+  if (building.id === 'library' && scene.textures.exists('campus-library')) {
+    const image = scene.add.image(center(building.door.x), d, 'campus-library').setOrigin(0.5, 1);
+    image.setScale(Math.min(w / image.width, h / image.height)).setDepth(d);
+    text(scene, px + w / 2, py + 19, building.name, 10);
+    return;
+  }
   rect(scene, px + 4, py + 14, w - 8, h - 12, 0xe5d9ad, d - 3);
   rect(scene, px, py + 2, w, h - 27, building.roof, d - 2);
   rect(scene, px + 7, py + 10, w - 14, 6, 0xffffff, d - 1).setAlpha(0.18);
@@ -71,7 +95,6 @@ function drawBuilding(scene: Phaser.Scene, building: Building, click: () => void
   rect(scene, center(building.door.x) - 8, py + h - 29, 16, 29, 0x8f644e, d + 2);
   rect(scene, center(building.door.x) + 3, py + h - 14, 2, 2, 0xf8d66c, d + 3);
   text(scene, px + w / 2, py + 19, building.name, 10);
-  scene.add.zone(px + w / 2, py + h / 2, w, h).setInteractive({ useHandCursor: true }).on('pointerdown', click);
 }
 
 function drawEntity(scene: Phaser.Scene, entity: (typeof ENTITIES)[number], click: () => void): Phaser.GameObjects.Container | null {
@@ -99,7 +122,7 @@ function drawEntity(scene: Phaser.Scene, entity: (typeof ENTITIES)[number], clic
 }
 
 abstract class GridScene extends Phaser.Scene {
-  protected player!: Phaser.GameObjects.Container;
+  protected player!: Phaser.GameObjects.Sprite;
   protected position: Point = { ...SPAWN };
   protected facing: Direction = 'down';
   protected moving = false;
@@ -108,6 +131,40 @@ abstract class GridScene extends Phaser.Scene {
   protected hooks: GameHooks;
   protected sprint = false;
   constructor(key: string, hooks: GameHooks) { super(key); this.hooks = hooks; }
+  preload(): void {
+    for (const [path, url] of Object.entries(birdFrameUrls)) {
+      const key = path.slice(path.lastIndexOf('/') + 1, -4);
+      if (!this.textures.exists(key)) this.load.image(key, url);
+    }
+  }
+  protected createPlayer(): void {
+    for (const action of Object.keys(birdActions) as BirdAction[]) {
+      const { frames, frameRate, repeat } = birdActions[action];
+      for (const direction of birdDirections) {
+        const key = `bird-original-${action}-${direction}`;
+        if (this.anims.exists(key)) continue;
+        this.anims.create({
+          key,
+          frames: Array.from({ length: frames }, (_, index) => ({ key: birdFrameKey(key, index) })),
+          frameRate,
+          repeat,
+        });
+      }
+    }
+    this.player = this.add.sprite(center(this.position.x), center(this.position.y), 'bird-original-idle-down-000')
+      .setOrigin(0.5, 88 / 96)
+      .setScale(0.4)
+      .setDepth(center(this.position.y));
+    this.playPlayer('idle');
+  }
+  private playPlayer(action: BirdAction): void {
+    const direction = this.facing.split('-')[0];
+    const key = `bird-original-${action}-${direction}`;
+    const { currentAnim, currentFrame, isPlaying } = this.player.anims;
+    if (currentAnim?.key === key && (action === 'idle' || isPlaying)) return;
+    const startFrame = action !== 'idle' && isPlaying && currentFrame ? currentFrame.index - 1 : 0;
+    this.player.play({ key, startFrame });
+  }
   protected setupInput(): void {
     this.keys = this.input.keyboard!.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,SHIFT,E,SPACE') as Record<string, Phaser.Input.Keyboard.Key>;
     this.input.keyboard!.on('keydown-E', () => this.interact());
@@ -116,23 +173,32 @@ abstract class GridScene extends Phaser.Scene {
   setDirection(direction: Direction, pressed: boolean): void { this.held[direction] = pressed; }
   update(): void {
     this.sprint = this.keys?.SHIFT?.isDown ?? false;
-    if (this.hooks.isDialogOpen()) return;
     if (this.moving || !this.keys) return;
+    if (this.hooks.isDialogOpen()) {
+      this.playPlayer('idle');
+      return;
+    }
     const pressed = (direction: 'up' | 'down' | 'left' | 'right', alternate: string) => this.held[direction] || this.keys[direction.toUpperCase()]?.isDown || this.keys[alternate]?.isDown;
     const dx = Number(Boolean(pressed('right', 'D'))) - Number(Boolean(pressed('left', 'A')));
     const dy = Number(Boolean(pressed('down', 'S'))) - Number(Boolean(pressed('up', 'W')));
     const direction = directionFromAxes(dx, dy);
     if (direction) this.tryMove(direction);
+    else this.playPlayer('idle');
   }
   protected tryMove(direction: Direction): void {
     const turned = this.facing !== direction;
     this.facing = direction;
     if (this.beforeMove(direction)) return;
     const next = moveOne(this.position, direction, (point) => this.canMove(point));
-    if (same(next, this.position)) { if (turned) this.report(); return; }
+    if (same(next, this.position)) {
+      this.playPlayer('idle');
+      if (turned) this.report();
+      return;
+    }
     const distance = Math.hypot(next.x - this.position.x, next.y - this.position.y);
     this.position = next;
     this.moving = true;
+    this.playPlayer(this.sprint ? 'run' : 'walk');
     this.tweens.add({ targets: this.player, x: center(next.x), y: center(next.y), duration: Math.round((this.sprint ? 68 : 132) * distance), onUpdate: () => { this.player.x = Math.round(this.player.x); this.player.y = Math.round(this.player.y); }, onComplete: () => { this.player.setPosition(center(next.x), center(next.y)); this.moving = false; this.player.setDepth(center(next.y)); this.arrived(); this.report(); } });
     this.report();
   }
@@ -148,6 +214,11 @@ export class CampusScene extends GridScene {
   private lamps = new Set<string>();
   private sprites = new Map<string, Phaser.GameObjects.Container | null>();
   constructor(hooks: GameHooks) { super('campus', hooks); }
+  override preload(): void {
+    super.preload();
+    if (!this.textures.exists('campus-library')) this.load.image('campus-library', libraryImageUrl);
+  }
+
   create(data?: { returnAt?: Point; hasCard?: boolean }): void {
     this.position = data?.returnAt ? { ...data.returnAt } : { ...SPAWN };
     this.hasCard = data?.hasCard ?? this.hasCard;
@@ -160,7 +231,7 @@ export class CampusScene extends GridScene {
       if (entity.kind === 'lamp') sprite?.setAlpha(this.lamps.has(entity.id) ? 1 : 0.55);
       this.sprites.set(entity.id, sprite);
     }
-    this.player = drawCharacter(this, this.position.x, this.position.y, 0xc64f5b);
+    this.createPlayer();
     this.cameras.main.setBounds(0, 0, MAP_WIDTH * TILE, MAP_HEIGHT * TILE).startFollow(this.player, true, 1, 1);
     this.cameras.main.roundPixels = true;
     this.setupInput(); this.report();
@@ -221,7 +292,7 @@ export class InteriorScene extends GridScene {
     this.building = data.building; this.returnAt = data.returnAt; this.hasCard = data.hasCard;
     this.floor = 1; this.position = { x: 5, y: 6 }; this.facing = 'down'; this.moving = false; this.held = {};
     this.paintRoom();
-    this.player = drawCharacter(this, this.position.x, this.position.y, 0xc64f5b);
+    this.createPlayer();
     this.cameras.main.setBounds(0, 0, 12 * TILE, 8 * TILE).centerOn(6 * TILE, 4 * TILE);
     this.cameras.main.roundPixels = true;
     this.setupInput(); this.report();
@@ -261,7 +332,7 @@ export class InteriorScene extends GridScene {
     if (this.position.x === 5 && this.position.y === 6) { this.hooks.onMessage('出口', '向下移动即可返回校园。'); return; }
     if (this.building.floors > 1 && Math.abs(this.position.x - 9) + Math.abs(this.position.y - 2) <= 1) {
       this.floor = this.floor % this.building.floors + 1;
-      this.paintRoom(); this.player = drawCharacter(this, this.position.x, this.position.y, 0xc64f5b);
+      this.paintRoom(); this.createPlayer();
       this.hooks.onMessage('楼层切换', `来到 ${this.building.name} ${this.floor}F。`); this.report(); return;
     }
     this.hooks.onMessage(this.building.name, `${this.floor}F 是原创像素室内示意。真实校园服务尚未接入。`);
