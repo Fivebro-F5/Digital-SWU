@@ -1,0 +1,17 @@
+<!doctype html><meta charset="utf-8"><title>校园角色资源预览</title>
+<style>body{background:#202738;color:#eee;font:16px system-ui;max-width:1000px;margin:40px auto}select,button{padding:10px;margin:5px}canvas{image-rendering:pixelated;background:#e6e7e9;border-radius:8px}small{display:block;margin:16px 0;color:#bac3d3}</style>
+<h1>校园角色资源预览</h1><p>选择角色、配色、动作和朝向。此页可直接打开，无外部依赖。</p>
+<select id="kind"><option>boy</option><option>girl</option><option>bird</option></select>
+<select id="variant"></select><select id="action"><option>idle</option><option>walk</option><option>run</option><option>sit_chair</option></select>
+<select id="direction"><option value="0">下 / 正面</option><option value="1">左</option><option value="2">上 / 背面</option><option value="3">右</option></select>
+<button id="pause">暂停 / 播放</button><p><canvas id="view" width="384" height="384"></canvas></p>
+<small>坐姿不包含椅子。帧已裁切、对齐，但生成动作仍可能出现肢体或轮廓变化，需要在游戏中微调。</small>
+<script>
+const colors=[["01-teal", "蓝绿"], ["02-burgundy", "酒红"], ["03-navy", "藏蓝"], ["04-forest", "森林绿"], ["05-mustard", "芥末黄"], ["06-violet", "紫罗兰"], ["07-coral", "珊瑚橙"], ["08-sky", "浅蓝"], ["09-rose", "玫瑰粉"], ["10-graphite", "石墨灰"]];
+const k=document.querySelector('#kind'),v=document.querySelector('#variant'),a=document.querySelector('#action'),d=document.querySelector('#direction'),ctx=document.querySelector('canvas').getContext('2d');
+let img=new Image(),start=performance.now(),paused=false,freeze=0;
+function options(){v.innerHTML=(k.value==='bird'?[['original','原色']]:colors).map(x=>`<option value="${x[0]}">${x[1]}</option>`).join('');load()}
+function load(){img=new Image();img.src=`${k.value}/${v.value}/${a.value}.png`;start=performance.now()}
+k.onchange=options;v.onchange=a.onchange=load;document.querySelector('#pause').onclick=()=>{paused=!paused};options();
+function draw(t){const motion=['walk','run'].includes(a.value),fps=a.value==='run'?12:8;if(!paused)freeze=motion?Math.floor((t-start)*fps/1000)%4:0;let i=motion?Number(d.value)*4+freeze:Number(d.value);ctx.clearRect(0,0,384,384);ctx.imageSmoothingEnabled=false;if(img.complete&&img.naturalWidth)ctx.drawImage(img,(i%4)*96,Math.floor(i/4)*96,96,96,0,0,384,384);requestAnimationFrame(draw)}requestAnimationFrame(draw);
+</script>

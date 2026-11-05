@@ -1,0 +1,16 @@
+{
+  "file": "simple-extra/teaching-u.png",
+  "width": 367,
+  "height": 346,
+  "sign": {
+    "x": 112,
+    "y": 262,
+    "width": 142,
+    "height": 19,
+    "text": "",
+    "color": "#302a23",
+    "align": "center"
+  },
+  "coordinateSystem": "image pixels from top-left",
+  "placementStatus": "default plaque position; tune per building in scene"
+}

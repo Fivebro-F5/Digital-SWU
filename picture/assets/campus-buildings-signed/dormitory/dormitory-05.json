@@ -1,0 +1,16 @@
+{
+  "file": "dormitory/dormitory-05.png",
+  "width": 295,
+  "height": 278,
+  "sign": {
+    "x": 91,
+    "y": 212,
+    "width": 112,
+    "height": 13,
+    "text": "",
+    "color": "#302a23",
+    "align": "center"
+  },
+  "coordinateSystem": "image pixels from top-left",
+  "placementStatus": "default plaque position; tune per building in scene"
+}

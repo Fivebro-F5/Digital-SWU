@@ -1,0 +1,693 @@
+{
+  "assets": [
+    {
+      "file": "canteen/canteen-01.png",
+      "width": 687,
+      "height": 379,
+      "sign": {
+        "x": 245,
+        "y": 191,
+        "width": 211,
+        "height": 35,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "canteen/canteen-02.png",
+      "width": 690,
+      "height": 416,
+      "sign": {
+        "x": 188,
+        "y": 267,
+        "width": 222,
+        "height": 35,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "canteen/canteen-03.png",
+      "width": 701,
+      "height": 359,
+      "sign": {
+        "x": 273,
+        "y": 186,
+        "width": 220,
+        "height": 34,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "canteen/canteen-04.png",
+      "width": 718,
+      "height": 393,
+      "sign": {
+        "x": 147,
+        "y": 248,
+        "width": 216,
+        "height": 33,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "teaching/teaching-01.png",
+      "width": 525,
+      "height": 394,
+      "sign": {
+        "x": 158,
+        "y": 289,
+        "width": 208,
+        "height": 32,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "teaching/teaching-02.png",
+      "width": 336,
+      "height": 475,
+      "sign": {
+        "x": 103,
+        "y": 372,
+        "width": 129,
+        "height": 16,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "teaching/teaching-03.png",
+      "width": 492,
+      "height": 352,
+      "sign": {
+        "x": 148,
+        "y": 257,
+        "width": 195,
+        "height": 29,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "teaching/teaching-04.png",
+      "width": 488,
+      "height": 325,
+      "sign": {
+        "x": 147,
+        "y": 235,
+        "width": 193,
+        "height": 29,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "teaching/teaching-05.png",
+      "width": 468,
+      "height": 354,
+      "sign": {
+        "x": 141,
+        "y": 261,
+        "width": 185,
+        "height": 27,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "teaching/teaching-06.png",
+      "width": 495,
+      "height": 370,
+      "sign": {
+        "x": 149,
+        "y": 271,
+        "width": 196,
+        "height": 30,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "teaching/teaching-07.png",
+      "width": 266,
+      "height": 243,
+      "sign": {
+        "x": 83,
+        "y": 186,
+        "width": 100,
+        "height": 10,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "teaching/teaching-08.png",
+      "width": 208,
+      "height": 304,
+      "sign": {
+        "x": 66,
+        "y": 236,
+        "width": 75,
+        "height": 10,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "teaching/teaching-09.png",
+      "width": 251,
+      "height": 225,
+      "sign": {
+        "x": 79,
+        "y": 171,
+        "width": 93,
+        "height": 10,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "teaching/teaching-10.png",
+      "width": 248,
+      "height": 260,
+      "sign": {
+        "x": 78,
+        "y": 200,
+        "width": 92,
+        "height": 10,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "teaching/teaching-11.png",
+      "width": 269,
+      "height": 240,
+      "sign": {
+        "x": 84,
+        "y": 182,
+        "width": 101,
+        "height": 11,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "teaching/teaching-12.png",
+      "width": 288,
+      "height": 251,
+      "sign": {
+        "x": 89,
+        "y": 190,
+        "width": 109,
+        "height": 12,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "dormitory/dormitory-01.png",
+      "width": 235,
+      "height": 295,
+      "sign": {
+        "x": 74,
+        "y": 229,
+        "width": 87,
+        "height": 10,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "dormitory/dormitory-02.png",
+      "width": 233,
+      "height": 285,
+      "sign": {
+        "x": 73,
+        "y": 221,
+        "width": 86,
+        "height": 10,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "dormitory/dormitory-03.png",
+      "width": 212,
+      "height": 351,
+      "sign": {
+        "x": 67,
+        "y": 275,
+        "width": 77,
+        "height": 10,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "dormitory/dormitory-04.png",
+      "width": 247,
+      "height": 292,
+      "sign": {
+        "x": 77,
+        "y": 226,
+        "width": 92,
+        "height": 10,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "dormitory/dormitory-05.png",
+      "width": 295,
+      "height": 278,
+      "sign": {
+        "x": 91,
+        "y": 212,
+        "width": 112,
+        "height": 13,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "dormitory/dormitory-06.png",
+      "width": 273,
+      "height": 307,
+      "sign": {
+        "x": 85,
+        "y": 238,
+        "width": 103,
+        "height": 11,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "dormitory/dormitory-07.png",
+      "width": 296,
+      "height": 222,
+      "sign": {
+        "x": 92,
+        "y": 165,
+        "width": 112,
+        "height": 13,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "dormitory/dormitory-08.png",
+      "width": 210,
+      "height": 370,
+      "sign": {
+        "x": 67,
+        "y": 291,
+        "width": 76,
+        "height": 10,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "original-buildings/library.png",
+      "width": 701,
+      "height": 453,
+      "sign": {
+        "x": 209,
+        "y": 323,
+        "width": 282,
+        "height": 47,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "original-buildings/teaching-diagonal.png",
+      "width": 674,
+      "height": 497,
+      "sign": {
+        "x": 201,
+        "y": 362,
+        "width": 271,
+        "height": 45,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "original-buildings/teaching-ring.png",
+      "width": 686,
+      "height": 459,
+      "sign": {
+        "x": 205,
+        "y": 329,
+        "width": 276,
+        "height": 46,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "original-buildings/teaching-straight.png",
+      "width": 627,
+      "height": 388,
+      "sign": {
+        "x": 188,
+        "y": 275,
+        "width": 251,
+        "height": 41,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "simple/library.png",
+      "width": 525,
+      "height": 415,
+      "sign": {
+        "x": 158,
+        "y": 306,
+        "width": 208,
+        "height": 32,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "simple/teaching-diagonal.png",
+      "width": 538,
+      "height": 531,
+      "sign": {
+        "x": 162,
+        "y": 402,
+        "width": 214,
+        "height": 33,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "simple/teaching-ring.png",
+      "width": 480,
+      "height": 532,
+      "sign": {
+        "x": 145,
+        "y": 408,
+        "width": 190,
+        "height": 28,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "simple/teaching-straight.png",
+      "width": 561,
+      "height": 315,
+      "sign": {
+        "x": 168,
+        "y": 220,
+        "width": 224,
+        "height": 35,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "simple-extra/teaching-courtyard.png",
+      "width": 368,
+      "height": 342,
+      "sign": {
+        "x": 112,
+        "y": 259,
+        "width": 143,
+        "height": 19,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "simple-extra/teaching-h.png",
+      "width": 373,
+      "height": 345,
+      "sign": {
+        "x": 114,
+        "y": 261,
+        "width": 145,
+        "height": 19,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "simple-extra/teaching-l.png",
+      "width": 375,
+      "height": 345,
+      "sign": {
+        "x": 114,
+        "y": 260,
+        "width": 146,
+        "height": 20,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "simple-extra/teaching-linked.png",
+      "width": 409,
+      "height": 295,
+      "sign": {
+        "x": 124,
+        "y": 217,
+        "width": 160,
+        "height": 22,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "simple-extra/teaching-sidewing.png",
+      "width": 412,
+      "height": 270,
+      "sign": {
+        "x": 125,
+        "y": 195,
+        "width": 161,
+        "height": 23,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "simple-extra/teaching-stepped.png",
+      "width": 395,
+      "height": 344,
+      "sign": {
+        "x": 120,
+        "y": 259,
+        "width": 154,
+        "height": 21,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "simple-extra/teaching-t.png",
+      "width": 384,
+      "height": 326,
+      "sign": {
+        "x": 117,
+        "y": 245,
+        "width": 149,
+        "height": 20,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "simple-extra/teaching-u.png",
+      "width": 367,
+      "height": 346,
+      "sign": {
+        "x": 112,
+        "y": 262,
+        "width": 142,
+        "height": 19,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "photo-based/teaching-25.png",
+      "width": 606,
+      "height": 829,
+      "sign": {
+        "x": 181,
+        "y": 643,
+        "width": 243,
+        "height": 39,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "photo-based/teaching-44.png",
+      "width": 990,
+      "height": 608,
+      "sign": {
+        "x": 351,
+        "y": 451,
+        "width": 288,
+        "height": 48,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    },
+    {
+      "file": "photo-based/teaching-photo-01.png",
+      "width": 1203,
+      "height": 915,
+      "sign": {
+        "x": 457,
+        "y": 705,
+        "width": 288,
+        "height": 48,
+        "text": "",
+        "color": "#302a23",
+        "align": "center"
+      },
+      "coordinateSystem": "image pixels from top-left",
+      "placementStatus": "default plaque position; tune per building in scene"
+    }
+  ],
+  "count": 43
+}

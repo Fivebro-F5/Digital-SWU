@@ -1,0 +1,16 @@
+{
+  "file": "simple/teaching-ring.png",
+  "width": 480,
+  "height": 532,
+  "sign": {
+    "x": 145,
+    "y": 408,
+    "width": 190,
+    "height": 28,
+    "text": "",
+    "color": "#302a23",
+    "align": "center"
+  },
+  "coordinateSystem": "image pixels from top-left",
+  "placementStatus": "default plaque position; tune per building in scene"
+}

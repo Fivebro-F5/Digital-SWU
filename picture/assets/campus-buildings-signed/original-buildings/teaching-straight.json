@@ -1,0 +1,16 @@
+{
+  "file": "original-buildings/teaching-straight.png",
+  "width": 627,
+  "height": 388,
+  "sign": {
+    "x": 188,
+    "y": 275,
+    "width": 251,
+    "height": 41,
+    "text": "",
+    "color": "#302a23",
+    "align": "center"
+  },
+  "coordinateSystem": "image pixels from top-left",
+  "placementStatus": "default plaque position; tune per building in scene"
+}

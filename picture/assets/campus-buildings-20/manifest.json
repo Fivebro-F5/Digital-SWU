@@ -1,0 +1,226 @@
+{
+  "assets": [
+    {
+      "id": "teaching-01",
+      "file": "teaching/teaching-01.png",
+      "width": 525,
+      "height": 394,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "teaching-02",
+      "file": "teaching/teaching-02.png",
+      "width": 336,
+      "height": 475,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "teaching-03",
+      "file": "teaching/teaching-03.png",
+      "width": 492,
+      "height": 352,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "teaching-04",
+      "file": "teaching/teaching-04.png",
+      "width": 488,
+      "height": 325,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "teaching-05",
+      "file": "teaching/teaching-05.png",
+      "width": 468,
+      "height": 354,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "teaching-06",
+      "file": "teaching/teaching-06.png",
+      "width": 495,
+      "height": 370,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "teaching-07",
+      "file": "teaching/teaching-07.png",
+      "width": 266,
+      "height": 243,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "teaching-08",
+      "file": "teaching/teaching-08.png",
+      "width": 208,
+      "height": 304,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "teaching-09",
+      "file": "teaching/teaching-09.png",
+      "width": 251,
+      "height": 225,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "teaching-10",
+      "file": "teaching/teaching-10.png",
+      "width": 248,
+      "height": 260,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "teaching-11",
+      "file": "teaching/teaching-11.png",
+      "width": 269,
+      "height": 240,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "teaching-12",
+      "file": "teaching/teaching-12.png",
+      "width": 288,
+      "height": 251,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "dormitory-01",
+      "file": "dormitory/dormitory-01.png",
+      "width": 235,
+      "height": 295,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "dormitory-02",
+      "file": "dormitory/dormitory-02.png",
+      "width": 233,
+      "height": 285,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "dormitory-03",
+      "file": "dormitory/dormitory-03.png",
+      "width": 212,
+      "height": 351,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "dormitory-04",
+      "file": "dormitory/dormitory-04.png",
+      "width": 247,
+      "height": 292,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "dormitory-05",
+      "file": "dormitory/dormitory-05.png",
+      "width": 295,
+      "height": 278,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "dormitory-06",
+      "file": "dormitory/dormitory-06.png",
+      "width": 273,
+      "height": 307,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "dormitory-07",
+      "file": "dormitory/dormitory-07.png",
+      "width": 296,
+      "height": 222,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    },
+    {
+      "id": "dormitory-08",
+      "file": "dormitory/dormitory-08.png",
+      "width": 210,
+      "height": 370,
+      "origin": [
+        0.5,
+        1
+      ],
+      "fictional": true
+    }
+  ],
+  "count": 20,
+  "collisionConfigured": false
+}

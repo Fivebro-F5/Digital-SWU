@@ -1,0 +1,16 @@
+{
+  "file": "simple-extra/teaching-stepped.png",
+  "width": 395,
+  "height": 344,
+  "sign": {
+    "x": 120,
+    "y": 259,
+    "width": 154,
+    "height": 21,
+    "text": "",
+    "color": "#302a23",
+    "align": "center"
+  },
+  "coordinateSystem": "image pixels from top-left",
+  "placementStatus": "default plaque position; tune per building in scene"
+}

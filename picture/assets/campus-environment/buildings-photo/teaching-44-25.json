@@ -1,0 +1,21 @@
+{
+  "mapping": "User photo order: first 44, second 25",
+  "assets": [
+    {
+      "file": "teaching-44.png",
+      "size": [
+        990,
+        608
+      ]
+    },
+    {
+      "file": "teaching-25.png",
+      "size": [
+        606,
+        829
+      ]
+    }
+  ],
+  "source": "OpenAI imagegen from user photos; Python split and alpha cleanup",
+  "prompt": "Simplified pixel campus architecture; preserve 44 curved pediment balconies columned entrance and 25 gray grid-window tower open podium. Unseen roofs inferred."
+}

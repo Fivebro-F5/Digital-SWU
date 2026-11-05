@@ -1,0 +1,88 @@
+{
+  "characters": [
+    {
+      "id": "boy-01-teal",
+      "path": "boy/01-teal/character.json"
+    },
+    {
+      "id": "boy-02-burgundy",
+      "path": "boy/02-burgundy/character.json"
+    },
+    {
+      "id": "boy-03-navy",
+      "path": "boy/03-navy/character.json"
+    },
+    {
+      "id": "boy-04-forest",
+      "path": "boy/04-forest/character.json"
+    },
+    {
+      "id": "boy-05-mustard",
+      "path": "boy/05-mustard/character.json"
+    },
+    {
+      "id": "boy-06-violet",
+      "path": "boy/06-violet/character.json"
+    },
+    {
+      "id": "boy-07-coral",
+      "path": "boy/07-coral/character.json"
+    },
+    {
+      "id": "boy-08-sky",
+      "path": "boy/08-sky/character.json"
+    },
+    {
+      "id": "boy-09-rose",
+      "path": "boy/09-rose/character.json"
+    },
+    {
+      "id": "boy-10-graphite",
+      "path": "boy/10-graphite/character.json"
+    },
+    {
+      "id": "girl-01-teal",
+      "path": "girl/01-teal/character.json"
+    },
+    {
+      "id": "girl-02-burgundy",
+      "path": "girl/02-burgundy/character.json"
+    },
+    {
+      "id": "girl-03-navy",
+      "path": "girl/03-navy/character.json"
+    },
+    {
+      "id": "girl-04-forest",
+      "path": "girl/04-forest/character.json"
+    },
+    {
+      "id": "girl-05-mustard",
+      "path": "girl/05-mustard/character.json"
+    },
+    {
+      "id": "girl-06-violet",
+      "path": "girl/06-violet/character.json"
+    },
+    {
+      "id": "girl-07-coral",
+      "path": "girl/07-coral/character.json"
+    },
+    {
+      "id": "girl-08-sky",
+      "path": "girl/08-sky/character.json"
+    },
+    {
+      "id": "girl-09-rose",
+      "path": "girl/09-rose/character.json"
+    },
+    {
+      "id": "girl-10-graphite",
+      "path": "girl/10-graphite/character.json"
+    },
+    {
+      "id": "bird-original",
+      "path": "bird/original/character.json"
+    }
+  ]
+}

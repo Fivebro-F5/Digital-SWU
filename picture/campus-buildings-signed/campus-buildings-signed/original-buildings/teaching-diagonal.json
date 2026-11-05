@@ -1,0 +1,16 @@
+{
+  "file": "original-buildings/teaching-diagonal.png",
+  "width": 674,
+  "height": 497,
+  "sign": {
+    "x": 201,
+    "y": 362,
+    "width": 271,
+    "height": 45,
+    "text": "",
+    "color": "#302a23",
+    "align": "center"
+  },
+  "coordinateSystem": "image pixels from top-left",
+  "placementStatus": "default plaque position; tune per building in scene"
+}

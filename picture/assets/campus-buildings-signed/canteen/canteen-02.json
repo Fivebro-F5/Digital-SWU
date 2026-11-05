@@ -1,0 +1,16 @@
+{
+  "file": "canteen/canteen-02.png",
+  "width": 690,
+  "height": 416,
+  "sign": {
+    "x": 188,
+    "y": 267,
+    "width": 222,
+    "height": 35,
+    "text": "",
+    "color": "#302a23",
+    "align": "center"
+  },
+  "coordinateSystem": "image pixels from top-left",
+  "placementStatus": "default plaque position; tune per building in scene"
+}

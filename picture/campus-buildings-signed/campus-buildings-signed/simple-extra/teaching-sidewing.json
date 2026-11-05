@@ -1,0 +1,16 @@
+{
+  "file": "simple-extra/teaching-sidewing.png",
+  "width": 412,
+  "height": 270,
+  "sign": {
+    "x": 125,
+    "y": 195,
+    "width": 161,
+    "height": 23,
+    "text": "",
+    "color": "#302a23",
+    "align": "center"
+  },
+  "coordinateSystem": "image pixels from top-left",
+  "placementStatus": "default plaque position; tune per building in scene"
+}

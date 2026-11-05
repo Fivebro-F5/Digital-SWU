@@ -1,0 +1,66 @@
+[
+  {
+    "id": "teaching-l",
+    "file": "teaching-l.png",
+    "size": [
+      375,
+      345
+    ]
+  },
+  {
+    "id": "teaching-u",
+    "file": "teaching-u.png",
+    "size": [
+      367,
+      346
+    ]
+  },
+  {
+    "id": "teaching-h",
+    "file": "teaching-h.png",
+    "size": [
+      373,
+      345
+    ]
+  },
+  {
+    "id": "teaching-t",
+    "file": "teaching-t.png",
+    "size": [
+      384,
+      326
+    ]
+  },
+  {
+    "id": "teaching-courtyard",
+    "file": "teaching-courtyard.png",
+    "size": [
+      368,
+      342
+    ]
+  },
+  {
+    "id": "teaching-stepped",
+    "file": "teaching-stepped.png",
+    "size": [
+      395,
+      344
+    ]
+  },
+  {
+    "id": "teaching-linked",
+    "file": "teaching-linked.png",
+    "size": [
+      409,
+      295
+    ]
+  },
+  {
+    "id": "teaching-sidewing",
+    "file": "teaching-sidewing.png",
+    "size": [
+      412,
+      270
+    ]
+  }
+]

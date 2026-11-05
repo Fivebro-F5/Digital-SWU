@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "girl-06-violet",
+  "kind": "girl",
+  "variant": "06-violet",
+  "outfitLabel": "紫罗兰",
+  "jacketColor": "#8052ad",
+  "source": "OpenAI imagegen + user-authorized Python processing",
+  "lpcGeneratorImportCompatible": false,
+  "configurationType": "campus-character-pack",
+  "animations": "animations.json",
+  "defaultAnimation": "idle_down",
+  "frameSize": [
+    96,
+    96
+  ],
+  "anchorPixels": [
+    48,
+    88
+  ],
+  "processing": "alpha threshold 160; nearest-neighbor resizing; silhouette centered; bottom aligned; teal jacket recolor",
+  "status": "prototype; animation timing and foot sliding require in-game tuning",
+  "sitDescription": "chair sitting pose, chair excluded",
+  "individualFrames": "frames.json"
+}

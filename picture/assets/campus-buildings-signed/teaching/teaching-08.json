@@ -1,0 +1,16 @@
+{
+  "file": "teaching/teaching-08.png",
+  "width": 208,
+  "height": 304,
+  "sign": {
+    "x": 66,
+    "y": 236,
+    "width": 75,
+    "height": 10,
+    "text": "",
+    "color": "#302a23",
+    "align": "center"
+  },
+  "coordinateSystem": "image pixels from top-left",
+  "placementStatus": "default plaque position; tune per building in scene"
+}

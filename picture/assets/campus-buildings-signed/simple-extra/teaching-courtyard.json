@@ -1,0 +1,16 @@
+{
+  "file": "simple-extra/teaching-courtyard.png",
+  "width": 368,
+  "height": 342,
+  "sign": {
+    "x": 112,
+    "y": 259,
+    "width": 143,
+    "height": 19,
+    "text": "",
+    "color": "#302a23",
+    "align": "center"
+  },
+  "coordinateSystem": "image pixels from top-left",
+  "placementStatus": "default plaque position; tune per building in scene"
+}

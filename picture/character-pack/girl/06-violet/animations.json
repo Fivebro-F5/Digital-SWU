@@ -1,0 +1,521 @@
+{
+  "schemaVersion": 1,
+  "frameSize": {
+    "width": 96,
+    "height": 96
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0.9166666666666666
+  },
+  "directions": [
+    "down",
+    "left",
+    "up",
+    "right"
+  ],
+  "sheets": {
+    "idle": {
+      "file": "idle.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 4,
+      "rows": 1,
+      "margin": 0,
+      "spacing": 0
+    },
+    "walk": {
+      "file": "walk.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 4,
+      "rows": 4,
+      "margin": 0,
+      "spacing": 0
+    },
+    "run": {
+      "file": "run.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 4,
+      "rows": 4,
+      "margin": 0,
+      "spacing": 0
+    },
+    "sit_chair": {
+      "file": "sit_chair.png",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 4,
+      "rows": 1,
+      "margin": 0,
+      "spacing": 0
+    }
+  },
+  "animations": {
+    "idle_down": {
+      "sheet": "idle",
+      "frames": [
+        {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 1,
+      "repeat": 0,
+      "frameFiles": [
+        "frames/idle/down/000.png"
+      ]
+    },
+    "idle_left": {
+      "sheet": "idle",
+      "frames": [
+        {
+          "index": 1,
+          "x": 96,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 1,
+      "repeat": 0,
+      "frameFiles": [
+        "frames/idle/left/000.png"
+      ]
+    },
+    "idle_up": {
+      "sheet": "idle",
+      "frames": [
+        {
+          "index": 2,
+          "x": 192,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 1,
+      "repeat": 0,
+      "frameFiles": [
+        "frames/idle/up/000.png"
+      ]
+    },
+    "idle_right": {
+      "sheet": "idle",
+      "frames": [
+        {
+          "index": 3,
+          "x": 288,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 1,
+      "repeat": 0,
+      "frameFiles": [
+        "frames/idle/right/000.png"
+      ]
+    },
+    "walk_down": {
+      "sheet": "walk",
+      "frames": [
+        {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 1,
+          "x": 96,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 2,
+          "x": 192,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 3,
+          "x": 288,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 8,
+      "repeat": -1,
+      "frameFiles": [
+        "frames/walk/down/000.png",
+        "frames/walk/down/001.png",
+        "frames/walk/down/002.png",
+        "frames/walk/down/003.png"
+      ]
+    },
+    "walk_left": {
+      "sheet": "walk",
+      "frames": [
+        {
+          "index": 4,
+          "x": 0,
+          "y": 96,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 5,
+          "x": 96,
+          "y": 96,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 6,
+          "x": 192,
+          "y": 96,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 7,
+          "x": 288,
+          "y": 96,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 8,
+      "repeat": -1,
+      "frameFiles": [
+        "frames/walk/left/000.png",
+        "frames/walk/left/001.png",
+        "frames/walk/left/002.png",
+        "frames/walk/left/003.png"
+      ]
+    },
+    "walk_up": {
+      "sheet": "walk",
+      "frames": [
+        {
+          "index": 8,
+          "x": 0,
+          "y": 192,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 9,
+          "x": 96,
+          "y": 192,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 10,
+          "x": 192,
+          "y": 192,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 11,
+          "x": 288,
+          "y": 192,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 8,
+      "repeat": -1,
+      "frameFiles": [
+        "frames/walk/up/000.png",
+        "frames/walk/up/001.png",
+        "frames/walk/up/002.png",
+        "frames/walk/up/003.png"
+      ]
+    },
+    "walk_right": {
+      "sheet": "walk",
+      "frames": [
+        {
+          "index": 12,
+          "x": 0,
+          "y": 288,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 13,
+          "x": 96,
+          "y": 288,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 14,
+          "x": 192,
+          "y": 288,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 15,
+          "x": 288,
+          "y": 288,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 8,
+      "repeat": -1,
+      "frameFiles": [
+        "frames/walk/right/000.png",
+        "frames/walk/right/001.png",
+        "frames/walk/right/002.png",
+        "frames/walk/right/003.png"
+      ]
+    },
+    "run_down": {
+      "sheet": "run",
+      "frames": [
+        {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 1,
+          "x": 96,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 2,
+          "x": 192,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 3,
+          "x": 288,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 12,
+      "repeat": -1,
+      "frameFiles": [
+        "frames/run/down/000.png",
+        "frames/run/down/001.png",
+        "frames/run/down/002.png",
+        "frames/run/down/003.png"
+      ]
+    },
+    "run_left": {
+      "sheet": "run",
+      "frames": [
+        {
+          "index": 4,
+          "x": 0,
+          "y": 96,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 5,
+          "x": 96,
+          "y": 96,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 6,
+          "x": 192,
+          "y": 96,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 7,
+          "x": 288,
+          "y": 96,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 12,
+      "repeat": -1,
+      "frameFiles": [
+        "frames/run/left/000.png",
+        "frames/run/left/001.png",
+        "frames/run/left/002.png",
+        "frames/run/left/003.png"
+      ]
+    },
+    "run_up": {
+      "sheet": "run",
+      "frames": [
+        {
+          "index": 8,
+          "x": 0,
+          "y": 192,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 9,
+          "x": 96,
+          "y": 192,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 10,
+          "x": 192,
+          "y": 192,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 11,
+          "x": 288,
+          "y": 192,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 12,
+      "repeat": -1,
+      "frameFiles": [
+        "frames/run/up/000.png",
+        "frames/run/up/001.png",
+        "frames/run/up/002.png",
+        "frames/run/up/003.png"
+      ]
+    },
+    "run_right": {
+      "sheet": "run",
+      "frames": [
+        {
+          "index": 12,
+          "x": 0,
+          "y": 288,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 13,
+          "x": 96,
+          "y": 288,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 14,
+          "x": 192,
+          "y": 288,
+          "width": 96,
+          "height": 96
+        },
+        {
+          "index": 15,
+          "x": 288,
+          "y": 288,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 12,
+      "repeat": -1,
+      "frameFiles": [
+        "frames/run/right/000.png",
+        "frames/run/right/001.png",
+        "frames/run/right/002.png",
+        "frames/run/right/003.png"
+      ]
+    },
+    "sit_chair_down": {
+      "sheet": "sit_chair",
+      "frames": [
+        {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 1,
+      "repeat": 0,
+      "frameFiles": [
+        "frames/sit_chair/down/000.png"
+      ]
+    },
+    "sit_chair_left": {
+      "sheet": "sit_chair",
+      "frames": [
+        {
+          "index": 1,
+          "x": 96,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 1,
+      "repeat": 0,
+      "frameFiles": [
+        "frames/sit_chair/left/000.png"
+      ]
+    },
+    "sit_chair_up": {
+      "sheet": "sit_chair",
+      "frames": [
+        {
+          "index": 2,
+          "x": 192,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 1,
+      "repeat": 0,
+      "frameFiles": [
+        "frames/sit_chair/up/000.png"
+      ]
+    },
+    "sit_chair_right": {
+      "sheet": "sit_chair",
+      "frames": [
+        {
+          "index": 3,
+          "x": 288,
+          "y": 0,
+          "width": 96,
+          "height": 96
+        }
+      ],
+      "frameRate": 1,
+      "repeat": 0,
+      "frameFiles": [
+        "frames/sit_chair/right/000.png"
+      ]
+    }
+  }
+}

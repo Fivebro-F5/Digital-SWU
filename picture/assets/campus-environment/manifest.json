@@ -1,0 +1,333 @@
+{
+  "assets": [
+    {
+      "id": "library",
+      "file": "buildings/library.png",
+      "width": 701,
+      "height": 453,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        0,
+        0,
+        768,
+        512
+      ]
+    },
+    {
+      "id": "teaching-straight",
+      "file": "buildings/teaching-straight.png",
+      "width": 627,
+      "height": 388,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        768,
+        0,
+        1536,
+        512
+      ]
+    },
+    {
+      "id": "teaching-ring",
+      "file": "buildings/teaching-ring.png",
+      "width": 686,
+      "height": 459,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        0,
+        512,
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "teaching-diagonal",
+      "file": "buildings/teaching-diagonal.png",
+      "width": 674,
+      "height": 497,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        768,
+        512,
+        1536,
+        1024
+      ]
+    },
+    {
+      "id": "tree-broadleaf",
+      "file": "vegetation/tree-broadleaf.png",
+      "width": 407,
+      "height": 405,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        0,
+        0,
+        444,
+        444
+      ]
+    },
+    {
+      "id": "tree-ginkgo",
+      "file": "vegetation/tree-ginkgo.png",
+      "width": 378,
+      "height": 440,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        444,
+        0,
+        887,
+        444
+      ]
+    },
+    {
+      "id": "tree-conifer",
+      "file": "vegetation/tree-conifer.png",
+      "width": 323,
+      "height": 443,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        887,
+        0,
+        1330,
+        444
+      ]
+    },
+    {
+      "id": "tree-cherry",
+      "file": "vegetation/tree-cherry.png",
+      "width": 425,
+      "height": 400,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        1330,
+        0,
+        1774,
+        444
+      ]
+    },
+    {
+      "id": "shrub",
+      "file": "vegetation/shrub.png",
+      "width": 264,
+      "height": 240,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        0,
+        444,
+        444,
+        887
+      ]
+    },
+    {
+      "id": "hedge",
+      "file": "vegetation/hedge.png",
+      "width": 385,
+      "height": 205,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        444,
+        444,
+        887,
+        887
+      ]
+    },
+    {
+      "id": "flowerbed",
+      "file": "vegetation/flowerbed.png",
+      "width": 386,
+      "height": 213,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        887,
+        444,
+        1330,
+        887
+      ]
+    },
+    {
+      "id": "potted-plant",
+      "file": "vegetation/potted-plant.png",
+      "width": 289,
+      "height": 337,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        1330,
+        444,
+        1774,
+        887
+      ]
+    },
+    {
+      "id": "student-desk",
+      "file": "furniture/student-desk.png",
+      "width": 289,
+      "height": 318,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        0,
+        0,
+        444,
+        444
+      ]
+    },
+    {
+      "id": "teacher-desk",
+      "file": "furniture/teacher-desk.png",
+      "width": 459,
+      "height": 316,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        444,
+        0,
+        887,
+        444
+      ]
+    },
+    {
+      "id": "bookshelf-tall",
+      "file": "furniture/bookshelf-tall.png",
+      "width": 288,
+      "height": 421,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        887,
+        0,
+        1330,
+        444
+      ]
+    },
+    {
+      "id": "bookcase-low",
+      "file": "furniture/bookcase-low.png",
+      "width": 389,
+      "height": 328,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        1330,
+        0,
+        1774,
+        444
+      ]
+    },
+    {
+      "id": "chair-down",
+      "file": "furniture/chair-down.png",
+      "width": 237,
+      "height": 373,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        0,
+        444,
+        444,
+        887
+      ]
+    },
+    {
+      "id": "chair-right",
+      "file": "furniture/chair-right.png",
+      "width": 251,
+      "height": 373,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        444,
+        444,
+        887,
+        887
+      ]
+    },
+    {
+      "id": "chair-up",
+      "file": "furniture/chair-up.png",
+      "width": 243,
+      "height": 373,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        887,
+        444,
+        1330,
+        887
+      ]
+    },
+    {
+      "id": "chair-left",
+      "file": "furniture/chair-left.png",
+      "width": 252,
+      "height": 373,
+      "suggestedOrigin": [
+        0.5,
+        1
+      ],
+      "sourceCrop": [
+        1330,
+        444,
+        1774,
+        887
+      ]
+    }
+  ],
+  "status": "prototype artwork; placement and collisions require scene-specific configuration",
+  "backgrounds": [
+    {
+      "file": "backgrounds/classroom.png",
+      "width": 1536,
+      "height": 1024,
+      "layered": false
+    }
+  ]
+}

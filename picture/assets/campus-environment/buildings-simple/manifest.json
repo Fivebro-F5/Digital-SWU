@@ -1,0 +1,34 @@
+[
+  {
+    "id": "library",
+    "file": "library.png",
+    "size": [
+      525,
+      415
+    ]
+  },
+  {
+    "id": "teaching-straight",
+    "file": "teaching-straight.png",
+    "size": [
+      561,
+      315
+    ]
+  },
+  {
+    "id": "teaching-ring",
+    "file": "teaching-ring.png",
+    "size": [
+      480,
+      532
+    ]
+  },
+  {
+    "id": "teaching-diagonal",
+    "file": "teaching-diagonal.png",
+    "size": [
+      538,
+      531
+    ]
+  }
+]

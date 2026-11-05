@@ -1,0 +1,16 @@
+{
+  "file": "original-buildings/library.png",
+  "width": 701,
+  "height": 453,
+  "sign": {
+    "x": 209,
+    "y": 323,
+    "width": 282,
+    "height": 47,
+    "text": "",
+    "color": "#302a23",
+    "align": "center"
+  },
+  "coordinateSystem": "image pixels from top-left",
+  "placementStatus": "default plaque position; tune per building in scene"
+}
