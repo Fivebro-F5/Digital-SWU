@@ -1,0 +1,3710 @@
+{
+  "frameSize": [
+    96,
+    96
+  ],
+  "anchorPx": [
+    48,
+    88
+  ],
+  "files": {
+    "bird-original-idle-down-000": "bird/original/idle/bird-original-idle-down-000.png",
+    "bird-original-idle-left-000": "bird/original/idle/bird-original-idle-left-000.png",
+    "bird-original-idle-up-000": "bird/original/idle/bird-original-idle-up-000.png",
+    "bird-original-idle-right-000": "bird/original/idle/bird-original-idle-right-000.png",
+    "bird-original-walk-down-000": "bird/original/walk/bird-original-walk-down-000.png",
+    "bird-original-walk-down-001": "bird/original/walk/bird-original-walk-down-001.png",
+    "bird-original-walk-down-002": "bird/original/walk/bird-original-walk-down-002.png",
+    "bird-original-walk-down-003": "bird/original/walk/bird-original-walk-down-003.png",
+    "bird-original-walk-left-000": "bird/original/walk/bird-original-walk-left-000.png",
+    "bird-original-walk-left-001": "bird/original/walk/bird-original-walk-left-001.png",
+    "bird-original-walk-left-002": "bird/original/walk/bird-original-walk-left-002.png",
+    "bird-original-walk-left-003": "bird/original/walk/bird-original-walk-left-003.png",
+    "bird-original-walk-up-000": "bird/original/walk/bird-original-walk-up-000.png",
+    "bird-original-walk-up-001": "bird/original/walk/bird-original-walk-up-001.png",
+    "bird-original-walk-up-002": "bird/original/walk/bird-original-walk-up-002.png",
+    "bird-original-walk-up-003": "bird/original/walk/bird-original-walk-up-003.png",
+    "bird-original-walk-right-000": "bird/original/walk/bird-original-walk-right-000.png",
+    "bird-original-walk-right-001": "bird/original/walk/bird-original-walk-right-001.png",
+    "bird-original-walk-right-002": "bird/original/walk/bird-original-walk-right-002.png",
+    "bird-original-walk-right-003": "bird/original/walk/bird-original-walk-right-003.png",
+    "bird-original-run-down-000": "bird/original/run/bird-original-run-down-000.png",
+    "bird-original-run-down-001": "bird/original/run/bird-original-run-down-001.png",
+    "bird-original-run-down-002": "bird/original/run/bird-original-run-down-002.png",
+    "bird-original-run-down-003": "bird/original/run/bird-original-run-down-003.png",
+    "bird-original-run-left-000": "bird/original/run/bird-original-run-left-000.png",
+    "bird-original-run-left-001": "bird/original/run/bird-original-run-left-001.png",
+    "bird-original-run-left-002": "bird/original/run/bird-original-run-left-002.png",
+    "bird-original-run-left-003": "bird/original/run/bird-original-run-left-003.png",
+    "bird-original-run-up-000": "bird/original/run/bird-original-run-up-000.png",
+    "bird-original-run-up-001": "bird/original/run/bird-original-run-up-001.png",
+    "bird-original-run-up-002": "bird/original/run/bird-original-run-up-002.png",
+    "bird-original-run-up-003": "bird/original/run/bird-original-run-up-003.png",
+    "bird-original-run-right-000": "bird/original/run/bird-original-run-right-000.png",
+    "bird-original-run-right-001": "bird/original/run/bird-original-run-right-001.png",
+    "bird-original-run-right-002": "bird/original/run/bird-original-run-right-002.png",
+    "bird-original-run-right-003": "bird/original/run/bird-original-run-right-003.png",
+    "bird-original-sit_chair-down-000": "bird/original/sit_chair/bird-original-sit_chair-down-000.png",
+    "bird-original-sit_chair-left-000": "bird/original/sit_chair/bird-original-sit_chair-left-000.png",
+    "bird-original-sit_chair-up-000": "bird/original/sit_chair/bird-original-sit_chair-up-000.png",
+    "bird-original-sit_chair-right-000": "bird/original/sit_chair/bird-original-sit_chair-right-000.png",
+    "boy-01-teal-idle-down-000": "boy/01-teal/idle/boy-01-teal-idle-down-000.png",
+    "boy-01-teal-idle-left-000": "boy/01-teal/idle/boy-01-teal-idle-left-000.png",
+    "boy-01-teal-idle-up-000": "boy/01-teal/idle/boy-01-teal-idle-up-000.png",
+    "boy-01-teal-idle-right-000": "boy/01-teal/idle/boy-01-teal-idle-right-000.png",
+    "boy-01-teal-walk-down-000": "boy/01-teal/walk/boy-01-teal-walk-down-000.png",
+    "boy-01-teal-walk-down-001": "boy/01-teal/walk/boy-01-teal-walk-down-001.png",
+    "boy-01-teal-walk-down-002": "boy/01-teal/walk/boy-01-teal-walk-down-002.png",
+    "boy-01-teal-walk-down-003": "boy/01-teal/walk/boy-01-teal-walk-down-003.png",
+    "boy-01-teal-walk-left-000": "boy/01-teal/walk/boy-01-teal-walk-left-000.png",
+    "boy-01-teal-walk-left-001": "boy/01-teal/walk/boy-01-teal-walk-left-001.png",
+    "boy-01-teal-walk-left-002": "boy/01-teal/walk/boy-01-teal-walk-left-002.png",
+    "boy-01-teal-walk-left-003": "boy/01-teal/walk/boy-01-teal-walk-left-003.png",
+    "boy-01-teal-walk-up-000": "boy/01-teal/walk/boy-01-teal-walk-up-000.png",
+    "boy-01-teal-walk-up-001": "boy/01-teal/walk/boy-01-teal-walk-up-001.png",
+    "boy-01-teal-walk-up-002": "boy/01-teal/walk/boy-01-teal-walk-up-002.png",
+    "boy-01-teal-walk-up-003": "boy/01-teal/walk/boy-01-teal-walk-up-003.png",
+    "boy-01-teal-walk-right-000": "boy/01-teal/walk/boy-01-teal-walk-right-000.png",
+    "boy-01-teal-walk-right-001": "boy/01-teal/walk/boy-01-teal-walk-right-001.png",
+    "boy-01-teal-walk-right-002": "boy/01-teal/walk/boy-01-teal-walk-right-002.png",
+    "boy-01-teal-walk-right-003": "boy/01-teal/walk/boy-01-teal-walk-right-003.png",
+    "boy-01-teal-run-down-000": "boy/01-teal/run/boy-01-teal-run-down-000.png",
+    "boy-01-teal-run-down-001": "boy/01-teal/run/boy-01-teal-run-down-001.png",
+    "boy-01-teal-run-down-002": "boy/01-teal/run/boy-01-teal-run-down-002.png",
+    "boy-01-teal-run-down-003": "boy/01-teal/run/boy-01-teal-run-down-003.png",
+    "boy-01-teal-run-left-000": "boy/01-teal/run/boy-01-teal-run-left-000.png",
+    "boy-01-teal-run-left-001": "boy/01-teal/run/boy-01-teal-run-left-001.png",
+    "boy-01-teal-run-left-002": "boy/01-teal/run/boy-01-teal-run-left-002.png",
+    "boy-01-teal-run-left-003": "boy/01-teal/run/boy-01-teal-run-left-003.png",
+    "boy-01-teal-run-up-000": "boy/01-teal/run/boy-01-teal-run-up-000.png",
+    "boy-01-teal-run-up-001": "boy/01-teal/run/boy-01-teal-run-up-001.png",
+    "boy-01-teal-run-up-002": "boy/01-teal/run/boy-01-teal-run-up-002.png",
+    "boy-01-teal-run-up-003": "boy/01-teal/run/boy-01-teal-run-up-003.png",
+    "boy-01-teal-run-right-000": "boy/01-teal/run/boy-01-teal-run-right-000.png",
+    "boy-01-teal-run-right-001": "boy/01-teal/run/boy-01-teal-run-right-001.png",
+    "boy-01-teal-run-right-002": "boy/01-teal/run/boy-01-teal-run-right-002.png",
+    "boy-01-teal-run-right-003": "boy/01-teal/run/boy-01-teal-run-right-003.png",
+    "boy-01-teal-sit_chair-down-000": "boy/01-teal/sit_chair/boy-01-teal-sit_chair-down-000.png",
+    "boy-01-teal-sit_chair-left-000": "boy/01-teal/sit_chair/boy-01-teal-sit_chair-left-000.png",
+    "boy-01-teal-sit_chair-up-000": "boy/01-teal/sit_chair/boy-01-teal-sit_chair-up-000.png",
+    "boy-01-teal-sit_chair-right-000": "boy/01-teal/sit_chair/boy-01-teal-sit_chair-right-000.png",
+    "boy-02-burgundy-idle-down-000": "boy/02-burgundy/idle/boy-02-burgundy-idle-down-000.png",
+    "boy-02-burgundy-idle-left-000": "boy/02-burgundy/idle/boy-02-burgundy-idle-left-000.png",
+    "boy-02-burgundy-idle-up-000": "boy/02-burgundy/idle/boy-02-burgundy-idle-up-000.png",
+    "boy-02-burgundy-idle-right-000": "boy/02-burgundy/idle/boy-02-burgundy-idle-right-000.png",
+    "boy-02-burgundy-walk-down-000": "boy/02-burgundy/walk/boy-02-burgundy-walk-down-000.png",
+    "boy-02-burgundy-walk-down-001": "boy/02-burgundy/walk/boy-02-burgundy-walk-down-001.png",
+    "boy-02-burgundy-walk-down-002": "boy/02-burgundy/walk/boy-02-burgundy-walk-down-002.png",
+    "boy-02-burgundy-walk-down-003": "boy/02-burgundy/walk/boy-02-burgundy-walk-down-003.png",
+    "boy-02-burgundy-walk-left-000": "boy/02-burgundy/walk/boy-02-burgundy-walk-left-000.png",
+    "boy-02-burgundy-walk-left-001": "boy/02-burgundy/walk/boy-02-burgundy-walk-left-001.png",
+    "boy-02-burgundy-walk-left-002": "boy/02-burgundy/walk/boy-02-burgundy-walk-left-002.png",
+    "boy-02-burgundy-walk-left-003": "boy/02-burgundy/walk/boy-02-burgundy-walk-left-003.png",
+    "boy-02-burgundy-walk-up-000": "boy/02-burgundy/walk/boy-02-burgundy-walk-up-000.png",
+    "boy-02-burgundy-walk-up-001": "boy/02-burgundy/walk/boy-02-burgundy-walk-up-001.png",
+    "boy-02-burgundy-walk-up-002": "boy/02-burgundy/walk/boy-02-burgundy-walk-up-002.png",
+    "boy-02-burgundy-walk-up-003": "boy/02-burgundy/walk/boy-02-burgundy-walk-up-003.png",
+    "boy-02-burgundy-walk-right-000": "boy/02-burgundy/walk/boy-02-burgundy-walk-right-000.png",
+    "boy-02-burgundy-walk-right-001": "boy/02-burgundy/walk/boy-02-burgundy-walk-right-001.png",
+    "boy-02-burgundy-walk-right-002": "boy/02-burgundy/walk/boy-02-burgundy-walk-right-002.png",
+    "boy-02-burgundy-walk-right-003": "boy/02-burgundy/walk/boy-02-burgundy-walk-right-003.png",
+    "boy-02-burgundy-run-down-000": "boy/02-burgundy/run/boy-02-burgundy-run-down-000.png",
+    "boy-02-burgundy-run-down-001": "boy/02-burgundy/run/boy-02-burgundy-run-down-001.png",
+    "boy-02-burgundy-run-down-002": "boy/02-burgundy/run/boy-02-burgundy-run-down-002.png",
+    "boy-02-burgundy-run-down-003": "boy/02-burgundy/run/boy-02-burgundy-run-down-003.png",
+    "boy-02-burgundy-run-left-000": "boy/02-burgundy/run/boy-02-burgundy-run-left-000.png",
+    "boy-02-burgundy-run-left-001": "boy/02-burgundy/run/boy-02-burgundy-run-left-001.png",
+    "boy-02-burgundy-run-left-002": "boy/02-burgundy/run/boy-02-burgundy-run-left-002.png",
+    "boy-02-burgundy-run-left-003": "boy/02-burgundy/run/boy-02-burgundy-run-left-003.png",
+    "boy-02-burgundy-run-up-000": "boy/02-burgundy/run/boy-02-burgundy-run-up-000.png",
+    "boy-02-burgundy-run-up-001": "boy/02-burgundy/run/boy-02-burgundy-run-up-001.png",
+    "boy-02-burgundy-run-up-002": "boy/02-burgundy/run/boy-02-burgundy-run-up-002.png",
+    "boy-02-burgundy-run-up-003": "boy/02-burgundy/run/boy-02-burgundy-run-up-003.png",
+    "boy-02-burgundy-run-right-000": "boy/02-burgundy/run/boy-02-burgundy-run-right-000.png",
+    "boy-02-burgundy-run-right-001": "boy/02-burgundy/run/boy-02-burgundy-run-right-001.png",
+    "boy-02-burgundy-run-right-002": "boy/02-burgundy/run/boy-02-burgundy-run-right-002.png",
+    "boy-02-burgundy-run-right-003": "boy/02-burgundy/run/boy-02-burgundy-run-right-003.png",
+    "boy-02-burgundy-sit_chair-down-000": "boy/02-burgundy/sit_chair/boy-02-burgundy-sit_chair-down-000.png",
+    "boy-02-burgundy-sit_chair-left-000": "boy/02-burgundy/sit_chair/boy-02-burgundy-sit_chair-left-000.png",
+    "boy-02-burgundy-sit_chair-up-000": "boy/02-burgundy/sit_chair/boy-02-burgundy-sit_chair-up-000.png",
+    "boy-02-burgundy-sit_chair-right-000": "boy/02-burgundy/sit_chair/boy-02-burgundy-sit_chair-right-000.png",
+    "boy-03-navy-idle-down-000": "boy/03-navy/idle/boy-03-navy-idle-down-000.png",
+    "boy-03-navy-idle-left-000": "boy/03-navy/idle/boy-03-navy-idle-left-000.png",
+    "boy-03-navy-idle-up-000": "boy/03-navy/idle/boy-03-navy-idle-up-000.png",
+    "boy-03-navy-idle-right-000": "boy/03-navy/idle/boy-03-navy-idle-right-000.png",
+    "boy-03-navy-walk-down-000": "boy/03-navy/walk/boy-03-navy-walk-down-000.png",
+    "boy-03-navy-walk-down-001": "boy/03-navy/walk/boy-03-navy-walk-down-001.png",
+    "boy-03-navy-walk-down-002": "boy/03-navy/walk/boy-03-navy-walk-down-002.png",
+    "boy-03-navy-walk-down-003": "boy/03-navy/walk/boy-03-navy-walk-down-003.png",
+    "boy-03-navy-walk-left-000": "boy/03-navy/walk/boy-03-navy-walk-left-000.png",
+    "boy-03-navy-walk-left-001": "boy/03-navy/walk/boy-03-navy-walk-left-001.png",
+    "boy-03-navy-walk-left-002": "boy/03-navy/walk/boy-03-navy-walk-left-002.png",
+    "boy-03-navy-walk-left-003": "boy/03-navy/walk/boy-03-navy-walk-left-003.png",
+    "boy-03-navy-walk-up-000": "boy/03-navy/walk/boy-03-navy-walk-up-000.png",
+    "boy-03-navy-walk-up-001": "boy/03-navy/walk/boy-03-navy-walk-up-001.png",
+    "boy-03-navy-walk-up-002": "boy/03-navy/walk/boy-03-navy-walk-up-002.png",
+    "boy-03-navy-walk-up-003": "boy/03-navy/walk/boy-03-navy-walk-up-003.png",
+    "boy-03-navy-walk-right-000": "boy/03-navy/walk/boy-03-navy-walk-right-000.png",
+    "boy-03-navy-walk-right-001": "boy/03-navy/walk/boy-03-navy-walk-right-001.png",
+    "boy-03-navy-walk-right-002": "boy/03-navy/walk/boy-03-navy-walk-right-002.png",
+    "boy-03-navy-walk-right-003": "boy/03-navy/walk/boy-03-navy-walk-right-003.png",
+    "boy-03-navy-run-down-000": "boy/03-navy/run/boy-03-navy-run-down-000.png",
+    "boy-03-navy-run-down-001": "boy/03-navy/run/boy-03-navy-run-down-001.png",
+    "boy-03-navy-run-down-002": "boy/03-navy/run/boy-03-navy-run-down-002.png",
+    "boy-03-navy-run-down-003": "boy/03-navy/run/boy-03-navy-run-down-003.png",
+    "boy-03-navy-run-left-000": "boy/03-navy/run/boy-03-navy-run-left-000.png",
+    "boy-03-navy-run-left-001": "boy/03-navy/run/boy-03-navy-run-left-001.png",
+    "boy-03-navy-run-left-002": "boy/03-navy/run/boy-03-navy-run-left-002.png",
+    "boy-03-navy-run-left-003": "boy/03-navy/run/boy-03-navy-run-left-003.png",
+    "boy-03-navy-run-up-000": "boy/03-navy/run/boy-03-navy-run-up-000.png",
+    "boy-03-navy-run-up-001": "boy/03-navy/run/boy-03-navy-run-up-001.png",
+    "boy-03-navy-run-up-002": "boy/03-navy/run/boy-03-navy-run-up-002.png",
+    "boy-03-navy-run-up-003": "boy/03-navy/run/boy-03-navy-run-up-003.png",
+    "boy-03-navy-run-right-000": "boy/03-navy/run/boy-03-navy-run-right-000.png",
+    "boy-03-navy-run-right-001": "boy/03-navy/run/boy-03-navy-run-right-001.png",
+    "boy-03-navy-run-right-002": "boy/03-navy/run/boy-03-navy-run-right-002.png",
+    "boy-03-navy-run-right-003": "boy/03-navy/run/boy-03-navy-run-right-003.png",
+    "boy-03-navy-sit_chair-down-000": "boy/03-navy/sit_chair/boy-03-navy-sit_chair-down-000.png",
+    "boy-03-navy-sit_chair-left-000": "boy/03-navy/sit_chair/boy-03-navy-sit_chair-left-000.png",
+    "boy-03-navy-sit_chair-up-000": "boy/03-navy/sit_chair/boy-03-navy-sit_chair-up-000.png",
+    "boy-03-navy-sit_chair-right-000": "boy/03-navy/sit_chair/boy-03-navy-sit_chair-right-000.png",
+    "boy-04-forest-idle-down-000": "boy/04-forest/idle/boy-04-forest-idle-down-000.png",
+    "boy-04-forest-idle-left-000": "boy/04-forest/idle/boy-04-forest-idle-left-000.png",
+    "boy-04-forest-idle-up-000": "boy/04-forest/idle/boy-04-forest-idle-up-000.png",
+    "boy-04-forest-idle-right-000": "boy/04-forest/idle/boy-04-forest-idle-right-000.png",
+    "boy-04-forest-walk-down-000": "boy/04-forest/walk/boy-04-forest-walk-down-000.png",
+    "boy-04-forest-walk-down-001": "boy/04-forest/walk/boy-04-forest-walk-down-001.png",
+    "boy-04-forest-walk-down-002": "boy/04-forest/walk/boy-04-forest-walk-down-002.png",
+    "boy-04-forest-walk-down-003": "boy/04-forest/walk/boy-04-forest-walk-down-003.png",
+    "boy-04-forest-walk-left-000": "boy/04-forest/walk/boy-04-forest-walk-left-000.png",
+    "boy-04-forest-walk-left-001": "boy/04-forest/walk/boy-04-forest-walk-left-001.png",
+    "boy-04-forest-walk-left-002": "boy/04-forest/walk/boy-04-forest-walk-left-002.png",
+    "boy-04-forest-walk-left-003": "boy/04-forest/walk/boy-04-forest-walk-left-003.png",
+    "boy-04-forest-walk-up-000": "boy/04-forest/walk/boy-04-forest-walk-up-000.png",
+    "boy-04-forest-walk-up-001": "boy/04-forest/walk/boy-04-forest-walk-up-001.png",
+    "boy-04-forest-walk-up-002": "boy/04-forest/walk/boy-04-forest-walk-up-002.png",
+    "boy-04-forest-walk-up-003": "boy/04-forest/walk/boy-04-forest-walk-up-003.png",
+    "boy-04-forest-walk-right-000": "boy/04-forest/walk/boy-04-forest-walk-right-000.png",
+    "boy-04-forest-walk-right-001": "boy/04-forest/walk/boy-04-forest-walk-right-001.png",
+    "boy-04-forest-walk-right-002": "boy/04-forest/walk/boy-04-forest-walk-right-002.png",
+    "boy-04-forest-walk-right-003": "boy/04-forest/walk/boy-04-forest-walk-right-003.png",
+    "boy-04-forest-run-down-000": "boy/04-forest/run/boy-04-forest-run-down-000.png",
+    "boy-04-forest-run-down-001": "boy/04-forest/run/boy-04-forest-run-down-001.png",
+    "boy-04-forest-run-down-002": "boy/04-forest/run/boy-04-forest-run-down-002.png",
+    "boy-04-forest-run-down-003": "boy/04-forest/run/boy-04-forest-run-down-003.png",
+    "boy-04-forest-run-left-000": "boy/04-forest/run/boy-04-forest-run-left-000.png",
+    "boy-04-forest-run-left-001": "boy/04-forest/run/boy-04-forest-run-left-001.png",
+    "boy-04-forest-run-left-002": "boy/04-forest/run/boy-04-forest-run-left-002.png",
+    "boy-04-forest-run-left-003": "boy/04-forest/run/boy-04-forest-run-left-003.png",
+    "boy-04-forest-run-up-000": "boy/04-forest/run/boy-04-forest-run-up-000.png",
+    "boy-04-forest-run-up-001": "boy/04-forest/run/boy-04-forest-run-up-001.png",
+    "boy-04-forest-run-up-002": "boy/04-forest/run/boy-04-forest-run-up-002.png",
+    "boy-04-forest-run-up-003": "boy/04-forest/run/boy-04-forest-run-up-003.png",
+    "boy-04-forest-run-right-000": "boy/04-forest/run/boy-04-forest-run-right-000.png",
+    "boy-04-forest-run-right-001": "boy/04-forest/run/boy-04-forest-run-right-001.png",
+    "boy-04-forest-run-right-002": "boy/04-forest/run/boy-04-forest-run-right-002.png",
+    "boy-04-forest-run-right-003": "boy/04-forest/run/boy-04-forest-run-right-003.png",
+    "boy-04-forest-sit_chair-down-000": "boy/04-forest/sit_chair/boy-04-forest-sit_chair-down-000.png",
+    "boy-04-forest-sit_chair-left-000": "boy/04-forest/sit_chair/boy-04-forest-sit_chair-left-000.png",
+    "boy-04-forest-sit_chair-up-000": "boy/04-forest/sit_chair/boy-04-forest-sit_chair-up-000.png",
+    "boy-04-forest-sit_chair-right-000": "boy/04-forest/sit_chair/boy-04-forest-sit_chair-right-000.png",
+    "boy-05-mustard-idle-down-000": "boy/05-mustard/idle/boy-05-mustard-idle-down-000.png",
+    "boy-05-mustard-idle-left-000": "boy/05-mustard/idle/boy-05-mustard-idle-left-000.png",
+    "boy-05-mustard-idle-up-000": "boy/05-mustard/idle/boy-05-mustard-idle-up-000.png",
+    "boy-05-mustard-idle-right-000": "boy/05-mustard/idle/boy-05-mustard-idle-right-000.png",
+    "boy-05-mustard-walk-down-000": "boy/05-mustard/walk/boy-05-mustard-walk-down-000.png",
+    "boy-05-mustard-walk-down-001": "boy/05-mustard/walk/boy-05-mustard-walk-down-001.png",
+    "boy-05-mustard-walk-down-002": "boy/05-mustard/walk/boy-05-mustard-walk-down-002.png",
+    "boy-05-mustard-walk-down-003": "boy/05-mustard/walk/boy-05-mustard-walk-down-003.png",
+    "boy-05-mustard-walk-left-000": "boy/05-mustard/walk/boy-05-mustard-walk-left-000.png",
+    "boy-05-mustard-walk-left-001": "boy/05-mustard/walk/boy-05-mustard-walk-left-001.png",
+    "boy-05-mustard-walk-left-002": "boy/05-mustard/walk/boy-05-mustard-walk-left-002.png",
+    "boy-05-mustard-walk-left-003": "boy/05-mustard/walk/boy-05-mustard-walk-left-003.png",
+    "boy-05-mustard-walk-up-000": "boy/05-mustard/walk/boy-05-mustard-walk-up-000.png",
+    "boy-05-mustard-walk-up-001": "boy/05-mustard/walk/boy-05-mustard-walk-up-001.png",
+    "boy-05-mustard-walk-up-002": "boy/05-mustard/walk/boy-05-mustard-walk-up-002.png",
+    "boy-05-mustard-walk-up-003": "boy/05-mustard/walk/boy-05-mustard-walk-up-003.png",
+    "boy-05-mustard-walk-right-000": "boy/05-mustard/walk/boy-05-mustard-walk-right-000.png",
+    "boy-05-mustard-walk-right-001": "boy/05-mustard/walk/boy-05-mustard-walk-right-001.png",
+    "boy-05-mustard-walk-right-002": "boy/05-mustard/walk/boy-05-mustard-walk-right-002.png",
+    "boy-05-mustard-walk-right-003": "boy/05-mustard/walk/boy-05-mustard-walk-right-003.png",
+    "boy-05-mustard-run-down-000": "boy/05-mustard/run/boy-05-mustard-run-down-000.png",
+    "boy-05-mustard-run-down-001": "boy/05-mustard/run/boy-05-mustard-run-down-001.png",
+    "boy-05-mustard-run-down-002": "boy/05-mustard/run/boy-05-mustard-run-down-002.png",
+    "boy-05-mustard-run-down-003": "boy/05-mustard/run/boy-05-mustard-run-down-003.png",
+    "boy-05-mustard-run-left-000": "boy/05-mustard/run/boy-05-mustard-run-left-000.png",
+    "boy-05-mustard-run-left-001": "boy/05-mustard/run/boy-05-mustard-run-left-001.png",
+    "boy-05-mustard-run-left-002": "boy/05-mustard/run/boy-05-mustard-run-left-002.png",
+    "boy-05-mustard-run-left-003": "boy/05-mustard/run/boy-05-mustard-run-left-003.png",
+    "boy-05-mustard-run-up-000": "boy/05-mustard/run/boy-05-mustard-run-up-000.png",
+    "boy-05-mustard-run-up-001": "boy/05-mustard/run/boy-05-mustard-run-up-001.png",
+    "boy-05-mustard-run-up-002": "boy/05-mustard/run/boy-05-mustard-run-up-002.png",
+    "boy-05-mustard-run-up-003": "boy/05-mustard/run/boy-05-mustard-run-up-003.png",
+    "boy-05-mustard-run-right-000": "boy/05-mustard/run/boy-05-mustard-run-right-000.png",
+    "boy-05-mustard-run-right-001": "boy/05-mustard/run/boy-05-mustard-run-right-001.png",
+    "boy-05-mustard-run-right-002": "boy/05-mustard/run/boy-05-mustard-run-right-002.png",
+    "boy-05-mustard-run-right-003": "boy/05-mustard/run/boy-05-mustard-run-right-003.png",
+    "boy-05-mustard-sit_chair-down-000": "boy/05-mustard/sit_chair/boy-05-mustard-sit_chair-down-000.png",
+    "boy-05-mustard-sit_chair-left-000": "boy/05-mustard/sit_chair/boy-05-mustard-sit_chair-left-000.png",
+    "boy-05-mustard-sit_chair-up-000": "boy/05-mustard/sit_chair/boy-05-mustard-sit_chair-up-000.png",
+    "boy-05-mustard-sit_chair-right-000": "boy/05-mustard/sit_chair/boy-05-mustard-sit_chair-right-000.png",
+    "boy-06-violet-idle-down-000": "boy/06-violet/idle/boy-06-violet-idle-down-000.png",
+    "boy-06-violet-idle-left-000": "boy/06-violet/idle/boy-06-violet-idle-left-000.png",
+    "boy-06-violet-idle-up-000": "boy/06-violet/idle/boy-06-violet-idle-up-000.png",
+    "boy-06-violet-idle-right-000": "boy/06-violet/idle/boy-06-violet-idle-right-000.png",
+    "boy-06-violet-walk-down-000": "boy/06-violet/walk/boy-06-violet-walk-down-000.png",
+    "boy-06-violet-walk-down-001": "boy/06-violet/walk/boy-06-violet-walk-down-001.png",
+    "boy-06-violet-walk-down-002": "boy/06-violet/walk/boy-06-violet-walk-down-002.png",
+    "boy-06-violet-walk-down-003": "boy/06-violet/walk/boy-06-violet-walk-down-003.png",
+    "boy-06-violet-walk-left-000": "boy/06-violet/walk/boy-06-violet-walk-left-000.png",
+    "boy-06-violet-walk-left-001": "boy/06-violet/walk/boy-06-violet-walk-left-001.png",
+    "boy-06-violet-walk-left-002": "boy/06-violet/walk/boy-06-violet-walk-left-002.png",
+    "boy-06-violet-walk-left-003": "boy/06-violet/walk/boy-06-violet-walk-left-003.png",
+    "boy-06-violet-walk-up-000": "boy/06-violet/walk/boy-06-violet-walk-up-000.png",
+    "boy-06-violet-walk-up-001": "boy/06-violet/walk/boy-06-violet-walk-up-001.png",
+    "boy-06-violet-walk-up-002": "boy/06-violet/walk/boy-06-violet-walk-up-002.png",
+    "boy-06-violet-walk-up-003": "boy/06-violet/walk/boy-06-violet-walk-up-003.png",
+    "boy-06-violet-walk-right-000": "boy/06-violet/walk/boy-06-violet-walk-right-000.png",
+    "boy-06-violet-walk-right-001": "boy/06-violet/walk/boy-06-violet-walk-right-001.png",
+    "boy-06-violet-walk-right-002": "boy/06-violet/walk/boy-06-violet-walk-right-002.png",
+    "boy-06-violet-walk-right-003": "boy/06-violet/walk/boy-06-violet-walk-right-003.png",
+    "boy-06-violet-run-down-000": "boy/06-violet/run/boy-06-violet-run-down-000.png",
+    "boy-06-violet-run-down-001": "boy/06-violet/run/boy-06-violet-run-down-001.png",
+    "boy-06-violet-run-down-002": "boy/06-violet/run/boy-06-violet-run-down-002.png",
+    "boy-06-violet-run-down-003": "boy/06-violet/run/boy-06-violet-run-down-003.png",
+    "boy-06-violet-run-left-000": "boy/06-violet/run/boy-06-violet-run-left-000.png",
+    "boy-06-violet-run-left-001": "boy/06-violet/run/boy-06-violet-run-left-001.png",
+    "boy-06-violet-run-left-002": "boy/06-violet/run/boy-06-violet-run-left-002.png",
+    "boy-06-violet-run-left-003": "boy/06-violet/run/boy-06-violet-run-left-003.png",
+    "boy-06-violet-run-up-000": "boy/06-violet/run/boy-06-violet-run-up-000.png",
+    "boy-06-violet-run-up-001": "boy/06-violet/run/boy-06-violet-run-up-001.png",
+    "boy-06-violet-run-up-002": "boy/06-violet/run/boy-06-violet-run-up-002.png",
+    "boy-06-violet-run-up-003": "boy/06-violet/run/boy-06-violet-run-up-003.png",
+    "boy-06-violet-run-right-000": "boy/06-violet/run/boy-06-violet-run-right-000.png",
+    "boy-06-violet-run-right-001": "boy/06-violet/run/boy-06-violet-run-right-001.png",
+    "boy-06-violet-run-right-002": "boy/06-violet/run/boy-06-violet-run-right-002.png",
+    "boy-06-violet-run-right-003": "boy/06-violet/run/boy-06-violet-run-right-003.png",
+    "boy-06-violet-sit_chair-down-000": "boy/06-violet/sit_chair/boy-06-violet-sit_chair-down-000.png",
+    "boy-06-violet-sit_chair-left-000": "boy/06-violet/sit_chair/boy-06-violet-sit_chair-left-000.png",
+    "boy-06-violet-sit_chair-up-000": "boy/06-violet/sit_chair/boy-06-violet-sit_chair-up-000.png",
+    "boy-06-violet-sit_chair-right-000": "boy/06-violet/sit_chair/boy-06-violet-sit_chair-right-000.png",
+    "boy-07-coral-idle-down-000": "boy/07-coral/idle/boy-07-coral-idle-down-000.png",
+    "boy-07-coral-idle-left-000": "boy/07-coral/idle/boy-07-coral-idle-left-000.png",
+    "boy-07-coral-idle-up-000": "boy/07-coral/idle/boy-07-coral-idle-up-000.png",
+    "boy-07-coral-idle-right-000": "boy/07-coral/idle/boy-07-coral-idle-right-000.png",
+    "boy-07-coral-walk-down-000": "boy/07-coral/walk/boy-07-coral-walk-down-000.png",
+    "boy-07-coral-walk-down-001": "boy/07-coral/walk/boy-07-coral-walk-down-001.png",
+    "boy-07-coral-walk-down-002": "boy/07-coral/walk/boy-07-coral-walk-down-002.png",
+    "boy-07-coral-walk-down-003": "boy/07-coral/walk/boy-07-coral-walk-down-003.png",
+    "boy-07-coral-walk-left-000": "boy/07-coral/walk/boy-07-coral-walk-left-000.png",
+    "boy-07-coral-walk-left-001": "boy/07-coral/walk/boy-07-coral-walk-left-001.png",
+    "boy-07-coral-walk-left-002": "boy/07-coral/walk/boy-07-coral-walk-left-002.png",
+    "boy-07-coral-walk-left-003": "boy/07-coral/walk/boy-07-coral-walk-left-003.png",
+    "boy-07-coral-walk-up-000": "boy/07-coral/walk/boy-07-coral-walk-up-000.png",
+    "boy-07-coral-walk-up-001": "boy/07-coral/walk/boy-07-coral-walk-up-001.png",
+    "boy-07-coral-walk-up-002": "boy/07-coral/walk/boy-07-coral-walk-up-002.png",
+    "boy-07-coral-walk-up-003": "boy/07-coral/walk/boy-07-coral-walk-up-003.png",
+    "boy-07-coral-walk-right-000": "boy/07-coral/walk/boy-07-coral-walk-right-000.png",
+    "boy-07-coral-walk-right-001": "boy/07-coral/walk/boy-07-coral-walk-right-001.png",
+    "boy-07-coral-walk-right-002": "boy/07-coral/walk/boy-07-coral-walk-right-002.png",
+    "boy-07-coral-walk-right-003": "boy/07-coral/walk/boy-07-coral-walk-right-003.png",
+    "boy-07-coral-run-down-000": "boy/07-coral/run/boy-07-coral-run-down-000.png",
+    "boy-07-coral-run-down-001": "boy/07-coral/run/boy-07-coral-run-down-001.png",
+    "boy-07-coral-run-down-002": "boy/07-coral/run/boy-07-coral-run-down-002.png",
+    "boy-07-coral-run-down-003": "boy/07-coral/run/boy-07-coral-run-down-003.png",
+    "boy-07-coral-run-left-000": "boy/07-coral/run/boy-07-coral-run-left-000.png",
+    "boy-07-coral-run-left-001": "boy/07-coral/run/boy-07-coral-run-left-001.png",
+    "boy-07-coral-run-left-002": "boy/07-coral/run/boy-07-coral-run-left-002.png",
+    "boy-07-coral-run-left-003": "boy/07-coral/run/boy-07-coral-run-left-003.png",
+    "boy-07-coral-run-up-000": "boy/07-coral/run/boy-07-coral-run-up-000.png",
+    "boy-07-coral-run-up-001": "boy/07-coral/run/boy-07-coral-run-up-001.png",
+    "boy-07-coral-run-up-002": "boy/07-coral/run/boy-07-coral-run-up-002.png",
+    "boy-07-coral-run-up-003": "boy/07-coral/run/boy-07-coral-run-up-003.png",
+    "boy-07-coral-run-right-000": "boy/07-coral/run/boy-07-coral-run-right-000.png",
+    "boy-07-coral-run-right-001": "boy/07-coral/run/boy-07-coral-run-right-001.png",
+    "boy-07-coral-run-right-002": "boy/07-coral/run/boy-07-coral-run-right-002.png",
+    "boy-07-coral-run-right-003": "boy/07-coral/run/boy-07-coral-run-right-003.png",
+    "boy-07-coral-sit_chair-down-000": "boy/07-coral/sit_chair/boy-07-coral-sit_chair-down-000.png",
+    "boy-07-coral-sit_chair-left-000": "boy/07-coral/sit_chair/boy-07-coral-sit_chair-left-000.png",
+    "boy-07-coral-sit_chair-up-000": "boy/07-coral/sit_chair/boy-07-coral-sit_chair-up-000.png",
+    "boy-07-coral-sit_chair-right-000": "boy/07-coral/sit_chair/boy-07-coral-sit_chair-right-000.png",
+    "boy-08-sky-idle-down-000": "boy/08-sky/idle/boy-08-sky-idle-down-000.png",
+    "boy-08-sky-idle-left-000": "boy/08-sky/idle/boy-08-sky-idle-left-000.png",
+    "boy-08-sky-idle-up-000": "boy/08-sky/idle/boy-08-sky-idle-up-000.png",
+    "boy-08-sky-idle-right-000": "boy/08-sky/idle/boy-08-sky-idle-right-000.png",
+    "boy-08-sky-walk-down-000": "boy/08-sky/walk/boy-08-sky-walk-down-000.png",
+    "boy-08-sky-walk-down-001": "boy/08-sky/walk/boy-08-sky-walk-down-001.png",
+    "boy-08-sky-walk-down-002": "boy/08-sky/walk/boy-08-sky-walk-down-002.png",
+    "boy-08-sky-walk-down-003": "boy/08-sky/walk/boy-08-sky-walk-down-003.png",
+    "boy-08-sky-walk-left-000": "boy/08-sky/walk/boy-08-sky-walk-left-000.png",
+    "boy-08-sky-walk-left-001": "boy/08-sky/walk/boy-08-sky-walk-left-001.png",
+    "boy-08-sky-walk-left-002": "boy/08-sky/walk/boy-08-sky-walk-left-002.png",
+    "boy-08-sky-walk-left-003": "boy/08-sky/walk/boy-08-sky-walk-left-003.png",
+    "boy-08-sky-walk-up-000": "boy/08-sky/walk/boy-08-sky-walk-up-000.png",
+    "boy-08-sky-walk-up-001": "boy/08-sky/walk/boy-08-sky-walk-up-001.png",
+    "boy-08-sky-walk-up-002": "boy/08-sky/walk/boy-08-sky-walk-up-002.png",
+    "boy-08-sky-walk-up-003": "boy/08-sky/walk/boy-08-sky-walk-up-003.png",
+    "boy-08-sky-walk-right-000": "boy/08-sky/walk/boy-08-sky-walk-right-000.png",
+    "boy-08-sky-walk-right-001": "boy/08-sky/walk/boy-08-sky-walk-right-001.png",
+    "boy-08-sky-walk-right-002": "boy/08-sky/walk/boy-08-sky-walk-right-002.png",
+    "boy-08-sky-walk-right-003": "boy/08-sky/walk/boy-08-sky-walk-right-003.png",
+    "boy-08-sky-run-down-000": "boy/08-sky/run/boy-08-sky-run-down-000.png",
+    "boy-08-sky-run-down-001": "boy/08-sky/run/boy-08-sky-run-down-001.png",
+    "boy-08-sky-run-down-002": "boy/08-sky/run/boy-08-sky-run-down-002.png",
+    "boy-08-sky-run-down-003": "boy/08-sky/run/boy-08-sky-run-down-003.png",
+    "boy-08-sky-run-left-000": "boy/08-sky/run/boy-08-sky-run-left-000.png",
+    "boy-08-sky-run-left-001": "boy/08-sky/run/boy-08-sky-run-left-001.png",
+    "boy-08-sky-run-left-002": "boy/08-sky/run/boy-08-sky-run-left-002.png",
+    "boy-08-sky-run-left-003": "boy/08-sky/run/boy-08-sky-run-left-003.png",
+    "boy-08-sky-run-up-000": "boy/08-sky/run/boy-08-sky-run-up-000.png",
+    "boy-08-sky-run-up-001": "boy/08-sky/run/boy-08-sky-run-up-001.png",
+    "boy-08-sky-run-up-002": "boy/08-sky/run/boy-08-sky-run-up-002.png",
+    "boy-08-sky-run-up-003": "boy/08-sky/run/boy-08-sky-run-up-003.png",
+    "boy-08-sky-run-right-000": "boy/08-sky/run/boy-08-sky-run-right-000.png",
+    "boy-08-sky-run-right-001": "boy/08-sky/run/boy-08-sky-run-right-001.png",
+    "boy-08-sky-run-right-002": "boy/08-sky/run/boy-08-sky-run-right-002.png",
+    "boy-08-sky-run-right-003": "boy/08-sky/run/boy-08-sky-run-right-003.png",
+    "boy-08-sky-sit_chair-down-000": "boy/08-sky/sit_chair/boy-08-sky-sit_chair-down-000.png",
+    "boy-08-sky-sit_chair-left-000": "boy/08-sky/sit_chair/boy-08-sky-sit_chair-left-000.png",
+    "boy-08-sky-sit_chair-up-000": "boy/08-sky/sit_chair/boy-08-sky-sit_chair-up-000.png",
+    "boy-08-sky-sit_chair-right-000": "boy/08-sky/sit_chair/boy-08-sky-sit_chair-right-000.png",
+    "boy-09-rose-idle-down-000": "boy/09-rose/idle/boy-09-rose-idle-down-000.png",
+    "boy-09-rose-idle-left-000": "boy/09-rose/idle/boy-09-rose-idle-left-000.png",
+    "boy-09-rose-idle-up-000": "boy/09-rose/idle/boy-09-rose-idle-up-000.png",
+    "boy-09-rose-idle-right-000": "boy/09-rose/idle/boy-09-rose-idle-right-000.png",
+    "boy-09-rose-walk-down-000": "boy/09-rose/walk/boy-09-rose-walk-down-000.png",
+    "boy-09-rose-walk-down-001": "boy/09-rose/walk/boy-09-rose-walk-down-001.png",
+    "boy-09-rose-walk-down-002": "boy/09-rose/walk/boy-09-rose-walk-down-002.png",
+    "boy-09-rose-walk-down-003": "boy/09-rose/walk/boy-09-rose-walk-down-003.png",
+    "boy-09-rose-walk-left-000": "boy/09-rose/walk/boy-09-rose-walk-left-000.png",
+    "boy-09-rose-walk-left-001": "boy/09-rose/walk/boy-09-rose-walk-left-001.png",
+    "boy-09-rose-walk-left-002": "boy/09-rose/walk/boy-09-rose-walk-left-002.png",
+    "boy-09-rose-walk-left-003": "boy/09-rose/walk/boy-09-rose-walk-left-003.png",
+    "boy-09-rose-walk-up-000": "boy/09-rose/walk/boy-09-rose-walk-up-000.png",
+    "boy-09-rose-walk-up-001": "boy/09-rose/walk/boy-09-rose-walk-up-001.png",
+    "boy-09-rose-walk-up-002": "boy/09-rose/walk/boy-09-rose-walk-up-002.png",
+    "boy-09-rose-walk-up-003": "boy/09-rose/walk/boy-09-rose-walk-up-003.png",
+    "boy-09-rose-walk-right-000": "boy/09-rose/walk/boy-09-rose-walk-right-000.png",
+    "boy-09-rose-walk-right-001": "boy/09-rose/walk/boy-09-rose-walk-right-001.png",
+    "boy-09-rose-walk-right-002": "boy/09-rose/walk/boy-09-rose-walk-right-002.png",
+    "boy-09-rose-walk-right-003": "boy/09-rose/walk/boy-09-rose-walk-right-003.png",
+    "boy-09-rose-run-down-000": "boy/09-rose/run/boy-09-rose-run-down-000.png",
+    "boy-09-rose-run-down-001": "boy/09-rose/run/boy-09-rose-run-down-001.png",
+    "boy-09-rose-run-down-002": "boy/09-rose/run/boy-09-rose-run-down-002.png",
+    "boy-09-rose-run-down-003": "boy/09-rose/run/boy-09-rose-run-down-003.png",
+    "boy-09-rose-run-left-000": "boy/09-rose/run/boy-09-rose-run-left-000.png",
+    "boy-09-rose-run-left-001": "boy/09-rose/run/boy-09-rose-run-left-001.png",
+    "boy-09-rose-run-left-002": "boy/09-rose/run/boy-09-rose-run-left-002.png",
+    "boy-09-rose-run-left-003": "boy/09-rose/run/boy-09-rose-run-left-003.png",
+    "boy-09-rose-run-up-000": "boy/09-rose/run/boy-09-rose-run-up-000.png",
+    "boy-09-rose-run-up-001": "boy/09-rose/run/boy-09-rose-run-up-001.png",
+    "boy-09-rose-run-up-002": "boy/09-rose/run/boy-09-rose-run-up-002.png",
+    "boy-09-rose-run-up-003": "boy/09-rose/run/boy-09-rose-run-up-003.png",
+    "boy-09-rose-run-right-000": "boy/09-rose/run/boy-09-rose-run-right-000.png",
+    "boy-09-rose-run-right-001": "boy/09-rose/run/boy-09-rose-run-right-001.png",
+    "boy-09-rose-run-right-002": "boy/09-rose/run/boy-09-rose-run-right-002.png",
+    "boy-09-rose-run-right-003": "boy/09-rose/run/boy-09-rose-run-right-003.png",
+    "boy-09-rose-sit_chair-down-000": "boy/09-rose/sit_chair/boy-09-rose-sit_chair-down-000.png",
+    "boy-09-rose-sit_chair-left-000": "boy/09-rose/sit_chair/boy-09-rose-sit_chair-left-000.png",
+    "boy-09-rose-sit_chair-up-000": "boy/09-rose/sit_chair/boy-09-rose-sit_chair-up-000.png",
+    "boy-09-rose-sit_chair-right-000": "boy/09-rose/sit_chair/boy-09-rose-sit_chair-right-000.png",
+    "boy-10-graphite-idle-down-000": "boy/10-graphite/idle/boy-10-graphite-idle-down-000.png",
+    "boy-10-graphite-idle-left-000": "boy/10-graphite/idle/boy-10-graphite-idle-left-000.png",
+    "boy-10-graphite-idle-up-000": "boy/10-graphite/idle/boy-10-graphite-idle-up-000.png",
+    "boy-10-graphite-idle-right-000": "boy/10-graphite/idle/boy-10-graphite-idle-right-000.png",
+    "boy-10-graphite-walk-down-000": "boy/10-graphite/walk/boy-10-graphite-walk-down-000.png",
+    "boy-10-graphite-walk-down-001": "boy/10-graphite/walk/boy-10-graphite-walk-down-001.png",
+    "boy-10-graphite-walk-down-002": "boy/10-graphite/walk/boy-10-graphite-walk-down-002.png",
+    "boy-10-graphite-walk-down-003": "boy/10-graphite/walk/boy-10-graphite-walk-down-003.png",
+    "boy-10-graphite-walk-left-000": "boy/10-graphite/walk/boy-10-graphite-walk-left-000.png",
+    "boy-10-graphite-walk-left-001": "boy/10-graphite/walk/boy-10-graphite-walk-left-001.png",
+    "boy-10-graphite-walk-left-002": "boy/10-graphite/walk/boy-10-graphite-walk-left-002.png",
+    "boy-10-graphite-walk-left-003": "boy/10-graphite/walk/boy-10-graphite-walk-left-003.png",
+    "boy-10-graphite-walk-up-000": "boy/10-graphite/walk/boy-10-graphite-walk-up-000.png",
+    "boy-10-graphite-walk-up-001": "boy/10-graphite/walk/boy-10-graphite-walk-up-001.png",
+    "boy-10-graphite-walk-up-002": "boy/10-graphite/walk/boy-10-graphite-walk-up-002.png",
+    "boy-10-graphite-walk-up-003": "boy/10-graphite/walk/boy-10-graphite-walk-up-003.png",
+    "boy-10-graphite-walk-right-000": "boy/10-graphite/walk/boy-10-graphite-walk-right-000.png",
+    "boy-10-graphite-walk-right-001": "boy/10-graphite/walk/boy-10-graphite-walk-right-001.png",
+    "boy-10-graphite-walk-right-002": "boy/10-graphite/walk/boy-10-graphite-walk-right-002.png",
+    "boy-10-graphite-walk-right-003": "boy/10-graphite/walk/boy-10-graphite-walk-right-003.png",
+    "boy-10-graphite-run-down-000": "boy/10-graphite/run/boy-10-graphite-run-down-000.png",
+    "boy-10-graphite-run-down-001": "boy/10-graphite/run/boy-10-graphite-run-down-001.png",
+    "boy-10-graphite-run-down-002": "boy/10-graphite/run/boy-10-graphite-run-down-002.png",
+    "boy-10-graphite-run-down-003": "boy/10-graphite/run/boy-10-graphite-run-down-003.png",
+    "boy-10-graphite-run-left-000": "boy/10-graphite/run/boy-10-graphite-run-left-000.png",
+    "boy-10-graphite-run-left-001": "boy/10-graphite/run/boy-10-graphite-run-left-001.png",
+    "boy-10-graphite-run-left-002": "boy/10-graphite/run/boy-10-graphite-run-left-002.png",
+    "boy-10-graphite-run-left-003": "boy/10-graphite/run/boy-10-graphite-run-left-003.png",
+    "boy-10-graphite-run-up-000": "boy/10-graphite/run/boy-10-graphite-run-up-000.png",
+    "boy-10-graphite-run-up-001": "boy/10-graphite/run/boy-10-graphite-run-up-001.png",
+    "boy-10-graphite-run-up-002": "boy/10-graphite/run/boy-10-graphite-run-up-002.png",
+    "boy-10-graphite-run-up-003": "boy/10-graphite/run/boy-10-graphite-run-up-003.png",
+    "boy-10-graphite-run-right-000": "boy/10-graphite/run/boy-10-graphite-run-right-000.png",
+    "boy-10-graphite-run-right-001": "boy/10-graphite/run/boy-10-graphite-run-right-001.png",
+    "boy-10-graphite-run-right-002": "boy/10-graphite/run/boy-10-graphite-run-right-002.png",
+    "boy-10-graphite-run-right-003": "boy/10-graphite/run/boy-10-graphite-run-right-003.png",
+    "boy-10-graphite-sit_chair-down-000": "boy/10-graphite/sit_chair/boy-10-graphite-sit_chair-down-000.png",
+    "boy-10-graphite-sit_chair-left-000": "boy/10-graphite/sit_chair/boy-10-graphite-sit_chair-left-000.png",
+    "boy-10-graphite-sit_chair-up-000": "boy/10-graphite/sit_chair/boy-10-graphite-sit_chair-up-000.png",
+    "boy-10-graphite-sit_chair-right-000": "boy/10-graphite/sit_chair/boy-10-graphite-sit_chair-right-000.png",
+    "girl-01-teal-idle-down-000": "girl/01-teal/idle/girl-01-teal-idle-down-000.png",
+    "girl-01-teal-idle-left-000": "girl/01-teal/idle/girl-01-teal-idle-left-000.png",
+    "girl-01-teal-idle-up-000": "girl/01-teal/idle/girl-01-teal-idle-up-000.png",
+    "girl-01-teal-idle-right-000": "girl/01-teal/idle/girl-01-teal-idle-right-000.png",
+    "girl-01-teal-walk-down-000": "girl/01-teal/walk/girl-01-teal-walk-down-000.png",
+    "girl-01-teal-walk-down-001": "girl/01-teal/walk/girl-01-teal-walk-down-001.png",
+    "girl-01-teal-walk-down-002": "girl/01-teal/walk/girl-01-teal-walk-down-002.png",
+    "girl-01-teal-walk-down-003": "girl/01-teal/walk/girl-01-teal-walk-down-003.png",
+    "girl-01-teal-walk-left-000": "girl/01-teal/walk/girl-01-teal-walk-left-000.png",
+    "girl-01-teal-walk-left-001": "girl/01-teal/walk/girl-01-teal-walk-left-001.png",
+    "girl-01-teal-walk-left-002": "girl/01-teal/walk/girl-01-teal-walk-left-002.png",
+    "girl-01-teal-walk-left-003": "girl/01-teal/walk/girl-01-teal-walk-left-003.png",
+    "girl-01-teal-walk-up-000": "girl/01-teal/walk/girl-01-teal-walk-up-000.png",
+    "girl-01-teal-walk-up-001": "girl/01-teal/walk/girl-01-teal-walk-up-001.png",
+    "girl-01-teal-walk-up-002": "girl/01-teal/walk/girl-01-teal-walk-up-002.png",
+    "girl-01-teal-walk-up-003": "girl/01-teal/walk/girl-01-teal-walk-up-003.png",
+    "girl-01-teal-walk-right-000": "girl/01-teal/walk/girl-01-teal-walk-right-000.png",
+    "girl-01-teal-walk-right-001": "girl/01-teal/walk/girl-01-teal-walk-right-001.png",
+    "girl-01-teal-walk-right-002": "girl/01-teal/walk/girl-01-teal-walk-right-002.png",
+    "girl-01-teal-walk-right-003": "girl/01-teal/walk/girl-01-teal-walk-right-003.png",
+    "girl-01-teal-run-down-000": "girl/01-teal/run/girl-01-teal-run-down-000.png",
+    "girl-01-teal-run-down-001": "girl/01-teal/run/girl-01-teal-run-down-001.png",
+    "girl-01-teal-run-down-002": "girl/01-teal/run/girl-01-teal-run-down-002.png",
+    "girl-01-teal-run-down-003": "girl/01-teal/run/girl-01-teal-run-down-003.png",
+    "girl-01-teal-run-left-000": "girl/01-teal/run/girl-01-teal-run-left-000.png",
+    "girl-01-teal-run-left-001": "girl/01-teal/run/girl-01-teal-run-left-001.png",
+    "girl-01-teal-run-left-002": "girl/01-teal/run/girl-01-teal-run-left-002.png",
+    "girl-01-teal-run-left-003": "girl/01-teal/run/girl-01-teal-run-left-003.png",
+    "girl-01-teal-run-up-000": "girl/01-teal/run/girl-01-teal-run-up-000.png",
+    "girl-01-teal-run-up-001": "girl/01-teal/run/girl-01-teal-run-up-001.png",
+    "girl-01-teal-run-up-002": "girl/01-teal/run/girl-01-teal-run-up-002.png",
+    "girl-01-teal-run-up-003": "girl/01-teal/run/girl-01-teal-run-up-003.png",
+    "girl-01-teal-run-right-000": "girl/01-teal/run/girl-01-teal-run-right-000.png",
+    "girl-01-teal-run-right-001": "girl/01-teal/run/girl-01-teal-run-right-001.png",
+    "girl-01-teal-run-right-002": "girl/01-teal/run/girl-01-teal-run-right-002.png",
+    "girl-01-teal-run-right-003": "girl/01-teal/run/girl-01-teal-run-right-003.png",
+    "girl-01-teal-sit_chair-down-000": "girl/01-teal/sit_chair/girl-01-teal-sit_chair-down-000.png",
+    "girl-01-teal-sit_chair-left-000": "girl/01-teal/sit_chair/girl-01-teal-sit_chair-left-000.png",
+    "girl-01-teal-sit_chair-up-000": "girl/01-teal/sit_chair/girl-01-teal-sit_chair-up-000.png",
+    "girl-01-teal-sit_chair-right-000": "girl/01-teal/sit_chair/girl-01-teal-sit_chair-right-000.png",
+    "girl-02-burgundy-idle-down-000": "girl/02-burgundy/idle/girl-02-burgundy-idle-down-000.png",
+    "girl-02-burgundy-idle-left-000": "girl/02-burgundy/idle/girl-02-burgundy-idle-left-000.png",
+    "girl-02-burgundy-idle-up-000": "girl/02-burgundy/idle/girl-02-burgundy-idle-up-000.png",
+    "girl-02-burgundy-idle-right-000": "girl/02-burgundy/idle/girl-02-burgundy-idle-right-000.png",
+    "girl-02-burgundy-walk-down-000": "girl/02-burgundy/walk/girl-02-burgundy-walk-down-000.png",
+    "girl-02-burgundy-walk-down-001": "girl/02-burgundy/walk/girl-02-burgundy-walk-down-001.png",
+    "girl-02-burgundy-walk-down-002": "girl/02-burgundy/walk/girl-02-burgundy-walk-down-002.png",
+    "girl-02-burgundy-walk-down-003": "girl/02-burgundy/walk/girl-02-burgundy-walk-down-003.png",
+    "girl-02-burgundy-walk-left-000": "girl/02-burgundy/walk/girl-02-burgundy-walk-left-000.png",
+    "girl-02-burgundy-walk-left-001": "girl/02-burgundy/walk/girl-02-burgundy-walk-left-001.png",
+    "girl-02-burgundy-walk-left-002": "girl/02-burgundy/walk/girl-02-burgundy-walk-left-002.png",
+    "girl-02-burgundy-walk-left-003": "girl/02-burgundy/walk/girl-02-burgundy-walk-left-003.png",
+    "girl-02-burgundy-walk-up-000": "girl/02-burgundy/walk/girl-02-burgundy-walk-up-000.png",
+    "girl-02-burgundy-walk-up-001": "girl/02-burgundy/walk/girl-02-burgundy-walk-up-001.png",
+    "girl-02-burgundy-walk-up-002": "girl/02-burgundy/walk/girl-02-burgundy-walk-up-002.png",
+    "girl-02-burgundy-walk-up-003": "girl/02-burgundy/walk/girl-02-burgundy-walk-up-003.png",
+    "girl-02-burgundy-walk-right-000": "girl/02-burgundy/walk/girl-02-burgundy-walk-right-000.png",
+    "girl-02-burgundy-walk-right-001": "girl/02-burgundy/walk/girl-02-burgundy-walk-right-001.png",
+    "girl-02-burgundy-walk-right-002": "girl/02-burgundy/walk/girl-02-burgundy-walk-right-002.png",
+    "girl-02-burgundy-walk-right-003": "girl/02-burgundy/walk/girl-02-burgundy-walk-right-003.png",
+    "girl-02-burgundy-run-down-000": "girl/02-burgundy/run/girl-02-burgundy-run-down-000.png",
+    "girl-02-burgundy-run-down-001": "girl/02-burgundy/run/girl-02-burgundy-run-down-001.png",
+    "girl-02-burgundy-run-down-002": "girl/02-burgundy/run/girl-02-burgundy-run-down-002.png",
+    "girl-02-burgundy-run-down-003": "girl/02-burgundy/run/girl-02-burgundy-run-down-003.png",
+    "girl-02-burgundy-run-left-000": "girl/02-burgundy/run/girl-02-burgundy-run-left-000.png",
+    "girl-02-burgundy-run-left-001": "girl/02-burgundy/run/girl-02-burgundy-run-left-001.png",
+    "girl-02-burgundy-run-left-002": "girl/02-burgundy/run/girl-02-burgundy-run-left-002.png",
+    "girl-02-burgundy-run-left-003": "girl/02-burgundy/run/girl-02-burgundy-run-left-003.png",
+    "girl-02-burgundy-run-up-000": "girl/02-burgundy/run/girl-02-burgundy-run-up-000.png",
+    "girl-02-burgundy-run-up-001": "girl/02-burgundy/run/girl-02-burgundy-run-up-001.png",
+    "girl-02-burgundy-run-up-002": "girl/02-burgundy/run/girl-02-burgundy-run-up-002.png",
+    "girl-02-burgundy-run-up-003": "girl/02-burgundy/run/girl-02-burgundy-run-up-003.png",
+    "girl-02-burgundy-run-right-000": "girl/02-burgundy/run/girl-02-burgundy-run-right-000.png",
+    "girl-02-burgundy-run-right-001": "girl/02-burgundy/run/girl-02-burgundy-run-right-001.png",
+    "girl-02-burgundy-run-right-002": "girl/02-burgundy/run/girl-02-burgundy-run-right-002.png",
+    "girl-02-burgundy-run-right-003": "girl/02-burgundy/run/girl-02-burgundy-run-right-003.png",
+    "girl-02-burgundy-sit_chair-down-000": "girl/02-burgundy/sit_chair/girl-02-burgundy-sit_chair-down-000.png",
+    "girl-02-burgundy-sit_chair-left-000": "girl/02-burgundy/sit_chair/girl-02-burgundy-sit_chair-left-000.png",
+    "girl-02-burgundy-sit_chair-up-000": "girl/02-burgundy/sit_chair/girl-02-burgundy-sit_chair-up-000.png",
+    "girl-02-burgundy-sit_chair-right-000": "girl/02-burgundy/sit_chair/girl-02-burgundy-sit_chair-right-000.png",
+    "girl-03-navy-idle-down-000": "girl/03-navy/idle/girl-03-navy-idle-down-000.png",
+    "girl-03-navy-idle-left-000": "girl/03-navy/idle/girl-03-navy-idle-left-000.png",
+    "girl-03-navy-idle-up-000": "girl/03-navy/idle/girl-03-navy-idle-up-000.png",
+    "girl-03-navy-idle-right-000": "girl/03-navy/idle/girl-03-navy-idle-right-000.png",
+    "girl-03-navy-walk-down-000": "girl/03-navy/walk/girl-03-navy-walk-down-000.png",
+    "girl-03-navy-walk-down-001": "girl/03-navy/walk/girl-03-navy-walk-down-001.png",
+    "girl-03-navy-walk-down-002": "girl/03-navy/walk/girl-03-navy-walk-down-002.png",
+    "girl-03-navy-walk-down-003": "girl/03-navy/walk/girl-03-navy-walk-down-003.png",
+    "girl-03-navy-walk-left-000": "girl/03-navy/walk/girl-03-navy-walk-left-000.png",
+    "girl-03-navy-walk-left-001": "girl/03-navy/walk/girl-03-navy-walk-left-001.png",
+    "girl-03-navy-walk-left-002": "girl/03-navy/walk/girl-03-navy-walk-left-002.png",
+    "girl-03-navy-walk-left-003": "girl/03-navy/walk/girl-03-navy-walk-left-003.png",
+    "girl-03-navy-walk-up-000": "girl/03-navy/walk/girl-03-navy-walk-up-000.png",
+    "girl-03-navy-walk-up-001": "girl/03-navy/walk/girl-03-navy-walk-up-001.png",
+    "girl-03-navy-walk-up-002": "girl/03-navy/walk/girl-03-navy-walk-up-002.png",
+    "girl-03-navy-walk-up-003": "girl/03-navy/walk/girl-03-navy-walk-up-003.png",
+    "girl-03-navy-walk-right-000": "girl/03-navy/walk/girl-03-navy-walk-right-000.png",
+    "girl-03-navy-walk-right-001": "girl/03-navy/walk/girl-03-navy-walk-right-001.png",
+    "girl-03-navy-walk-right-002": "girl/03-navy/walk/girl-03-navy-walk-right-002.png",
+    "girl-03-navy-walk-right-003": "girl/03-navy/walk/girl-03-navy-walk-right-003.png",
+    "girl-03-navy-run-down-000": "girl/03-navy/run/girl-03-navy-run-down-000.png",
+    "girl-03-navy-run-down-001": "girl/03-navy/run/girl-03-navy-run-down-001.png",
+    "girl-03-navy-run-down-002": "girl/03-navy/run/girl-03-navy-run-down-002.png",
+    "girl-03-navy-run-down-003": "girl/03-navy/run/girl-03-navy-run-down-003.png",
+    "girl-03-navy-run-left-000": "girl/03-navy/run/girl-03-navy-run-left-000.png",
+    "girl-03-navy-run-left-001": "girl/03-navy/run/girl-03-navy-run-left-001.png",
+    "girl-03-navy-run-left-002": "girl/03-navy/run/girl-03-navy-run-left-002.png",
+    "girl-03-navy-run-left-003": "girl/03-navy/run/girl-03-navy-run-left-003.png",
+    "girl-03-navy-run-up-000": "girl/03-navy/run/girl-03-navy-run-up-000.png",
+    "girl-03-navy-run-up-001": "girl/03-navy/run/girl-03-navy-run-up-001.png",
+    "girl-03-navy-run-up-002": "girl/03-navy/run/girl-03-navy-run-up-002.png",
+    "girl-03-navy-run-up-003": "girl/03-navy/run/girl-03-navy-run-up-003.png",
+    "girl-03-navy-run-right-000": "girl/03-navy/run/girl-03-navy-run-right-000.png",
+    "girl-03-navy-run-right-001": "girl/03-navy/run/girl-03-navy-run-right-001.png",
+    "girl-03-navy-run-right-002": "girl/03-navy/run/girl-03-navy-run-right-002.png",
+    "girl-03-navy-run-right-003": "girl/03-navy/run/girl-03-navy-run-right-003.png",
+    "girl-03-navy-sit_chair-down-000": "girl/03-navy/sit_chair/girl-03-navy-sit_chair-down-000.png",
+    "girl-03-navy-sit_chair-left-000": "girl/03-navy/sit_chair/girl-03-navy-sit_chair-left-000.png",
+    "girl-03-navy-sit_chair-up-000": "girl/03-navy/sit_chair/girl-03-navy-sit_chair-up-000.png",
+    "girl-03-navy-sit_chair-right-000": "girl/03-navy/sit_chair/girl-03-navy-sit_chair-right-000.png",
+    "girl-04-forest-idle-down-000": "girl/04-forest/idle/girl-04-forest-idle-down-000.png",
+    "girl-04-forest-idle-left-000": "girl/04-forest/idle/girl-04-forest-idle-left-000.png",
+    "girl-04-forest-idle-up-000": "girl/04-forest/idle/girl-04-forest-idle-up-000.png",
+    "girl-04-forest-idle-right-000": "girl/04-forest/idle/girl-04-forest-idle-right-000.png",
+    "girl-04-forest-walk-down-000": "girl/04-forest/walk/girl-04-forest-walk-down-000.png",
+    "girl-04-forest-walk-down-001": "girl/04-forest/walk/girl-04-forest-walk-down-001.png",
+    "girl-04-forest-walk-down-002": "girl/04-forest/walk/girl-04-forest-walk-down-002.png",
+    "girl-04-forest-walk-down-003": "girl/04-forest/walk/girl-04-forest-walk-down-003.png",
+    "girl-04-forest-walk-left-000": "girl/04-forest/walk/girl-04-forest-walk-left-000.png",
+    "girl-04-forest-walk-left-001": "girl/04-forest/walk/girl-04-forest-walk-left-001.png",
+    "girl-04-forest-walk-left-002": "girl/04-forest/walk/girl-04-forest-walk-left-002.png",
+    "girl-04-forest-walk-left-003": "girl/04-forest/walk/girl-04-forest-walk-left-003.png",
+    "girl-04-forest-walk-up-000": "girl/04-forest/walk/girl-04-forest-walk-up-000.png",
+    "girl-04-forest-walk-up-001": "girl/04-forest/walk/girl-04-forest-walk-up-001.png",
+    "girl-04-forest-walk-up-002": "girl/04-forest/walk/girl-04-forest-walk-up-002.png",
+    "girl-04-forest-walk-up-003": "girl/04-forest/walk/girl-04-forest-walk-up-003.png",
+    "girl-04-forest-walk-right-000": "girl/04-forest/walk/girl-04-forest-walk-right-000.png",
+    "girl-04-forest-walk-right-001": "girl/04-forest/walk/girl-04-forest-walk-right-001.png",
+    "girl-04-forest-walk-right-002": "girl/04-forest/walk/girl-04-forest-walk-right-002.png",
+    "girl-04-forest-walk-right-003": "girl/04-forest/walk/girl-04-forest-walk-right-003.png",
+    "girl-04-forest-run-down-000": "girl/04-forest/run/girl-04-forest-run-down-000.png",
+    "girl-04-forest-run-down-001": "girl/04-forest/run/girl-04-forest-run-down-001.png",
+    "girl-04-forest-run-down-002": "girl/04-forest/run/girl-04-forest-run-down-002.png",
+    "girl-04-forest-run-down-003": "girl/04-forest/run/girl-04-forest-run-down-003.png",
+    "girl-04-forest-run-left-000": "girl/04-forest/run/girl-04-forest-run-left-000.png",
+    "girl-04-forest-run-left-001": "girl/04-forest/run/girl-04-forest-run-left-001.png",
+    "girl-04-forest-run-left-002": "girl/04-forest/run/girl-04-forest-run-left-002.png",
+    "girl-04-forest-run-left-003": "girl/04-forest/run/girl-04-forest-run-left-003.png",
+    "girl-04-forest-run-up-000": "girl/04-forest/run/girl-04-forest-run-up-000.png",
+    "girl-04-forest-run-up-001": "girl/04-forest/run/girl-04-forest-run-up-001.png",
+    "girl-04-forest-run-up-002": "girl/04-forest/run/girl-04-forest-run-up-002.png",
+    "girl-04-forest-run-up-003": "girl/04-forest/run/girl-04-forest-run-up-003.png",
+    "girl-04-forest-run-right-000": "girl/04-forest/run/girl-04-forest-run-right-000.png",
+    "girl-04-forest-run-right-001": "girl/04-forest/run/girl-04-forest-run-right-001.png",
+    "girl-04-forest-run-right-002": "girl/04-forest/run/girl-04-forest-run-right-002.png",
+    "girl-04-forest-run-right-003": "girl/04-forest/run/girl-04-forest-run-right-003.png",
+    "girl-04-forest-sit_chair-down-000": "girl/04-forest/sit_chair/girl-04-forest-sit_chair-down-000.png",
+    "girl-04-forest-sit_chair-left-000": "girl/04-forest/sit_chair/girl-04-forest-sit_chair-left-000.png",
+    "girl-04-forest-sit_chair-up-000": "girl/04-forest/sit_chair/girl-04-forest-sit_chair-up-000.png",
+    "girl-04-forest-sit_chair-right-000": "girl/04-forest/sit_chair/girl-04-forest-sit_chair-right-000.png",
+    "girl-05-mustard-idle-down-000": "girl/05-mustard/idle/girl-05-mustard-idle-down-000.png",
+    "girl-05-mustard-idle-left-000": "girl/05-mustard/idle/girl-05-mustard-idle-left-000.png",
+    "girl-05-mustard-idle-up-000": "girl/05-mustard/idle/girl-05-mustard-idle-up-000.png",
+    "girl-05-mustard-idle-right-000": "girl/05-mustard/idle/girl-05-mustard-idle-right-000.png",
+    "girl-05-mustard-walk-down-000": "girl/05-mustard/walk/girl-05-mustard-walk-down-000.png",
+    "girl-05-mustard-walk-down-001": "girl/05-mustard/walk/girl-05-mustard-walk-down-001.png",
+    "girl-05-mustard-walk-down-002": "girl/05-mustard/walk/girl-05-mustard-walk-down-002.png",
+    "girl-05-mustard-walk-down-003": "girl/05-mustard/walk/girl-05-mustard-walk-down-003.png",
+    "girl-05-mustard-walk-left-000": "girl/05-mustard/walk/girl-05-mustard-walk-left-000.png",
+    "girl-05-mustard-walk-left-001": "girl/05-mustard/walk/girl-05-mustard-walk-left-001.png",
+    "girl-05-mustard-walk-left-002": "girl/05-mustard/walk/girl-05-mustard-walk-left-002.png",
+    "girl-05-mustard-walk-left-003": "girl/05-mustard/walk/girl-05-mustard-walk-left-003.png",
+    "girl-05-mustard-walk-up-000": "girl/05-mustard/walk/girl-05-mustard-walk-up-000.png",
+    "girl-05-mustard-walk-up-001": "girl/05-mustard/walk/girl-05-mustard-walk-up-001.png",
+    "girl-05-mustard-walk-up-002": "girl/05-mustard/walk/girl-05-mustard-walk-up-002.png",
+    "girl-05-mustard-walk-up-003": "girl/05-mustard/walk/girl-05-mustard-walk-up-003.png",
+    "girl-05-mustard-walk-right-000": "girl/05-mustard/walk/girl-05-mustard-walk-right-000.png",
+    "girl-05-mustard-walk-right-001": "girl/05-mustard/walk/girl-05-mustard-walk-right-001.png",
+    "girl-05-mustard-walk-right-002": "girl/05-mustard/walk/girl-05-mustard-walk-right-002.png",
+    "girl-05-mustard-walk-right-003": "girl/05-mustard/walk/girl-05-mustard-walk-right-003.png",
+    "girl-05-mustard-run-down-000": "girl/05-mustard/run/girl-05-mustard-run-down-000.png",
+    "girl-05-mustard-run-down-001": "girl/05-mustard/run/girl-05-mustard-run-down-001.png",
+    "girl-05-mustard-run-down-002": "girl/05-mustard/run/girl-05-mustard-run-down-002.png",
+    "girl-05-mustard-run-down-003": "girl/05-mustard/run/girl-05-mustard-run-down-003.png",
+    "girl-05-mustard-run-left-000": "girl/05-mustard/run/girl-05-mustard-run-left-000.png",
+    "girl-05-mustard-run-left-001": "girl/05-mustard/run/girl-05-mustard-run-left-001.png",
+    "girl-05-mustard-run-left-002": "girl/05-mustard/run/girl-05-mustard-run-left-002.png",
+    "girl-05-mustard-run-left-003": "girl/05-mustard/run/girl-05-mustard-run-left-003.png",
+    "girl-05-mustard-run-up-000": "girl/05-mustard/run/girl-05-mustard-run-up-000.png",
+    "girl-05-mustard-run-up-001": "girl/05-mustard/run/girl-05-mustard-run-up-001.png",
+    "girl-05-mustard-run-up-002": "girl/05-mustard/run/girl-05-mustard-run-up-002.png",
+    "girl-05-mustard-run-up-003": "girl/05-mustard/run/girl-05-mustard-run-up-003.png",
+    "girl-05-mustard-run-right-000": "girl/05-mustard/run/girl-05-mustard-run-right-000.png",
+    "girl-05-mustard-run-right-001": "girl/05-mustard/run/girl-05-mustard-run-right-001.png",
+    "girl-05-mustard-run-right-002": "girl/05-mustard/run/girl-05-mustard-run-right-002.png",
+    "girl-05-mustard-run-right-003": "girl/05-mustard/run/girl-05-mustard-run-right-003.png",
+    "girl-05-mustard-sit_chair-down-000": "girl/05-mustard/sit_chair/girl-05-mustard-sit_chair-down-000.png",
+    "girl-05-mustard-sit_chair-left-000": "girl/05-mustard/sit_chair/girl-05-mustard-sit_chair-left-000.png",
+    "girl-05-mustard-sit_chair-up-000": "girl/05-mustard/sit_chair/girl-05-mustard-sit_chair-up-000.png",
+    "girl-05-mustard-sit_chair-right-000": "girl/05-mustard/sit_chair/girl-05-mustard-sit_chair-right-000.png",
+    "girl-06-violet-idle-down-000": "girl/06-violet/idle/girl-06-violet-idle-down-000.png",
+    "girl-06-violet-idle-left-000": "girl/06-violet/idle/girl-06-violet-idle-left-000.png",
+    "girl-06-violet-idle-up-000": "girl/06-violet/idle/girl-06-violet-idle-up-000.png",
+    "girl-06-violet-idle-right-000": "girl/06-violet/idle/girl-06-violet-idle-right-000.png",
+    "girl-06-violet-walk-down-000": "girl/06-violet/walk/girl-06-violet-walk-down-000.png",
+    "girl-06-violet-walk-down-001": "girl/06-violet/walk/girl-06-violet-walk-down-001.png",
+    "girl-06-violet-walk-down-002": "girl/06-violet/walk/girl-06-violet-walk-down-002.png",
+    "girl-06-violet-walk-down-003": "girl/06-violet/walk/girl-06-violet-walk-down-003.png",
+    "girl-06-violet-walk-left-000": "girl/06-violet/walk/girl-06-violet-walk-left-000.png",
+    "girl-06-violet-walk-left-001": "girl/06-violet/walk/girl-06-violet-walk-left-001.png",
+    "girl-06-violet-walk-left-002": "girl/06-violet/walk/girl-06-violet-walk-left-002.png",
+    "girl-06-violet-walk-left-003": "girl/06-violet/walk/girl-06-violet-walk-left-003.png",
+    "girl-06-violet-walk-up-000": "girl/06-violet/walk/girl-06-violet-walk-up-000.png",
+    "girl-06-violet-walk-up-001": "girl/06-violet/walk/girl-06-violet-walk-up-001.png",
+    "girl-06-violet-walk-up-002": "girl/06-violet/walk/girl-06-violet-walk-up-002.png",
+    "girl-06-violet-walk-up-003": "girl/06-violet/walk/girl-06-violet-walk-up-003.png",
+    "girl-06-violet-walk-right-000": "girl/06-violet/walk/girl-06-violet-walk-right-000.png",
+    "girl-06-violet-walk-right-001": "girl/06-violet/walk/girl-06-violet-walk-right-001.png",
+    "girl-06-violet-walk-right-002": "girl/06-violet/walk/girl-06-violet-walk-right-002.png",
+    "girl-06-violet-walk-right-003": "girl/06-violet/walk/girl-06-violet-walk-right-003.png",
+    "girl-06-violet-run-down-000": "girl/06-violet/run/girl-06-violet-run-down-000.png",
+    "girl-06-violet-run-down-001": "girl/06-violet/run/girl-06-violet-run-down-001.png",
+    "girl-06-violet-run-down-002": "girl/06-violet/run/girl-06-violet-run-down-002.png",
+    "girl-06-violet-run-down-003": "girl/06-violet/run/girl-06-violet-run-down-003.png",
+    "girl-06-violet-run-left-000": "girl/06-violet/run/girl-06-violet-run-left-000.png",
+    "girl-06-violet-run-left-001": "girl/06-violet/run/girl-06-violet-run-left-001.png",
+    "girl-06-violet-run-left-002": "girl/06-violet/run/girl-06-violet-run-left-002.png",
+    "girl-06-violet-run-left-003": "girl/06-violet/run/girl-06-violet-run-left-003.png",
+    "girl-06-violet-run-up-000": "girl/06-violet/run/girl-06-violet-run-up-000.png",
+    "girl-06-violet-run-up-001": "girl/06-violet/run/girl-06-violet-run-up-001.png",
+    "girl-06-violet-run-up-002": "girl/06-violet/run/girl-06-violet-run-up-002.png",
+    "girl-06-violet-run-up-003": "girl/06-violet/run/girl-06-violet-run-up-003.png",
+    "girl-06-violet-run-right-000": "girl/06-violet/run/girl-06-violet-run-right-000.png",
+    "girl-06-violet-run-right-001": "girl/06-violet/run/girl-06-violet-run-right-001.png",
+    "girl-06-violet-run-right-002": "girl/06-violet/run/girl-06-violet-run-right-002.png",
+    "girl-06-violet-run-right-003": "girl/06-violet/run/girl-06-violet-run-right-003.png",
+    "girl-06-violet-sit_chair-down-000": "girl/06-violet/sit_chair/girl-06-violet-sit_chair-down-000.png",
+    "girl-06-violet-sit_chair-left-000": "girl/06-violet/sit_chair/girl-06-violet-sit_chair-left-000.png",
+    "girl-06-violet-sit_chair-up-000": "girl/06-violet/sit_chair/girl-06-violet-sit_chair-up-000.png",
+    "girl-06-violet-sit_chair-right-000": "girl/06-violet/sit_chair/girl-06-violet-sit_chair-right-000.png",
+    "girl-07-coral-idle-down-000": "girl/07-coral/idle/girl-07-coral-idle-down-000.png",
+    "girl-07-coral-idle-left-000": "girl/07-coral/idle/girl-07-coral-idle-left-000.png",
+    "girl-07-coral-idle-up-000": "girl/07-coral/idle/girl-07-coral-idle-up-000.png",
+    "girl-07-coral-idle-right-000": "girl/07-coral/idle/girl-07-coral-idle-right-000.png",
+    "girl-07-coral-walk-down-000": "girl/07-coral/walk/girl-07-coral-walk-down-000.png",
+    "girl-07-coral-walk-down-001": "girl/07-coral/walk/girl-07-coral-walk-down-001.png",
+    "girl-07-coral-walk-down-002": "girl/07-coral/walk/girl-07-coral-walk-down-002.png",
+    "girl-07-coral-walk-down-003": "girl/07-coral/walk/girl-07-coral-walk-down-003.png",
+    "girl-07-coral-walk-left-000": "girl/07-coral/walk/girl-07-coral-walk-left-000.png",
+    "girl-07-coral-walk-left-001": "girl/07-coral/walk/girl-07-coral-walk-left-001.png",
+    "girl-07-coral-walk-left-002": "girl/07-coral/walk/girl-07-coral-walk-left-002.png",
+    "girl-07-coral-walk-left-003": "girl/07-coral/walk/girl-07-coral-walk-left-003.png",
+    "girl-07-coral-walk-up-000": "girl/07-coral/walk/girl-07-coral-walk-up-000.png",
+    "girl-07-coral-walk-up-001": "girl/07-coral/walk/girl-07-coral-walk-up-001.png",
+    "girl-07-coral-walk-up-002": "girl/07-coral/walk/girl-07-coral-walk-up-002.png",
+    "girl-07-coral-walk-up-003": "girl/07-coral/walk/girl-07-coral-walk-up-003.png",
+    "girl-07-coral-walk-right-000": "girl/07-coral/walk/girl-07-coral-walk-right-000.png",
+    "girl-07-coral-walk-right-001": "girl/07-coral/walk/girl-07-coral-walk-right-001.png",
+    "girl-07-coral-walk-right-002": "girl/07-coral/walk/girl-07-coral-walk-right-002.png",
+    "girl-07-coral-walk-right-003": "girl/07-coral/walk/girl-07-coral-walk-right-003.png",
+    "girl-07-coral-run-down-000": "girl/07-coral/run/girl-07-coral-run-down-000.png",
+    "girl-07-coral-run-down-001": "girl/07-coral/run/girl-07-coral-run-down-001.png",
+    "girl-07-coral-run-down-002": "girl/07-coral/run/girl-07-coral-run-down-002.png",
+    "girl-07-coral-run-down-003": "girl/07-coral/run/girl-07-coral-run-down-003.png",
+    "girl-07-coral-run-left-000": "girl/07-coral/run/girl-07-coral-run-left-000.png",
+    "girl-07-coral-run-left-001": "girl/07-coral/run/girl-07-coral-run-left-001.png",
+    "girl-07-coral-run-left-002": "girl/07-coral/run/girl-07-coral-run-left-002.png",
+    "girl-07-coral-run-left-003": "girl/07-coral/run/girl-07-coral-run-left-003.png",
+    "girl-07-coral-run-up-000": "girl/07-coral/run/girl-07-coral-run-up-000.png",
+    "girl-07-coral-run-up-001": "girl/07-coral/run/girl-07-coral-run-up-001.png",
+    "girl-07-coral-run-up-002": "girl/07-coral/run/girl-07-coral-run-up-002.png",
+    "girl-07-coral-run-up-003": "girl/07-coral/run/girl-07-coral-run-up-003.png",
+    "girl-07-coral-run-right-000": "girl/07-coral/run/girl-07-coral-run-right-000.png",
+    "girl-07-coral-run-right-001": "girl/07-coral/run/girl-07-coral-run-right-001.png",
+    "girl-07-coral-run-right-002": "girl/07-coral/run/girl-07-coral-run-right-002.png",
+    "girl-07-coral-run-right-003": "girl/07-coral/run/girl-07-coral-run-right-003.png",
+    "girl-07-coral-sit_chair-down-000": "girl/07-coral/sit_chair/girl-07-coral-sit_chair-down-000.png",
+    "girl-07-coral-sit_chair-left-000": "girl/07-coral/sit_chair/girl-07-coral-sit_chair-left-000.png",
+    "girl-07-coral-sit_chair-up-000": "girl/07-coral/sit_chair/girl-07-coral-sit_chair-up-000.png",
+    "girl-07-coral-sit_chair-right-000": "girl/07-coral/sit_chair/girl-07-coral-sit_chair-right-000.png",
+    "girl-08-sky-idle-down-000": "girl/08-sky/idle/girl-08-sky-idle-down-000.png",
+    "girl-08-sky-idle-left-000": "girl/08-sky/idle/girl-08-sky-idle-left-000.png",
+    "girl-08-sky-idle-up-000": "girl/08-sky/idle/girl-08-sky-idle-up-000.png",
+    "girl-08-sky-idle-right-000": "girl/08-sky/idle/girl-08-sky-idle-right-000.png",
+    "girl-08-sky-walk-down-000": "girl/08-sky/walk/girl-08-sky-walk-down-000.png",
+    "girl-08-sky-walk-down-001": "girl/08-sky/walk/girl-08-sky-walk-down-001.png",
+    "girl-08-sky-walk-down-002": "girl/08-sky/walk/girl-08-sky-walk-down-002.png",
+    "girl-08-sky-walk-down-003": "girl/08-sky/walk/girl-08-sky-walk-down-003.png",
+    "girl-08-sky-walk-left-000": "girl/08-sky/walk/girl-08-sky-walk-left-000.png",
+    "girl-08-sky-walk-left-001": "girl/08-sky/walk/girl-08-sky-walk-left-001.png",
+    "girl-08-sky-walk-left-002": "girl/08-sky/walk/girl-08-sky-walk-left-002.png",
+    "girl-08-sky-walk-left-003": "girl/08-sky/walk/girl-08-sky-walk-left-003.png",
+    "girl-08-sky-walk-up-000": "girl/08-sky/walk/girl-08-sky-walk-up-000.png",
+    "girl-08-sky-walk-up-001": "girl/08-sky/walk/girl-08-sky-walk-up-001.png",
+    "girl-08-sky-walk-up-002": "girl/08-sky/walk/girl-08-sky-walk-up-002.png",
+    "girl-08-sky-walk-up-003": "girl/08-sky/walk/girl-08-sky-walk-up-003.png",
+    "girl-08-sky-walk-right-000": "girl/08-sky/walk/girl-08-sky-walk-right-000.png",
+    "girl-08-sky-walk-right-001": "girl/08-sky/walk/girl-08-sky-walk-right-001.png",
+    "girl-08-sky-walk-right-002": "girl/08-sky/walk/girl-08-sky-walk-right-002.png",
+    "girl-08-sky-walk-right-003": "girl/08-sky/walk/girl-08-sky-walk-right-003.png",
+    "girl-08-sky-run-down-000": "girl/08-sky/run/girl-08-sky-run-down-000.png",
+    "girl-08-sky-run-down-001": "girl/08-sky/run/girl-08-sky-run-down-001.png",
+    "girl-08-sky-run-down-002": "girl/08-sky/run/girl-08-sky-run-down-002.png",
+    "girl-08-sky-run-down-003": "girl/08-sky/run/girl-08-sky-run-down-003.png",
+    "girl-08-sky-run-left-000": "girl/08-sky/run/girl-08-sky-run-left-000.png",
+    "girl-08-sky-run-left-001": "girl/08-sky/run/girl-08-sky-run-left-001.png",
+    "girl-08-sky-run-left-002": "girl/08-sky/run/girl-08-sky-run-left-002.png",
+    "girl-08-sky-run-left-003": "girl/08-sky/run/girl-08-sky-run-left-003.png",
+    "girl-08-sky-run-up-000": "girl/08-sky/run/girl-08-sky-run-up-000.png",
+    "girl-08-sky-run-up-001": "girl/08-sky/run/girl-08-sky-run-up-001.png",
+    "girl-08-sky-run-up-002": "girl/08-sky/run/girl-08-sky-run-up-002.png",
+    "girl-08-sky-run-up-003": "girl/08-sky/run/girl-08-sky-run-up-003.png",
+    "girl-08-sky-run-right-000": "girl/08-sky/run/girl-08-sky-run-right-000.png",
+    "girl-08-sky-run-right-001": "girl/08-sky/run/girl-08-sky-run-right-001.png",
+    "girl-08-sky-run-right-002": "girl/08-sky/run/girl-08-sky-run-right-002.png",
+    "girl-08-sky-run-right-003": "girl/08-sky/run/girl-08-sky-run-right-003.png",
+    "girl-08-sky-sit_chair-down-000": "girl/08-sky/sit_chair/girl-08-sky-sit_chair-down-000.png",
+    "girl-08-sky-sit_chair-left-000": "girl/08-sky/sit_chair/girl-08-sky-sit_chair-left-000.png",
+    "girl-08-sky-sit_chair-up-000": "girl/08-sky/sit_chair/girl-08-sky-sit_chair-up-000.png",
+    "girl-08-sky-sit_chair-right-000": "girl/08-sky/sit_chair/girl-08-sky-sit_chair-right-000.png",
+    "girl-09-rose-idle-down-000": "girl/09-rose/idle/girl-09-rose-idle-down-000.png",
+    "girl-09-rose-idle-left-000": "girl/09-rose/idle/girl-09-rose-idle-left-000.png",
+    "girl-09-rose-idle-up-000": "girl/09-rose/idle/girl-09-rose-idle-up-000.png",
+    "girl-09-rose-idle-right-000": "girl/09-rose/idle/girl-09-rose-idle-right-000.png",
+    "girl-09-rose-walk-down-000": "girl/09-rose/walk/girl-09-rose-walk-down-000.png",
+    "girl-09-rose-walk-down-001": "girl/09-rose/walk/girl-09-rose-walk-down-001.png",
+    "girl-09-rose-walk-down-002": "girl/09-rose/walk/girl-09-rose-walk-down-002.png",
+    "girl-09-rose-walk-down-003": "girl/09-rose/walk/girl-09-rose-walk-down-003.png",
+    "girl-09-rose-walk-left-000": "girl/09-rose/walk/girl-09-rose-walk-left-000.png",
+    "girl-09-rose-walk-left-001": "girl/09-rose/walk/girl-09-rose-walk-left-001.png",
+    "girl-09-rose-walk-left-002": "girl/09-rose/walk/girl-09-rose-walk-left-002.png",
+    "girl-09-rose-walk-left-003": "girl/09-rose/walk/girl-09-rose-walk-left-003.png",
+    "girl-09-rose-walk-up-000": "girl/09-rose/walk/girl-09-rose-walk-up-000.png",
+    "girl-09-rose-walk-up-001": "girl/09-rose/walk/girl-09-rose-walk-up-001.png",
+    "girl-09-rose-walk-up-002": "girl/09-rose/walk/girl-09-rose-walk-up-002.png",
+    "girl-09-rose-walk-up-003": "girl/09-rose/walk/girl-09-rose-walk-up-003.png",
+    "girl-09-rose-walk-right-000": "girl/09-rose/walk/girl-09-rose-walk-right-000.png",
+    "girl-09-rose-walk-right-001": "girl/09-rose/walk/girl-09-rose-walk-right-001.png",
+    "girl-09-rose-walk-right-002": "girl/09-rose/walk/girl-09-rose-walk-right-002.png",
+    "girl-09-rose-walk-right-003": "girl/09-rose/walk/girl-09-rose-walk-right-003.png",
+    "girl-09-rose-run-down-000": "girl/09-rose/run/girl-09-rose-run-down-000.png",
+    "girl-09-rose-run-down-001": "girl/09-rose/run/girl-09-rose-run-down-001.png",
+    "girl-09-rose-run-down-002": "girl/09-rose/run/girl-09-rose-run-down-002.png",
+    "girl-09-rose-run-down-003": "girl/09-rose/run/girl-09-rose-run-down-003.png",
+    "girl-09-rose-run-left-000": "girl/09-rose/run/girl-09-rose-run-left-000.png",
+    "girl-09-rose-run-left-001": "girl/09-rose/run/girl-09-rose-run-left-001.png",
+    "girl-09-rose-run-left-002": "girl/09-rose/run/girl-09-rose-run-left-002.png",
+    "girl-09-rose-run-left-003": "girl/09-rose/run/girl-09-rose-run-left-003.png",
+    "girl-09-rose-run-up-000": "girl/09-rose/run/girl-09-rose-run-up-000.png",
+    "girl-09-rose-run-up-001": "girl/09-rose/run/girl-09-rose-run-up-001.png",
+    "girl-09-rose-run-up-002": "girl/09-rose/run/girl-09-rose-run-up-002.png",
+    "girl-09-rose-run-up-003": "girl/09-rose/run/girl-09-rose-run-up-003.png",
+    "girl-09-rose-run-right-000": "girl/09-rose/run/girl-09-rose-run-right-000.png",
+    "girl-09-rose-run-right-001": "girl/09-rose/run/girl-09-rose-run-right-001.png",
+    "girl-09-rose-run-right-002": "girl/09-rose/run/girl-09-rose-run-right-002.png",
+    "girl-09-rose-run-right-003": "girl/09-rose/run/girl-09-rose-run-right-003.png",
+    "girl-09-rose-sit_chair-down-000": "girl/09-rose/sit_chair/girl-09-rose-sit_chair-down-000.png",
+    "girl-09-rose-sit_chair-left-000": "girl/09-rose/sit_chair/girl-09-rose-sit_chair-left-000.png",
+    "girl-09-rose-sit_chair-up-000": "girl/09-rose/sit_chair/girl-09-rose-sit_chair-up-000.png",
+    "girl-09-rose-sit_chair-right-000": "girl/09-rose/sit_chair/girl-09-rose-sit_chair-right-000.png",
+    "girl-10-graphite-idle-down-000": "girl/10-graphite/idle/girl-10-graphite-idle-down-000.png",
+    "girl-10-graphite-idle-left-000": "girl/10-graphite/idle/girl-10-graphite-idle-left-000.png",
+    "girl-10-graphite-idle-up-000": "girl/10-graphite/idle/girl-10-graphite-idle-up-000.png",
+    "girl-10-graphite-idle-right-000": "girl/10-graphite/idle/girl-10-graphite-idle-right-000.png",
+    "girl-10-graphite-walk-down-000": "girl/10-graphite/walk/girl-10-graphite-walk-down-000.png",
+    "girl-10-graphite-walk-down-001": "girl/10-graphite/walk/girl-10-graphite-walk-down-001.png",
+    "girl-10-graphite-walk-down-002": "girl/10-graphite/walk/girl-10-graphite-walk-down-002.png",
+    "girl-10-graphite-walk-down-003": "girl/10-graphite/walk/girl-10-graphite-walk-down-003.png",
+    "girl-10-graphite-walk-left-000": "girl/10-graphite/walk/girl-10-graphite-walk-left-000.png",
+    "girl-10-graphite-walk-left-001": "girl/10-graphite/walk/girl-10-graphite-walk-left-001.png",
+    "girl-10-graphite-walk-left-002": "girl/10-graphite/walk/girl-10-graphite-walk-left-002.png",
+    "girl-10-graphite-walk-left-003": "girl/10-graphite/walk/girl-10-graphite-walk-left-003.png",
+    "girl-10-graphite-walk-up-000": "girl/10-graphite/walk/girl-10-graphite-walk-up-000.png",
+    "girl-10-graphite-walk-up-001": "girl/10-graphite/walk/girl-10-graphite-walk-up-001.png",
+    "girl-10-graphite-walk-up-002": "girl/10-graphite/walk/girl-10-graphite-walk-up-002.png",
+    "girl-10-graphite-walk-up-003": "girl/10-graphite/walk/girl-10-graphite-walk-up-003.png",
+    "girl-10-graphite-walk-right-000": "girl/10-graphite/walk/girl-10-graphite-walk-right-000.png",
+    "girl-10-graphite-walk-right-001": "girl/10-graphite/walk/girl-10-graphite-walk-right-001.png",
+    "girl-10-graphite-walk-right-002": "girl/10-graphite/walk/girl-10-graphite-walk-right-002.png",
+    "girl-10-graphite-walk-right-003": "girl/10-graphite/walk/girl-10-graphite-walk-right-003.png",
+    "girl-10-graphite-run-down-000": "girl/10-graphite/run/girl-10-graphite-run-down-000.png",
+    "girl-10-graphite-run-down-001": "girl/10-graphite/run/girl-10-graphite-run-down-001.png",
+    "girl-10-graphite-run-down-002": "girl/10-graphite/run/girl-10-graphite-run-down-002.png",
+    "girl-10-graphite-run-down-003": "girl/10-graphite/run/girl-10-graphite-run-down-003.png",
+    "girl-10-graphite-run-left-000": "girl/10-graphite/run/girl-10-graphite-run-left-000.png",
+    "girl-10-graphite-run-left-001": "girl/10-graphite/run/girl-10-graphite-run-left-001.png",
+    "girl-10-graphite-run-left-002": "girl/10-graphite/run/girl-10-graphite-run-left-002.png",
+    "girl-10-graphite-run-left-003": "girl/10-graphite/run/girl-10-graphite-run-left-003.png",
+    "girl-10-graphite-run-up-000": "girl/10-graphite/run/girl-10-graphite-run-up-000.png",
+    "girl-10-graphite-run-up-001": "girl/10-graphite/run/girl-10-graphite-run-up-001.png",
+    "girl-10-graphite-run-up-002": "girl/10-graphite/run/girl-10-graphite-run-up-002.png",
+    "girl-10-graphite-run-up-003": "girl/10-graphite/run/girl-10-graphite-run-up-003.png",
+    "girl-10-graphite-run-right-000": "girl/10-graphite/run/girl-10-graphite-run-right-000.png",
+    "girl-10-graphite-run-right-001": "girl/10-graphite/run/girl-10-graphite-run-right-001.png",
+    "girl-10-graphite-run-right-002": "girl/10-graphite/run/girl-10-graphite-run-right-002.png",
+    "girl-10-graphite-run-right-003": "girl/10-graphite/run/girl-10-graphite-run-right-003.png",
+    "girl-10-graphite-sit_chair-down-000": "girl/10-graphite/sit_chair/girl-10-graphite-sit_chair-down-000.png",
+    "girl-10-graphite-sit_chair-left-000": "girl/10-graphite/sit_chair/girl-10-graphite-sit_chair-left-000.png",
+    "girl-10-graphite-sit_chair-up-000": "girl/10-graphite/sit_chair/girl-10-graphite-sit_chair-up-000.png",
+    "girl-10-graphite-sit_chair-right-000": "girl/10-graphite/sit_chair/girl-10-graphite-sit_chair-right-000.png"
+  },
+  "animations": {
+    "bird-original-idle_down": {
+      "frames": [
+        "bird-original-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "bird-original-idle_left": {
+      "frames": [
+        "bird-original-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "bird-original-idle_up": {
+      "frames": [
+        "bird-original-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "bird-original-idle_right": {
+      "frames": [
+        "bird-original-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "bird-original-walk_down": {
+      "frames": [
+        "bird-original-walk-down-000",
+        "bird-original-walk-down-001",
+        "bird-original-walk-down-002",
+        "bird-original-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "bird-original-walk_left": {
+      "frames": [
+        "bird-original-walk-left-000",
+        "bird-original-walk-left-001",
+        "bird-original-walk-left-002",
+        "bird-original-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "bird-original-walk_up": {
+      "frames": [
+        "bird-original-walk-up-000",
+        "bird-original-walk-up-001",
+        "bird-original-walk-up-002",
+        "bird-original-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "bird-original-walk_right": {
+      "frames": [
+        "bird-original-walk-right-000",
+        "bird-original-walk-right-001",
+        "bird-original-walk-right-002",
+        "bird-original-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "bird-original-run_down": {
+      "frames": [
+        "bird-original-run-down-000",
+        "bird-original-run-down-001",
+        "bird-original-run-down-002",
+        "bird-original-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "bird-original-run_left": {
+      "frames": [
+        "bird-original-run-left-000",
+        "bird-original-run-left-001",
+        "bird-original-run-left-002",
+        "bird-original-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "bird-original-run_up": {
+      "frames": [
+        "bird-original-run-up-000",
+        "bird-original-run-up-001",
+        "bird-original-run-up-002",
+        "bird-original-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "bird-original-run_right": {
+      "frames": [
+        "bird-original-run-right-000",
+        "bird-original-run-right-001",
+        "bird-original-run-right-002",
+        "bird-original-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "bird-original-sit_chair_down": {
+      "frames": [
+        "bird-original-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "bird-original-sit_chair_left": {
+      "frames": [
+        "bird-original-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "bird-original-sit_chair_up": {
+      "frames": [
+        "bird-original-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "bird-original-sit_chair_right": {
+      "frames": [
+        "bird-original-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-01-teal-idle_down": {
+      "frames": [
+        "boy-01-teal-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-01-teal-idle_left": {
+      "frames": [
+        "boy-01-teal-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-01-teal-idle_up": {
+      "frames": [
+        "boy-01-teal-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-01-teal-idle_right": {
+      "frames": [
+        "boy-01-teal-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-01-teal-walk_down": {
+      "frames": [
+        "boy-01-teal-walk-down-000",
+        "boy-01-teal-walk-down-001",
+        "boy-01-teal-walk-down-002",
+        "boy-01-teal-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-01-teal-walk_left": {
+      "frames": [
+        "boy-01-teal-walk-left-000",
+        "boy-01-teal-walk-left-001",
+        "boy-01-teal-walk-left-002",
+        "boy-01-teal-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-01-teal-walk_up": {
+      "frames": [
+        "boy-01-teal-walk-up-000",
+        "boy-01-teal-walk-up-001",
+        "boy-01-teal-walk-up-002",
+        "boy-01-teal-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-01-teal-walk_right": {
+      "frames": [
+        "boy-01-teal-walk-right-000",
+        "boy-01-teal-walk-right-001",
+        "boy-01-teal-walk-right-002",
+        "boy-01-teal-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-01-teal-run_down": {
+      "frames": [
+        "boy-01-teal-run-down-000",
+        "boy-01-teal-run-down-001",
+        "boy-01-teal-run-down-002",
+        "boy-01-teal-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-01-teal-run_left": {
+      "frames": [
+        "boy-01-teal-run-left-000",
+        "boy-01-teal-run-left-001",
+        "boy-01-teal-run-left-002",
+        "boy-01-teal-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-01-teal-run_up": {
+      "frames": [
+        "boy-01-teal-run-up-000",
+        "boy-01-teal-run-up-001",
+        "boy-01-teal-run-up-002",
+        "boy-01-teal-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-01-teal-run_right": {
+      "frames": [
+        "boy-01-teal-run-right-000",
+        "boy-01-teal-run-right-001",
+        "boy-01-teal-run-right-002",
+        "boy-01-teal-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-01-teal-sit_chair_down": {
+      "frames": [
+        "boy-01-teal-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-01-teal-sit_chair_left": {
+      "frames": [
+        "boy-01-teal-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-01-teal-sit_chair_up": {
+      "frames": [
+        "boy-01-teal-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-01-teal-sit_chair_right": {
+      "frames": [
+        "boy-01-teal-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-02-burgundy-idle_down": {
+      "frames": [
+        "boy-02-burgundy-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-02-burgundy-idle_left": {
+      "frames": [
+        "boy-02-burgundy-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-02-burgundy-idle_up": {
+      "frames": [
+        "boy-02-burgundy-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-02-burgundy-idle_right": {
+      "frames": [
+        "boy-02-burgundy-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-02-burgundy-walk_down": {
+      "frames": [
+        "boy-02-burgundy-walk-down-000",
+        "boy-02-burgundy-walk-down-001",
+        "boy-02-burgundy-walk-down-002",
+        "boy-02-burgundy-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-02-burgundy-walk_left": {
+      "frames": [
+        "boy-02-burgundy-walk-left-000",
+        "boy-02-burgundy-walk-left-001",
+        "boy-02-burgundy-walk-left-002",
+        "boy-02-burgundy-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-02-burgundy-walk_up": {
+      "frames": [
+        "boy-02-burgundy-walk-up-000",
+        "boy-02-burgundy-walk-up-001",
+        "boy-02-burgundy-walk-up-002",
+        "boy-02-burgundy-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-02-burgundy-walk_right": {
+      "frames": [
+        "boy-02-burgundy-walk-right-000",
+        "boy-02-burgundy-walk-right-001",
+        "boy-02-burgundy-walk-right-002",
+        "boy-02-burgundy-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-02-burgundy-run_down": {
+      "frames": [
+        "boy-02-burgundy-run-down-000",
+        "boy-02-burgundy-run-down-001",
+        "boy-02-burgundy-run-down-002",
+        "boy-02-burgundy-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-02-burgundy-run_left": {
+      "frames": [
+        "boy-02-burgundy-run-left-000",
+        "boy-02-burgundy-run-left-001",
+        "boy-02-burgundy-run-left-002",
+        "boy-02-burgundy-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-02-burgundy-run_up": {
+      "frames": [
+        "boy-02-burgundy-run-up-000",
+        "boy-02-burgundy-run-up-001",
+        "boy-02-burgundy-run-up-002",
+        "boy-02-burgundy-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-02-burgundy-run_right": {
+      "frames": [
+        "boy-02-burgundy-run-right-000",
+        "boy-02-burgundy-run-right-001",
+        "boy-02-burgundy-run-right-002",
+        "boy-02-burgundy-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-02-burgundy-sit_chair_down": {
+      "frames": [
+        "boy-02-burgundy-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-02-burgundy-sit_chair_left": {
+      "frames": [
+        "boy-02-burgundy-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-02-burgundy-sit_chair_up": {
+      "frames": [
+        "boy-02-burgundy-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-02-burgundy-sit_chair_right": {
+      "frames": [
+        "boy-02-burgundy-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-03-navy-idle_down": {
+      "frames": [
+        "boy-03-navy-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-03-navy-idle_left": {
+      "frames": [
+        "boy-03-navy-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-03-navy-idle_up": {
+      "frames": [
+        "boy-03-navy-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-03-navy-idle_right": {
+      "frames": [
+        "boy-03-navy-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-03-navy-walk_down": {
+      "frames": [
+        "boy-03-navy-walk-down-000",
+        "boy-03-navy-walk-down-001",
+        "boy-03-navy-walk-down-002",
+        "boy-03-navy-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-03-navy-walk_left": {
+      "frames": [
+        "boy-03-navy-walk-left-000",
+        "boy-03-navy-walk-left-001",
+        "boy-03-navy-walk-left-002",
+        "boy-03-navy-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-03-navy-walk_up": {
+      "frames": [
+        "boy-03-navy-walk-up-000",
+        "boy-03-navy-walk-up-001",
+        "boy-03-navy-walk-up-002",
+        "boy-03-navy-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-03-navy-walk_right": {
+      "frames": [
+        "boy-03-navy-walk-right-000",
+        "boy-03-navy-walk-right-001",
+        "boy-03-navy-walk-right-002",
+        "boy-03-navy-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-03-navy-run_down": {
+      "frames": [
+        "boy-03-navy-run-down-000",
+        "boy-03-navy-run-down-001",
+        "boy-03-navy-run-down-002",
+        "boy-03-navy-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-03-navy-run_left": {
+      "frames": [
+        "boy-03-navy-run-left-000",
+        "boy-03-navy-run-left-001",
+        "boy-03-navy-run-left-002",
+        "boy-03-navy-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-03-navy-run_up": {
+      "frames": [
+        "boy-03-navy-run-up-000",
+        "boy-03-navy-run-up-001",
+        "boy-03-navy-run-up-002",
+        "boy-03-navy-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-03-navy-run_right": {
+      "frames": [
+        "boy-03-navy-run-right-000",
+        "boy-03-navy-run-right-001",
+        "boy-03-navy-run-right-002",
+        "boy-03-navy-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-03-navy-sit_chair_down": {
+      "frames": [
+        "boy-03-navy-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-03-navy-sit_chair_left": {
+      "frames": [
+        "boy-03-navy-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-03-navy-sit_chair_up": {
+      "frames": [
+        "boy-03-navy-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-03-navy-sit_chair_right": {
+      "frames": [
+        "boy-03-navy-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-04-forest-idle_down": {
+      "frames": [
+        "boy-04-forest-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-04-forest-idle_left": {
+      "frames": [
+        "boy-04-forest-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-04-forest-idle_up": {
+      "frames": [
+        "boy-04-forest-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-04-forest-idle_right": {
+      "frames": [
+        "boy-04-forest-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-04-forest-walk_down": {
+      "frames": [
+        "boy-04-forest-walk-down-000",
+        "boy-04-forest-walk-down-001",
+        "boy-04-forest-walk-down-002",
+        "boy-04-forest-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-04-forest-walk_left": {
+      "frames": [
+        "boy-04-forest-walk-left-000",
+        "boy-04-forest-walk-left-001",
+        "boy-04-forest-walk-left-002",
+        "boy-04-forest-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-04-forest-walk_up": {
+      "frames": [
+        "boy-04-forest-walk-up-000",
+        "boy-04-forest-walk-up-001",
+        "boy-04-forest-walk-up-002",
+        "boy-04-forest-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-04-forest-walk_right": {
+      "frames": [
+        "boy-04-forest-walk-right-000",
+        "boy-04-forest-walk-right-001",
+        "boy-04-forest-walk-right-002",
+        "boy-04-forest-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-04-forest-run_down": {
+      "frames": [
+        "boy-04-forest-run-down-000",
+        "boy-04-forest-run-down-001",
+        "boy-04-forest-run-down-002",
+        "boy-04-forest-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-04-forest-run_left": {
+      "frames": [
+        "boy-04-forest-run-left-000",
+        "boy-04-forest-run-left-001",
+        "boy-04-forest-run-left-002",
+        "boy-04-forest-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-04-forest-run_up": {
+      "frames": [
+        "boy-04-forest-run-up-000",
+        "boy-04-forest-run-up-001",
+        "boy-04-forest-run-up-002",
+        "boy-04-forest-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-04-forest-run_right": {
+      "frames": [
+        "boy-04-forest-run-right-000",
+        "boy-04-forest-run-right-001",
+        "boy-04-forest-run-right-002",
+        "boy-04-forest-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-04-forest-sit_chair_down": {
+      "frames": [
+        "boy-04-forest-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-04-forest-sit_chair_left": {
+      "frames": [
+        "boy-04-forest-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-04-forest-sit_chair_up": {
+      "frames": [
+        "boy-04-forest-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-04-forest-sit_chair_right": {
+      "frames": [
+        "boy-04-forest-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-05-mustard-idle_down": {
+      "frames": [
+        "boy-05-mustard-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-05-mustard-idle_left": {
+      "frames": [
+        "boy-05-mustard-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-05-mustard-idle_up": {
+      "frames": [
+        "boy-05-mustard-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-05-mustard-idle_right": {
+      "frames": [
+        "boy-05-mustard-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-05-mustard-walk_down": {
+      "frames": [
+        "boy-05-mustard-walk-down-000",
+        "boy-05-mustard-walk-down-001",
+        "boy-05-mustard-walk-down-002",
+        "boy-05-mustard-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-05-mustard-walk_left": {
+      "frames": [
+        "boy-05-mustard-walk-left-000",
+        "boy-05-mustard-walk-left-001",
+        "boy-05-mustard-walk-left-002",
+        "boy-05-mustard-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-05-mustard-walk_up": {
+      "frames": [
+        "boy-05-mustard-walk-up-000",
+        "boy-05-mustard-walk-up-001",
+        "boy-05-mustard-walk-up-002",
+        "boy-05-mustard-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-05-mustard-walk_right": {
+      "frames": [
+        "boy-05-mustard-walk-right-000",
+        "boy-05-mustard-walk-right-001",
+        "boy-05-mustard-walk-right-002",
+        "boy-05-mustard-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-05-mustard-run_down": {
+      "frames": [
+        "boy-05-mustard-run-down-000",
+        "boy-05-mustard-run-down-001",
+        "boy-05-mustard-run-down-002",
+        "boy-05-mustard-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-05-mustard-run_left": {
+      "frames": [
+        "boy-05-mustard-run-left-000",
+        "boy-05-mustard-run-left-001",
+        "boy-05-mustard-run-left-002",
+        "boy-05-mustard-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-05-mustard-run_up": {
+      "frames": [
+        "boy-05-mustard-run-up-000",
+        "boy-05-mustard-run-up-001",
+        "boy-05-mustard-run-up-002",
+        "boy-05-mustard-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-05-mustard-run_right": {
+      "frames": [
+        "boy-05-mustard-run-right-000",
+        "boy-05-mustard-run-right-001",
+        "boy-05-mustard-run-right-002",
+        "boy-05-mustard-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-05-mustard-sit_chair_down": {
+      "frames": [
+        "boy-05-mustard-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-05-mustard-sit_chair_left": {
+      "frames": [
+        "boy-05-mustard-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-05-mustard-sit_chair_up": {
+      "frames": [
+        "boy-05-mustard-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-05-mustard-sit_chair_right": {
+      "frames": [
+        "boy-05-mustard-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-06-violet-idle_down": {
+      "frames": [
+        "boy-06-violet-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-06-violet-idle_left": {
+      "frames": [
+        "boy-06-violet-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-06-violet-idle_up": {
+      "frames": [
+        "boy-06-violet-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-06-violet-idle_right": {
+      "frames": [
+        "boy-06-violet-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-06-violet-walk_down": {
+      "frames": [
+        "boy-06-violet-walk-down-000",
+        "boy-06-violet-walk-down-001",
+        "boy-06-violet-walk-down-002",
+        "boy-06-violet-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-06-violet-walk_left": {
+      "frames": [
+        "boy-06-violet-walk-left-000",
+        "boy-06-violet-walk-left-001",
+        "boy-06-violet-walk-left-002",
+        "boy-06-violet-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-06-violet-walk_up": {
+      "frames": [
+        "boy-06-violet-walk-up-000",
+        "boy-06-violet-walk-up-001",
+        "boy-06-violet-walk-up-002",
+        "boy-06-violet-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-06-violet-walk_right": {
+      "frames": [
+        "boy-06-violet-walk-right-000",
+        "boy-06-violet-walk-right-001",
+        "boy-06-violet-walk-right-002",
+        "boy-06-violet-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-06-violet-run_down": {
+      "frames": [
+        "boy-06-violet-run-down-000",
+        "boy-06-violet-run-down-001",
+        "boy-06-violet-run-down-002",
+        "boy-06-violet-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-06-violet-run_left": {
+      "frames": [
+        "boy-06-violet-run-left-000",
+        "boy-06-violet-run-left-001",
+        "boy-06-violet-run-left-002",
+        "boy-06-violet-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-06-violet-run_up": {
+      "frames": [
+        "boy-06-violet-run-up-000",
+        "boy-06-violet-run-up-001",
+        "boy-06-violet-run-up-002",
+        "boy-06-violet-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-06-violet-run_right": {
+      "frames": [
+        "boy-06-violet-run-right-000",
+        "boy-06-violet-run-right-001",
+        "boy-06-violet-run-right-002",
+        "boy-06-violet-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-06-violet-sit_chair_down": {
+      "frames": [
+        "boy-06-violet-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-06-violet-sit_chair_left": {
+      "frames": [
+        "boy-06-violet-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-06-violet-sit_chair_up": {
+      "frames": [
+        "boy-06-violet-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-06-violet-sit_chair_right": {
+      "frames": [
+        "boy-06-violet-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-07-coral-idle_down": {
+      "frames": [
+        "boy-07-coral-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-07-coral-idle_left": {
+      "frames": [
+        "boy-07-coral-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-07-coral-idle_up": {
+      "frames": [
+        "boy-07-coral-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-07-coral-idle_right": {
+      "frames": [
+        "boy-07-coral-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-07-coral-walk_down": {
+      "frames": [
+        "boy-07-coral-walk-down-000",
+        "boy-07-coral-walk-down-001",
+        "boy-07-coral-walk-down-002",
+        "boy-07-coral-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-07-coral-walk_left": {
+      "frames": [
+        "boy-07-coral-walk-left-000",
+        "boy-07-coral-walk-left-001",
+        "boy-07-coral-walk-left-002",
+        "boy-07-coral-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-07-coral-walk_up": {
+      "frames": [
+        "boy-07-coral-walk-up-000",
+        "boy-07-coral-walk-up-001",
+        "boy-07-coral-walk-up-002",
+        "boy-07-coral-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-07-coral-walk_right": {
+      "frames": [
+        "boy-07-coral-walk-right-000",
+        "boy-07-coral-walk-right-001",
+        "boy-07-coral-walk-right-002",
+        "boy-07-coral-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-07-coral-run_down": {
+      "frames": [
+        "boy-07-coral-run-down-000",
+        "boy-07-coral-run-down-001",
+        "boy-07-coral-run-down-002",
+        "boy-07-coral-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-07-coral-run_left": {
+      "frames": [
+        "boy-07-coral-run-left-000",
+        "boy-07-coral-run-left-001",
+        "boy-07-coral-run-left-002",
+        "boy-07-coral-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-07-coral-run_up": {
+      "frames": [
+        "boy-07-coral-run-up-000",
+        "boy-07-coral-run-up-001",
+        "boy-07-coral-run-up-002",
+        "boy-07-coral-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-07-coral-run_right": {
+      "frames": [
+        "boy-07-coral-run-right-000",
+        "boy-07-coral-run-right-001",
+        "boy-07-coral-run-right-002",
+        "boy-07-coral-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-07-coral-sit_chair_down": {
+      "frames": [
+        "boy-07-coral-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-07-coral-sit_chair_left": {
+      "frames": [
+        "boy-07-coral-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-07-coral-sit_chair_up": {
+      "frames": [
+        "boy-07-coral-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-07-coral-sit_chair_right": {
+      "frames": [
+        "boy-07-coral-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-08-sky-idle_down": {
+      "frames": [
+        "boy-08-sky-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-08-sky-idle_left": {
+      "frames": [
+        "boy-08-sky-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-08-sky-idle_up": {
+      "frames": [
+        "boy-08-sky-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-08-sky-idle_right": {
+      "frames": [
+        "boy-08-sky-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-08-sky-walk_down": {
+      "frames": [
+        "boy-08-sky-walk-down-000",
+        "boy-08-sky-walk-down-001",
+        "boy-08-sky-walk-down-002",
+        "boy-08-sky-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-08-sky-walk_left": {
+      "frames": [
+        "boy-08-sky-walk-left-000",
+        "boy-08-sky-walk-left-001",
+        "boy-08-sky-walk-left-002",
+        "boy-08-sky-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-08-sky-walk_up": {
+      "frames": [
+        "boy-08-sky-walk-up-000",
+        "boy-08-sky-walk-up-001",
+        "boy-08-sky-walk-up-002",
+        "boy-08-sky-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-08-sky-walk_right": {
+      "frames": [
+        "boy-08-sky-walk-right-000",
+        "boy-08-sky-walk-right-001",
+        "boy-08-sky-walk-right-002",
+        "boy-08-sky-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-08-sky-run_down": {
+      "frames": [
+        "boy-08-sky-run-down-000",
+        "boy-08-sky-run-down-001",
+        "boy-08-sky-run-down-002",
+        "boy-08-sky-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-08-sky-run_left": {
+      "frames": [
+        "boy-08-sky-run-left-000",
+        "boy-08-sky-run-left-001",
+        "boy-08-sky-run-left-002",
+        "boy-08-sky-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-08-sky-run_up": {
+      "frames": [
+        "boy-08-sky-run-up-000",
+        "boy-08-sky-run-up-001",
+        "boy-08-sky-run-up-002",
+        "boy-08-sky-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-08-sky-run_right": {
+      "frames": [
+        "boy-08-sky-run-right-000",
+        "boy-08-sky-run-right-001",
+        "boy-08-sky-run-right-002",
+        "boy-08-sky-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-08-sky-sit_chair_down": {
+      "frames": [
+        "boy-08-sky-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-08-sky-sit_chair_left": {
+      "frames": [
+        "boy-08-sky-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-08-sky-sit_chair_up": {
+      "frames": [
+        "boy-08-sky-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-08-sky-sit_chair_right": {
+      "frames": [
+        "boy-08-sky-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-09-rose-idle_down": {
+      "frames": [
+        "boy-09-rose-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-09-rose-idle_left": {
+      "frames": [
+        "boy-09-rose-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-09-rose-idle_up": {
+      "frames": [
+        "boy-09-rose-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-09-rose-idle_right": {
+      "frames": [
+        "boy-09-rose-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-09-rose-walk_down": {
+      "frames": [
+        "boy-09-rose-walk-down-000",
+        "boy-09-rose-walk-down-001",
+        "boy-09-rose-walk-down-002",
+        "boy-09-rose-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-09-rose-walk_left": {
+      "frames": [
+        "boy-09-rose-walk-left-000",
+        "boy-09-rose-walk-left-001",
+        "boy-09-rose-walk-left-002",
+        "boy-09-rose-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-09-rose-walk_up": {
+      "frames": [
+        "boy-09-rose-walk-up-000",
+        "boy-09-rose-walk-up-001",
+        "boy-09-rose-walk-up-002",
+        "boy-09-rose-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-09-rose-walk_right": {
+      "frames": [
+        "boy-09-rose-walk-right-000",
+        "boy-09-rose-walk-right-001",
+        "boy-09-rose-walk-right-002",
+        "boy-09-rose-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-09-rose-run_down": {
+      "frames": [
+        "boy-09-rose-run-down-000",
+        "boy-09-rose-run-down-001",
+        "boy-09-rose-run-down-002",
+        "boy-09-rose-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-09-rose-run_left": {
+      "frames": [
+        "boy-09-rose-run-left-000",
+        "boy-09-rose-run-left-001",
+        "boy-09-rose-run-left-002",
+        "boy-09-rose-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-09-rose-run_up": {
+      "frames": [
+        "boy-09-rose-run-up-000",
+        "boy-09-rose-run-up-001",
+        "boy-09-rose-run-up-002",
+        "boy-09-rose-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-09-rose-run_right": {
+      "frames": [
+        "boy-09-rose-run-right-000",
+        "boy-09-rose-run-right-001",
+        "boy-09-rose-run-right-002",
+        "boy-09-rose-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-09-rose-sit_chair_down": {
+      "frames": [
+        "boy-09-rose-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-09-rose-sit_chair_left": {
+      "frames": [
+        "boy-09-rose-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-09-rose-sit_chair_up": {
+      "frames": [
+        "boy-09-rose-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-09-rose-sit_chair_right": {
+      "frames": [
+        "boy-09-rose-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-10-graphite-idle_down": {
+      "frames": [
+        "boy-10-graphite-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-10-graphite-idle_left": {
+      "frames": [
+        "boy-10-graphite-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-10-graphite-idle_up": {
+      "frames": [
+        "boy-10-graphite-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-10-graphite-idle_right": {
+      "frames": [
+        "boy-10-graphite-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-10-graphite-walk_down": {
+      "frames": [
+        "boy-10-graphite-walk-down-000",
+        "boy-10-graphite-walk-down-001",
+        "boy-10-graphite-walk-down-002",
+        "boy-10-graphite-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-10-graphite-walk_left": {
+      "frames": [
+        "boy-10-graphite-walk-left-000",
+        "boy-10-graphite-walk-left-001",
+        "boy-10-graphite-walk-left-002",
+        "boy-10-graphite-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-10-graphite-walk_up": {
+      "frames": [
+        "boy-10-graphite-walk-up-000",
+        "boy-10-graphite-walk-up-001",
+        "boy-10-graphite-walk-up-002",
+        "boy-10-graphite-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-10-graphite-walk_right": {
+      "frames": [
+        "boy-10-graphite-walk-right-000",
+        "boy-10-graphite-walk-right-001",
+        "boy-10-graphite-walk-right-002",
+        "boy-10-graphite-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "boy-10-graphite-run_down": {
+      "frames": [
+        "boy-10-graphite-run-down-000",
+        "boy-10-graphite-run-down-001",
+        "boy-10-graphite-run-down-002",
+        "boy-10-graphite-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-10-graphite-run_left": {
+      "frames": [
+        "boy-10-graphite-run-left-000",
+        "boy-10-graphite-run-left-001",
+        "boy-10-graphite-run-left-002",
+        "boy-10-graphite-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-10-graphite-run_up": {
+      "frames": [
+        "boy-10-graphite-run-up-000",
+        "boy-10-graphite-run-up-001",
+        "boy-10-graphite-run-up-002",
+        "boy-10-graphite-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-10-graphite-run_right": {
+      "frames": [
+        "boy-10-graphite-run-right-000",
+        "boy-10-graphite-run-right-001",
+        "boy-10-graphite-run-right-002",
+        "boy-10-graphite-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "boy-10-graphite-sit_chair_down": {
+      "frames": [
+        "boy-10-graphite-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-10-graphite-sit_chair_left": {
+      "frames": [
+        "boy-10-graphite-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-10-graphite-sit_chair_up": {
+      "frames": [
+        "boy-10-graphite-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "boy-10-graphite-sit_chair_right": {
+      "frames": [
+        "boy-10-graphite-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-01-teal-idle_down": {
+      "frames": [
+        "girl-01-teal-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-01-teal-idle_left": {
+      "frames": [
+        "girl-01-teal-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-01-teal-idle_up": {
+      "frames": [
+        "girl-01-teal-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-01-teal-idle_right": {
+      "frames": [
+        "girl-01-teal-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-01-teal-walk_down": {
+      "frames": [
+        "girl-01-teal-walk-down-000",
+        "girl-01-teal-walk-down-001",
+        "girl-01-teal-walk-down-002",
+        "girl-01-teal-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-01-teal-walk_left": {
+      "frames": [
+        "girl-01-teal-walk-left-000",
+        "girl-01-teal-walk-left-001",
+        "girl-01-teal-walk-left-002",
+        "girl-01-teal-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-01-teal-walk_up": {
+      "frames": [
+        "girl-01-teal-walk-up-000",
+        "girl-01-teal-walk-up-001",
+        "girl-01-teal-walk-up-002",
+        "girl-01-teal-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-01-teal-walk_right": {
+      "frames": [
+        "girl-01-teal-walk-right-000",
+        "girl-01-teal-walk-right-001",
+        "girl-01-teal-walk-right-002",
+        "girl-01-teal-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-01-teal-run_down": {
+      "frames": [
+        "girl-01-teal-run-down-000",
+        "girl-01-teal-run-down-001",
+        "girl-01-teal-run-down-002",
+        "girl-01-teal-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-01-teal-run_left": {
+      "frames": [
+        "girl-01-teal-run-left-000",
+        "girl-01-teal-run-left-001",
+        "girl-01-teal-run-left-002",
+        "girl-01-teal-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-01-teal-run_up": {
+      "frames": [
+        "girl-01-teal-run-up-000",
+        "girl-01-teal-run-up-001",
+        "girl-01-teal-run-up-002",
+        "girl-01-teal-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-01-teal-run_right": {
+      "frames": [
+        "girl-01-teal-run-right-000",
+        "girl-01-teal-run-right-001",
+        "girl-01-teal-run-right-002",
+        "girl-01-teal-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-01-teal-sit_chair_down": {
+      "frames": [
+        "girl-01-teal-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-01-teal-sit_chair_left": {
+      "frames": [
+        "girl-01-teal-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-01-teal-sit_chair_up": {
+      "frames": [
+        "girl-01-teal-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-01-teal-sit_chair_right": {
+      "frames": [
+        "girl-01-teal-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-02-burgundy-idle_down": {
+      "frames": [
+        "girl-02-burgundy-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-02-burgundy-idle_left": {
+      "frames": [
+        "girl-02-burgundy-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-02-burgundy-idle_up": {
+      "frames": [
+        "girl-02-burgundy-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-02-burgundy-idle_right": {
+      "frames": [
+        "girl-02-burgundy-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-02-burgundy-walk_down": {
+      "frames": [
+        "girl-02-burgundy-walk-down-000",
+        "girl-02-burgundy-walk-down-001",
+        "girl-02-burgundy-walk-down-002",
+        "girl-02-burgundy-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-02-burgundy-walk_left": {
+      "frames": [
+        "girl-02-burgundy-walk-left-000",
+        "girl-02-burgundy-walk-left-001",
+        "girl-02-burgundy-walk-left-002",
+        "girl-02-burgundy-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-02-burgundy-walk_up": {
+      "frames": [
+        "girl-02-burgundy-walk-up-000",
+        "girl-02-burgundy-walk-up-001",
+        "girl-02-burgundy-walk-up-002",
+        "girl-02-burgundy-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-02-burgundy-walk_right": {
+      "frames": [
+        "girl-02-burgundy-walk-right-000",
+        "girl-02-burgundy-walk-right-001",
+        "girl-02-burgundy-walk-right-002",
+        "girl-02-burgundy-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-02-burgundy-run_down": {
+      "frames": [
+        "girl-02-burgundy-run-down-000",
+        "girl-02-burgundy-run-down-001",
+        "girl-02-burgundy-run-down-002",
+        "girl-02-burgundy-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-02-burgundy-run_left": {
+      "frames": [
+        "girl-02-burgundy-run-left-000",
+        "girl-02-burgundy-run-left-001",
+        "girl-02-burgundy-run-left-002",
+        "girl-02-burgundy-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-02-burgundy-run_up": {
+      "frames": [
+        "girl-02-burgundy-run-up-000",
+        "girl-02-burgundy-run-up-001",
+        "girl-02-burgundy-run-up-002",
+        "girl-02-burgundy-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-02-burgundy-run_right": {
+      "frames": [
+        "girl-02-burgundy-run-right-000",
+        "girl-02-burgundy-run-right-001",
+        "girl-02-burgundy-run-right-002",
+        "girl-02-burgundy-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-02-burgundy-sit_chair_down": {
+      "frames": [
+        "girl-02-burgundy-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-02-burgundy-sit_chair_left": {
+      "frames": [
+        "girl-02-burgundy-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-02-burgundy-sit_chair_up": {
+      "frames": [
+        "girl-02-burgundy-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-02-burgundy-sit_chair_right": {
+      "frames": [
+        "girl-02-burgundy-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-03-navy-idle_down": {
+      "frames": [
+        "girl-03-navy-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-03-navy-idle_left": {
+      "frames": [
+        "girl-03-navy-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-03-navy-idle_up": {
+      "frames": [
+        "girl-03-navy-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-03-navy-idle_right": {
+      "frames": [
+        "girl-03-navy-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-03-navy-walk_down": {
+      "frames": [
+        "girl-03-navy-walk-down-000",
+        "girl-03-navy-walk-down-001",
+        "girl-03-navy-walk-down-002",
+        "girl-03-navy-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-03-navy-walk_left": {
+      "frames": [
+        "girl-03-navy-walk-left-000",
+        "girl-03-navy-walk-left-001",
+        "girl-03-navy-walk-left-002",
+        "girl-03-navy-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-03-navy-walk_up": {
+      "frames": [
+        "girl-03-navy-walk-up-000",
+        "girl-03-navy-walk-up-001",
+        "girl-03-navy-walk-up-002",
+        "girl-03-navy-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-03-navy-walk_right": {
+      "frames": [
+        "girl-03-navy-walk-right-000",
+        "girl-03-navy-walk-right-001",
+        "girl-03-navy-walk-right-002",
+        "girl-03-navy-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-03-navy-run_down": {
+      "frames": [
+        "girl-03-navy-run-down-000",
+        "girl-03-navy-run-down-001",
+        "girl-03-navy-run-down-002",
+        "girl-03-navy-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-03-navy-run_left": {
+      "frames": [
+        "girl-03-navy-run-left-000",
+        "girl-03-navy-run-left-001",
+        "girl-03-navy-run-left-002",
+        "girl-03-navy-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-03-navy-run_up": {
+      "frames": [
+        "girl-03-navy-run-up-000",
+        "girl-03-navy-run-up-001",
+        "girl-03-navy-run-up-002",
+        "girl-03-navy-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-03-navy-run_right": {
+      "frames": [
+        "girl-03-navy-run-right-000",
+        "girl-03-navy-run-right-001",
+        "girl-03-navy-run-right-002",
+        "girl-03-navy-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-03-navy-sit_chair_down": {
+      "frames": [
+        "girl-03-navy-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-03-navy-sit_chair_left": {
+      "frames": [
+        "girl-03-navy-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-03-navy-sit_chair_up": {
+      "frames": [
+        "girl-03-navy-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-03-navy-sit_chair_right": {
+      "frames": [
+        "girl-03-navy-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-04-forest-idle_down": {
+      "frames": [
+        "girl-04-forest-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-04-forest-idle_left": {
+      "frames": [
+        "girl-04-forest-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-04-forest-idle_up": {
+      "frames": [
+        "girl-04-forest-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-04-forest-idle_right": {
+      "frames": [
+        "girl-04-forest-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-04-forest-walk_down": {
+      "frames": [
+        "girl-04-forest-walk-down-000",
+        "girl-04-forest-walk-down-001",
+        "girl-04-forest-walk-down-002",
+        "girl-04-forest-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-04-forest-walk_left": {
+      "frames": [
+        "girl-04-forest-walk-left-000",
+        "girl-04-forest-walk-left-001",
+        "girl-04-forest-walk-left-002",
+        "girl-04-forest-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-04-forest-walk_up": {
+      "frames": [
+        "girl-04-forest-walk-up-000",
+        "girl-04-forest-walk-up-001",
+        "girl-04-forest-walk-up-002",
+        "girl-04-forest-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-04-forest-walk_right": {
+      "frames": [
+        "girl-04-forest-walk-right-000",
+        "girl-04-forest-walk-right-001",
+        "girl-04-forest-walk-right-002",
+        "girl-04-forest-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-04-forest-run_down": {
+      "frames": [
+        "girl-04-forest-run-down-000",
+        "girl-04-forest-run-down-001",
+        "girl-04-forest-run-down-002",
+        "girl-04-forest-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-04-forest-run_left": {
+      "frames": [
+        "girl-04-forest-run-left-000",
+        "girl-04-forest-run-left-001",
+        "girl-04-forest-run-left-002",
+        "girl-04-forest-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-04-forest-run_up": {
+      "frames": [
+        "girl-04-forest-run-up-000",
+        "girl-04-forest-run-up-001",
+        "girl-04-forest-run-up-002",
+        "girl-04-forest-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-04-forest-run_right": {
+      "frames": [
+        "girl-04-forest-run-right-000",
+        "girl-04-forest-run-right-001",
+        "girl-04-forest-run-right-002",
+        "girl-04-forest-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-04-forest-sit_chair_down": {
+      "frames": [
+        "girl-04-forest-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-04-forest-sit_chair_left": {
+      "frames": [
+        "girl-04-forest-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-04-forest-sit_chair_up": {
+      "frames": [
+        "girl-04-forest-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-04-forest-sit_chair_right": {
+      "frames": [
+        "girl-04-forest-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-05-mustard-idle_down": {
+      "frames": [
+        "girl-05-mustard-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-05-mustard-idle_left": {
+      "frames": [
+        "girl-05-mustard-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-05-mustard-idle_up": {
+      "frames": [
+        "girl-05-mustard-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-05-mustard-idle_right": {
+      "frames": [
+        "girl-05-mustard-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-05-mustard-walk_down": {
+      "frames": [
+        "girl-05-mustard-walk-down-000",
+        "girl-05-mustard-walk-down-001",
+        "girl-05-mustard-walk-down-002",
+        "girl-05-mustard-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-05-mustard-walk_left": {
+      "frames": [
+        "girl-05-mustard-walk-left-000",
+        "girl-05-mustard-walk-left-001",
+        "girl-05-mustard-walk-left-002",
+        "girl-05-mustard-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-05-mustard-walk_up": {
+      "frames": [
+        "girl-05-mustard-walk-up-000",
+        "girl-05-mustard-walk-up-001",
+        "girl-05-mustard-walk-up-002",
+        "girl-05-mustard-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-05-mustard-walk_right": {
+      "frames": [
+        "girl-05-mustard-walk-right-000",
+        "girl-05-mustard-walk-right-001",
+        "girl-05-mustard-walk-right-002",
+        "girl-05-mustard-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-05-mustard-run_down": {
+      "frames": [
+        "girl-05-mustard-run-down-000",
+        "girl-05-mustard-run-down-001",
+        "girl-05-mustard-run-down-002",
+        "girl-05-mustard-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-05-mustard-run_left": {
+      "frames": [
+        "girl-05-mustard-run-left-000",
+        "girl-05-mustard-run-left-001",
+        "girl-05-mustard-run-left-002",
+        "girl-05-mustard-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-05-mustard-run_up": {
+      "frames": [
+        "girl-05-mustard-run-up-000",
+        "girl-05-mustard-run-up-001",
+        "girl-05-mustard-run-up-002",
+        "girl-05-mustard-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-05-mustard-run_right": {
+      "frames": [
+        "girl-05-mustard-run-right-000",
+        "girl-05-mustard-run-right-001",
+        "girl-05-mustard-run-right-002",
+        "girl-05-mustard-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-05-mustard-sit_chair_down": {
+      "frames": [
+        "girl-05-mustard-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-05-mustard-sit_chair_left": {
+      "frames": [
+        "girl-05-mustard-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-05-mustard-sit_chair_up": {
+      "frames": [
+        "girl-05-mustard-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-05-mustard-sit_chair_right": {
+      "frames": [
+        "girl-05-mustard-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-06-violet-idle_down": {
+      "frames": [
+        "girl-06-violet-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-06-violet-idle_left": {
+      "frames": [
+        "girl-06-violet-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-06-violet-idle_up": {
+      "frames": [
+        "girl-06-violet-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-06-violet-idle_right": {
+      "frames": [
+        "girl-06-violet-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-06-violet-walk_down": {
+      "frames": [
+        "girl-06-violet-walk-down-000",
+        "girl-06-violet-walk-down-001",
+        "girl-06-violet-walk-down-002",
+        "girl-06-violet-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-06-violet-walk_left": {
+      "frames": [
+        "girl-06-violet-walk-left-000",
+        "girl-06-violet-walk-left-001",
+        "girl-06-violet-walk-left-002",
+        "girl-06-violet-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-06-violet-walk_up": {
+      "frames": [
+        "girl-06-violet-walk-up-000",
+        "girl-06-violet-walk-up-001",
+        "girl-06-violet-walk-up-002",
+        "girl-06-violet-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-06-violet-walk_right": {
+      "frames": [
+        "girl-06-violet-walk-right-000",
+        "girl-06-violet-walk-right-001",
+        "girl-06-violet-walk-right-002",
+        "girl-06-violet-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-06-violet-run_down": {
+      "frames": [
+        "girl-06-violet-run-down-000",
+        "girl-06-violet-run-down-001",
+        "girl-06-violet-run-down-002",
+        "girl-06-violet-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-06-violet-run_left": {
+      "frames": [
+        "girl-06-violet-run-left-000",
+        "girl-06-violet-run-left-001",
+        "girl-06-violet-run-left-002",
+        "girl-06-violet-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-06-violet-run_up": {
+      "frames": [
+        "girl-06-violet-run-up-000",
+        "girl-06-violet-run-up-001",
+        "girl-06-violet-run-up-002",
+        "girl-06-violet-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-06-violet-run_right": {
+      "frames": [
+        "girl-06-violet-run-right-000",
+        "girl-06-violet-run-right-001",
+        "girl-06-violet-run-right-002",
+        "girl-06-violet-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-06-violet-sit_chair_down": {
+      "frames": [
+        "girl-06-violet-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-06-violet-sit_chair_left": {
+      "frames": [
+        "girl-06-violet-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-06-violet-sit_chair_up": {
+      "frames": [
+        "girl-06-violet-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-06-violet-sit_chair_right": {
+      "frames": [
+        "girl-06-violet-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-07-coral-idle_down": {
+      "frames": [
+        "girl-07-coral-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-07-coral-idle_left": {
+      "frames": [
+        "girl-07-coral-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-07-coral-idle_up": {
+      "frames": [
+        "girl-07-coral-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-07-coral-idle_right": {
+      "frames": [
+        "girl-07-coral-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-07-coral-walk_down": {
+      "frames": [
+        "girl-07-coral-walk-down-000",
+        "girl-07-coral-walk-down-001",
+        "girl-07-coral-walk-down-002",
+        "girl-07-coral-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-07-coral-walk_left": {
+      "frames": [
+        "girl-07-coral-walk-left-000",
+        "girl-07-coral-walk-left-001",
+        "girl-07-coral-walk-left-002",
+        "girl-07-coral-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-07-coral-walk_up": {
+      "frames": [
+        "girl-07-coral-walk-up-000",
+        "girl-07-coral-walk-up-001",
+        "girl-07-coral-walk-up-002",
+        "girl-07-coral-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-07-coral-walk_right": {
+      "frames": [
+        "girl-07-coral-walk-right-000",
+        "girl-07-coral-walk-right-001",
+        "girl-07-coral-walk-right-002",
+        "girl-07-coral-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-07-coral-run_down": {
+      "frames": [
+        "girl-07-coral-run-down-000",
+        "girl-07-coral-run-down-001",
+        "girl-07-coral-run-down-002",
+        "girl-07-coral-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-07-coral-run_left": {
+      "frames": [
+        "girl-07-coral-run-left-000",
+        "girl-07-coral-run-left-001",
+        "girl-07-coral-run-left-002",
+        "girl-07-coral-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-07-coral-run_up": {
+      "frames": [
+        "girl-07-coral-run-up-000",
+        "girl-07-coral-run-up-001",
+        "girl-07-coral-run-up-002",
+        "girl-07-coral-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-07-coral-run_right": {
+      "frames": [
+        "girl-07-coral-run-right-000",
+        "girl-07-coral-run-right-001",
+        "girl-07-coral-run-right-002",
+        "girl-07-coral-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-07-coral-sit_chair_down": {
+      "frames": [
+        "girl-07-coral-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-07-coral-sit_chair_left": {
+      "frames": [
+        "girl-07-coral-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-07-coral-sit_chair_up": {
+      "frames": [
+        "girl-07-coral-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-07-coral-sit_chair_right": {
+      "frames": [
+        "girl-07-coral-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-08-sky-idle_down": {
+      "frames": [
+        "girl-08-sky-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-08-sky-idle_left": {
+      "frames": [
+        "girl-08-sky-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-08-sky-idle_up": {
+      "frames": [
+        "girl-08-sky-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-08-sky-idle_right": {
+      "frames": [
+        "girl-08-sky-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-08-sky-walk_down": {
+      "frames": [
+        "girl-08-sky-walk-down-000",
+        "girl-08-sky-walk-down-001",
+        "girl-08-sky-walk-down-002",
+        "girl-08-sky-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-08-sky-walk_left": {
+      "frames": [
+        "girl-08-sky-walk-left-000",
+        "girl-08-sky-walk-left-001",
+        "girl-08-sky-walk-left-002",
+        "girl-08-sky-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-08-sky-walk_up": {
+      "frames": [
+        "girl-08-sky-walk-up-000",
+        "girl-08-sky-walk-up-001",
+        "girl-08-sky-walk-up-002",
+        "girl-08-sky-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-08-sky-walk_right": {
+      "frames": [
+        "girl-08-sky-walk-right-000",
+        "girl-08-sky-walk-right-001",
+        "girl-08-sky-walk-right-002",
+        "girl-08-sky-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-08-sky-run_down": {
+      "frames": [
+        "girl-08-sky-run-down-000",
+        "girl-08-sky-run-down-001",
+        "girl-08-sky-run-down-002",
+        "girl-08-sky-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-08-sky-run_left": {
+      "frames": [
+        "girl-08-sky-run-left-000",
+        "girl-08-sky-run-left-001",
+        "girl-08-sky-run-left-002",
+        "girl-08-sky-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-08-sky-run_up": {
+      "frames": [
+        "girl-08-sky-run-up-000",
+        "girl-08-sky-run-up-001",
+        "girl-08-sky-run-up-002",
+        "girl-08-sky-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-08-sky-run_right": {
+      "frames": [
+        "girl-08-sky-run-right-000",
+        "girl-08-sky-run-right-001",
+        "girl-08-sky-run-right-002",
+        "girl-08-sky-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-08-sky-sit_chair_down": {
+      "frames": [
+        "girl-08-sky-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-08-sky-sit_chair_left": {
+      "frames": [
+        "girl-08-sky-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-08-sky-sit_chair_up": {
+      "frames": [
+        "girl-08-sky-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-08-sky-sit_chair_right": {
+      "frames": [
+        "girl-08-sky-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-09-rose-idle_down": {
+      "frames": [
+        "girl-09-rose-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-09-rose-idle_left": {
+      "frames": [
+        "girl-09-rose-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-09-rose-idle_up": {
+      "frames": [
+        "girl-09-rose-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-09-rose-idle_right": {
+      "frames": [
+        "girl-09-rose-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-09-rose-walk_down": {
+      "frames": [
+        "girl-09-rose-walk-down-000",
+        "girl-09-rose-walk-down-001",
+        "girl-09-rose-walk-down-002",
+        "girl-09-rose-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-09-rose-walk_left": {
+      "frames": [
+        "girl-09-rose-walk-left-000",
+        "girl-09-rose-walk-left-001",
+        "girl-09-rose-walk-left-002",
+        "girl-09-rose-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-09-rose-walk_up": {
+      "frames": [
+        "girl-09-rose-walk-up-000",
+        "girl-09-rose-walk-up-001",
+        "girl-09-rose-walk-up-002",
+        "girl-09-rose-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-09-rose-walk_right": {
+      "frames": [
+        "girl-09-rose-walk-right-000",
+        "girl-09-rose-walk-right-001",
+        "girl-09-rose-walk-right-002",
+        "girl-09-rose-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-09-rose-run_down": {
+      "frames": [
+        "girl-09-rose-run-down-000",
+        "girl-09-rose-run-down-001",
+        "girl-09-rose-run-down-002",
+        "girl-09-rose-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-09-rose-run_left": {
+      "frames": [
+        "girl-09-rose-run-left-000",
+        "girl-09-rose-run-left-001",
+        "girl-09-rose-run-left-002",
+        "girl-09-rose-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-09-rose-run_up": {
+      "frames": [
+        "girl-09-rose-run-up-000",
+        "girl-09-rose-run-up-001",
+        "girl-09-rose-run-up-002",
+        "girl-09-rose-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-09-rose-run_right": {
+      "frames": [
+        "girl-09-rose-run-right-000",
+        "girl-09-rose-run-right-001",
+        "girl-09-rose-run-right-002",
+        "girl-09-rose-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-09-rose-sit_chair_down": {
+      "frames": [
+        "girl-09-rose-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-09-rose-sit_chair_left": {
+      "frames": [
+        "girl-09-rose-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-09-rose-sit_chair_up": {
+      "frames": [
+        "girl-09-rose-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-09-rose-sit_chair_right": {
+      "frames": [
+        "girl-09-rose-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-10-graphite-idle_down": {
+      "frames": [
+        "girl-10-graphite-idle-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-10-graphite-idle_left": {
+      "frames": [
+        "girl-10-graphite-idle-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-10-graphite-idle_up": {
+      "frames": [
+        "girl-10-graphite-idle-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-10-graphite-idle_right": {
+      "frames": [
+        "girl-10-graphite-idle-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-10-graphite-walk_down": {
+      "frames": [
+        "girl-10-graphite-walk-down-000",
+        "girl-10-graphite-walk-down-001",
+        "girl-10-graphite-walk-down-002",
+        "girl-10-graphite-walk-down-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-10-graphite-walk_left": {
+      "frames": [
+        "girl-10-graphite-walk-left-000",
+        "girl-10-graphite-walk-left-001",
+        "girl-10-graphite-walk-left-002",
+        "girl-10-graphite-walk-left-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-10-graphite-walk_up": {
+      "frames": [
+        "girl-10-graphite-walk-up-000",
+        "girl-10-graphite-walk-up-001",
+        "girl-10-graphite-walk-up-002",
+        "girl-10-graphite-walk-up-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-10-graphite-walk_right": {
+      "frames": [
+        "girl-10-graphite-walk-right-000",
+        "girl-10-graphite-walk-right-001",
+        "girl-10-graphite-walk-right-002",
+        "girl-10-graphite-walk-right-003"
+      ],
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "girl-10-graphite-run_down": {
+      "frames": [
+        "girl-10-graphite-run-down-000",
+        "girl-10-graphite-run-down-001",
+        "girl-10-graphite-run-down-002",
+        "girl-10-graphite-run-down-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-10-graphite-run_left": {
+      "frames": [
+        "girl-10-graphite-run-left-000",
+        "girl-10-graphite-run-left-001",
+        "girl-10-graphite-run-left-002",
+        "girl-10-graphite-run-left-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-10-graphite-run_up": {
+      "frames": [
+        "girl-10-graphite-run-up-000",
+        "girl-10-graphite-run-up-001",
+        "girl-10-graphite-run-up-002",
+        "girl-10-graphite-run-up-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-10-graphite-run_right": {
+      "frames": [
+        "girl-10-graphite-run-right-000",
+        "girl-10-graphite-run-right-001",
+        "girl-10-graphite-run-right-002",
+        "girl-10-graphite-run-right-003"
+      ],
+      "frameRate": 12,
+      "repeat": -1
+    },
+    "girl-10-graphite-sit_chair_down": {
+      "frames": [
+        "girl-10-graphite-sit_chair-down-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-10-graphite-sit_chair_left": {
+      "frames": [
+        "girl-10-graphite-sit_chair-left-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-10-graphite-sit_chair_up": {
+      "frames": [
+        "girl-10-graphite-sit_chair-up-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    },
+    "girl-10-graphite-sit_chair_right": {
+      "frames": [
+        "girl-10-graphite-sit_chair-right-000"
+      ],
+      "frameRate": 1,
+      "repeat": 0
+    }
+  }
+}
