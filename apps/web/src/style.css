@@ -1,6 +1,17 @@
 :root { font-family: system-ui, sans-serif; color: #173b35; background: #f5f8f4; }
 body { margin: 0; }
-main { max-width: 720px; margin: 48px auto; padding: 0 20px; }
-h1 { margin-bottom: 8px; }
-.canvas-host { max-width: 100%; overflow: hidden; border: 1px solid #a9c9bd; border-radius: 8px; }
-.note { color: #52665f; }
+.campus { position: fixed; inset: 0; overflow: hidden; background: #174275; }
+.canvas-host { position: absolute; inset: 0; overflow: hidden; }
+.canvas-host canvas { display: block; }
+.campus-hud {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #fff;
+  background: rgb(10 29 54 / 85%);
+  pointer-events: none;
+}
+.campus-hud h1 { margin: 0 0 4px; font-size: 20px; }
+.campus-hud p { margin: 0; font-size: 14px; }

@@ -9,19 +9,23 @@ let game: Phaser.Game | undefined;
 
 onMounted(async () => {
   if (canvasHost.value) {
-    const { default: PhaserRuntime } = await import('phaser');
+    const [{ default: PhaserRuntime }, { CampusScene }] = await Promise.all([
+      import('phaser'),
+      import('./game/CampusScene'),
+    ]);
+    if (!canvasHost.value) return;
     game = new PhaserRuntime.Game({
       type: PhaserRuntime.AUTO,
       parent: canvasHost.value,
       width: 640,
       height: 360,
-      backgroundColor: '#dcece3',
-      scene: {
-        create(this: Phaser.Scene) {
-          this.add.text(24, 24, '校园场景待制作', { color: '#173b35', fontSize: '26px' });
-          this.add.text(24, 70, '当前仅验证 Phaser 渲染入口', { color: '#365b52', fontSize: '16px' });
-        },
+      backgroundColor: '#174275',
+      physics: {
+        default: 'arcade',
+        arcade: { gravity: { x: 0, y: 0 } },
       },
+      scale: { mode: PhaserRuntime.Scale.RESIZE },
+      scene: CampusScene,
     });
   }
   try {
@@ -38,11 +42,11 @@ onUnmounted(() => game?.destroy(true));
 </script>
 
 <template>
-  <main>
-    <h1>数字西大</h1>
-    <p>项目技术栈初始化</p>
-    <p>API：{{ apiStatus }}</p>
-    <div ref="canvasHost" class="canvas-host" aria-label="校园场景占位画布" />
-    <p class="note">地图、登录、多人同步与校园数据尚未实现。</p>
+  <main class="campus">
+    <div ref="canvasHost" class="canvas-host" aria-label="校园角色移动画布" />
+    <header class="campus-hud">
+      <h1>数字西大</h1>
+      <p>WASD 或 ↑ ↓ ← → 移动</p>
+    </header>
   </main>
 </template>
