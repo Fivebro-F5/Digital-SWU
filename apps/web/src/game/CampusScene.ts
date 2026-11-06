@@ -5,6 +5,36 @@ import { canStep, crossingAt, directionFromAxes, step, type CampusZone, type Dir
 import { readGateMap } from './gateMap';
 
 export interface GameStatus { scene: string; position: Point; facing: Direction; sprint: boolean }
+export interface DebugSnapshot {
+  dimension: string;
+  zoneId: CampusZone;
+  mapName: string;
+  mapWidth: number;
+  mapHeight: number;
+  tileSize: number;
+  tileLayers: number;
+  mapSprites: number;
+  collisionAreas: number;
+  interactionAreas: number;
+  zoneCount: number;
+  logicalPosition: Point;
+  renderPosition: Point;
+  facing: Direction;
+  moving: boolean;
+  sprint: boolean;
+  speed: number;
+  velocity: Point;
+  cameraX: number;
+  cameraY: number;
+  cameraZoom: number;
+  viewportWidth: number;
+  viewportHeight: number;
+  fps: number;
+  renderer: string;
+  loadedTextures: number;
+  declaredImages: number;
+  sceneObjects: number;
+}
 export interface GameHooks {
   onNearby: (name: string | null, description?: string) => void;
   onMessage: (title: string, body: string) => void;
@@ -44,10 +74,35 @@ export class CampusScene extends Phaser.Scene {
   private position = { ...this.map.spawn };
   private facing: Direction = 'down';
   private moving = false;
+  private velocity: Point = { x: 0, y: 0 };
   private readonly held: Partial<Record<Direction, boolean>> = {};
   private keys!: Record<string, Phaser.Input.Keyboard.Key>;
 
   constructor(private readonly hooks: GameHooks) { super('campus'); }
+
+  getDebugSnapshot(): DebugSnapshot {
+    const map = this.map;
+    const camera = this.cameras.main;
+    const loop = this.game.loop;
+    return {
+      dimension: '室外 / 地表', zoneId: this.zone, mapName: map.name,
+      mapWidth: map.width, mapHeight: map.height, tileSize: map.tileSize,
+      tileLayers: map.layers.length, mapSprites: map.sprites.length,
+      collisionAreas: map.collisions.length, interactionAreas: map.interactions.length,
+      zoneCount: Object.keys(this.maps).length,
+      logicalPosition: { ...this.position },
+      renderPosition: { x: this.player?.x ?? this.position.x, y: this.player?.y ?? this.position.y },
+      facing: this.facing, moving: this.moving, sprint: this.keys?.SHIFT?.isDown ?? false,
+      speed: Math.hypot(this.velocity.x, this.velocity.y), velocity: { ...this.velocity },
+      cameraX: camera.scrollX, cameraY: camera.scrollY, cameraZoom: camera.zoom,
+      viewportWidth: camera.width, viewportHeight: camera.height,
+      fps: loop.actualFps,
+      renderer: this.game.renderer.type === Phaser.WEBGL ? 'WebGL' : 'Canvas',
+      loadedTextures: Object.keys(this.textures.list).filter((key) => !key.startsWith('__')).length,
+      declaredImages: Object.keys(birdFrameUrls).length + new Set(Object.values(this.maps).flatMap((entry) => [entry.terrain, ...entry.sprites.map((sprite) => sprite.source)])).size,
+      sceneObjects: this.children.length,
+    };
+  }
 
   // 按 TMX 的相对路径加载图集和独立贴图。
   preload(): void {
@@ -88,6 +143,7 @@ export class CampusScene extends Phaser.Scene {
     this.zone = '00';
     this.drawMap();
     this.position = { ...this.map.spawn };
+    this.velocity = { x: 0, y: 0 };
     this.createPlayer();
     this.cameras.main.startFollow(this.player, true);
     const keyboard = this.input.keyboard!;
@@ -116,6 +172,7 @@ export class CampusScene extends Phaser.Scene {
     // 出口先于普通边界碰撞检查，切换后角色与镜头一起落到对侧。
     const crossing = crossingAt(this.zone, this.position, direction);
     if (crossing) {
+      this.velocity = { x: 0, y: 0 };
       this.zone = crossing.zone;
       this.position = crossing.point;
       this.drawMap();
@@ -136,13 +193,16 @@ export class CampusScene extends Phaser.Scene {
 
     const sprint = this.keys.SHIFT.isDown;
     this.moving = true;
+    const duration = sprint ? 68 : 132;
+    this.velocity = { x: (next.x - this.position.x) * 1000 / duration, y: (next.y - this.position.y) * 1000 / duration };
     this.playPlayer(sprint ? 'run' : 'walk');
     this.tweens.add({
-      targets: this.player, x: next.x, y: next.y, duration: sprint ? 68 : 132,
+      targets: this.player, x: next.x, y: next.y, duration,
       onUpdate: () => this.player.setDepth(this.player.y),
       onComplete: () => {
         this.position = next;
         this.moving = false;
+        this.velocity = { x: 0, y: 0 };
         this.report(sprint);
       },
     });
