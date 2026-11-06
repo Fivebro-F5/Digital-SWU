@@ -101,6 +101,7 @@ export class CampusScene extends Phaser.Scene {
     this.displayWidth = displayWidth;
     this.setZoom(this.userZoom);
     camera.centerOn(center.x, center.y);
+    this.snapCamera();
   }
   setZoom(value: number): number {
     const camera = this.cameras.main;
@@ -116,7 +117,7 @@ export class CampusScene extends Phaser.Scene {
     if (!wheelDelta) return;
     this.setZoom(this.userZoom * (wheelDelta > 0 ? 0.9 : 1.1));
   }
-  beginPan(): void { this.cameras.main.stopFollow(); this.cameraMode = '自由视角'; }
+  beginPan(): void { this.cameraMode = '自由视角'; }
   panBy(cssX: number, cssY: number): void {
     const camera = this.cameras.main;
     const displayScale = this.game.canvas.getBoundingClientRect().width / camera.width || 1;
@@ -126,9 +127,30 @@ export class CampusScene extends Phaser.Scene {
   resetCamera(): void {
     const camera = this.cameras.main;
     this.setZoom(1);
-    camera.startFollow(this.player, true);
     camera.centerOn(this.player.x, this.player.y);
     this.cameraMode = '跟随角色';
+    this.snapCamera();
+  }
+
+  private snapCamera(): void {
+    const camera = this.cameras.main;
+    const zoom = camera.zoom;
+    // 摄像机矩阵的平移项为 origin * (1 - zoom) - scroll * zoom。
+    const offsetX = camera.width * camera.originX * (1 - zoom);
+    const offsetY = camera.height * camera.originY * (1 - zoom);
+    camera.scrollX = (offsetX - Math.round(offsetX - camera.scrollX * zoom)) / zoom;
+    camera.scrollY = (offsetY - Math.round(offsetY - camera.scrollY * zoom)) / zoom;
+  }
+
+  private updateCamera(): void {
+    const zoom = this.cameras.main.zoom;
+    const renderX = Math.round(this.player.x * zoom) / zoom;
+    const renderY = Math.round(this.player.y * zoom) / zoom;
+    if (renderX !== this.player.x || renderY !== this.player.y) {
+      this.player.setPosition(renderX, renderY).setDepth(renderY);
+    }
+    if (this.cameraMode === '跟随角色') this.cameras.main.centerOn(renderX, renderY);
+    this.snapCamera();
   }
 
   private gridSegments(): GridSegment[] {
@@ -245,8 +267,8 @@ export class CampusScene extends Phaser.Scene {
 
   private refreshRenderBounds(): void {
     const camera = this.cameras.main;
-    const horizontalPadding = camera.width / camera.zoom / 2;
-    const verticalPadding = camera.height / camera.zoom / 2;
+    const horizontalPadding = camera.width / camera.zoom / 2 + 1 / camera.zoom;
+    const verticalPadding = camera.height / camera.zoom / 2 + 1 / camera.zoom;
     camera.setBounds(-horizontalPadding, -verticalPadding,
       this.map.width + horizontalPadding * 2, this.map.height + verticalPadding * 2);
     camera.setBackgroundColor(this.map.backgroundColor);
@@ -261,7 +283,13 @@ export class CampusScene extends Phaser.Scene {
     this.createPlayer();
     this.displayWidth = this.game.canvas.getBoundingClientRect().width || this.cameras.main.width;
     this.setZoom(1);
-    this.cameras.main.startFollow(this.player, true);
+    // 非整数缩放时 Phaser 的逐对象取整会让地形和角色分别跳像素。
+    this.cameras.main.setRoundPixels(false);
+    this.cameras.main.centerOn(this.player.x, this.player.y);
+    this.snapCamera();
+    this.events.on(Phaser.Scenes.Events.POST_UPDATE, this.updateCamera, this);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () =>
+      this.events.off(Phaser.Scenes.Events.POST_UPDATE, this.updateCamera, this));
     const keyboard = this.input.keyboard!;
     this.keys = keyboard.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,SHIFT,E,SPACE') as typeof this.keys;
     keyboard.on('keydown-E', this.interact, this);
