@@ -68,6 +68,6 @@ for (const service of services) {
   });
 }
 
-console.log(`启动 ${debug ? '调试' : '开发'}模式：Web http://127.0.0.1:5173 · API http://127.0.0.1:3000`);
+console.log(`启动 ${debug ? '调试' : '开发'}模式：Web http://127.0.0.1:5174 · API http://127.0.0.1:3000`);
 if (debug) console.log('API 调试器：127.0.0.1:9229（仅本机）');
 console.log('按 Ctrl+C 停止两个服务。');

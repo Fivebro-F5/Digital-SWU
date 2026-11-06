@@ -16,7 +16,7 @@ npm run dev          # 同时启动 Web 与 API
 npm run dev:debug    # 同时启动，并开放本机 API 调试端口 9229
 ```
 
-打开 `http://127.0.0.1:5173`；按 Ctrl+C 停止两个服务。调试模式可用 VS Code 等调试器附加到 `127.0.0.1:9229`。详细说明见[启动与调试](docs/project/启动与调试.md)。只体验单人原型也可运行 `npm run dev:web`。
+打开 `http://127.0.0.1:5174`；按 Ctrl+C 停止两个服务。调试模式可用 VS Code 等调试器附加到 `127.0.0.1:9229`。详细说明见[启动与调试](docs/project/启动与调试.md)。只体验单人原型也可运行 `npm run dev:web`。
 
 需要本地 PostGIS 时，再执行：
 
