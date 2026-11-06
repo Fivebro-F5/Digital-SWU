@@ -1,0 +1,2452 @@
+{
+  "project": "数字西大 / 24子图地形地图",
+  "version": "3.0",
+  "tile_size_px": 16,
+  "player_sprite_px": [
+    48,
+    48
+  ],
+  "scene_tiles": [
+    100,
+    74
+  ],
+  "scene_pixels": [
+    1600,
+    1184
+  ],
+  "macro_layout": "2x3 big areas, each split into 2x2 sub-scenes",
+  "is_survey_grade": false,
+  "building_art_separate": true,
+  "sources": [
+    {
+      "name": "西南大学楼宇",
+      "url": "https://www.swu.edu.cn/whxd/hjwh/ly.htm",
+      "note": "确认至美楼、厚乐楼、行署楼、敬德楼等正式名称"
+    },
+    {
+      "name": "西南大学九大学生园区",
+      "url": "https://www.swu.edu.cn/whxd/hjwh/jdxsyq.htm",
+      "note": "确认李园、杏园宿舍范围"
+    },
+    {
+      "name": "西南大学杏园",
+      "url": "https://www.swu.edu.cn/info/1154/2432.htm",
+      "note": "确认杏园1-8舍"
+    },
+    {
+      "name": "西南大学校园建设规划",
+      "url": "https://fgb.swu.edu.cn/info/1014/1131.htm",
+      "note": "确认第一/第二运动场、图书阅览区和功能分区"
+    },
+    {
+      "name": "西南大学交通管制通知",
+      "url": "https://www.swu.edu.cn/info/1066/3257.htm",
+      "note": "确认一号门—美术学院—第一运动场同一路段关系"
+    },
+    {
+      "name": "西南大学冬季健身跑通知",
+      "url": "https://www.swu.edu.cn/info/1066/3344.htm",
+      "note": "确认第八教学楼、行署楼、25教等道路联系"
+    },
+    {
+      "name": "西南大学官网首页 Campus Walk",
+      "url": "https://swu.edu.cn/index.htm",
+      "note": "含弘门、行署楼、中心图书馆、中心体育馆等地标"
+    },
+    {
+      "name": "用户提供校园示意图截图",
+      "url": "local:/mnt/data/ghostwriter_images/context/0581e8e5-7d29-5849-8b4a-33f34f3b6f4b.png",
+      "note": "用于六大区布局与局部相对位置参考"
+    }
+  ],
+  "macro_areas": [
+    {
+      "name": "A 教学组团",
+      "scenes": [
+        "00",
+        "01",
+        "02",
+        "03"
+      ]
+    },
+    {
+      "name": "B 杏园与第二运动场",
+      "scenes": [
+        "04",
+        "05",
+        "06",
+        "07"
+      ]
+    },
+    {
+      "name": "C 北樟林与北区图书馆",
+      "scenes": [
+        "08",
+        "09",
+        "10",
+        "11"
+      ]
+    },
+    {
+      "name": "D 图书馆李园八教",
+      "scenes": [
+        "12",
+        "13",
+        "14",
+        "15"
+      ]
+    },
+    {
+      "name": "E 一号门行署楼",
+      "scenes": [
+        "16",
+        "17",
+        "18",
+        "19"
+      ]
+    },
+    {
+      "name": "F 美术学院第一运动场",
+      "scenes": [
+        "20",
+        "21",
+        "22",
+        "23"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "00",
+      "name": "25教西侧",
+      "slug": "a1_25j_west",
+      "subtitle": "25教 · 教学组团西口",
+      "macro_area": "A 教学区",
+      "grid_position": [
+        0,
+        0
+      ],
+      "tmx": "maps/00_a1_25j_west.tmx",
+      "json": "maps/00_a1_25j_west.json",
+      "preview": "previews/00_a1_25j_west_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_00_01",
+          "name": "第25教学楼",
+          "x": 8,
+          "y": 10,
+          "w": 24,
+          "h": 17,
+          "confidence": "verified_name",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_00_02",
+          "name": "教学配套楼预留",
+          "x": 63,
+          "y": 9,
+          "w": 28,
+          "h": 16,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_00_03",
+          "name": "继续教育学院沿线预留",
+          "x": 15,
+          "y": 49,
+          "w": 20,
+          "h": 16,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_00_01",
+          "name": "25教前道路广场",
+          "x": 34,
+          "y": 27,
+          "w": 34,
+          "h": 22,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "06",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "01",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "01",
+      "name": "伴月楼与26教",
+      "slug": "a2_banyue_26",
+      "subtitle": "伴月楼 · 26教",
+      "macro_area": "A 教学区",
+      "grid_position": [
+        1,
+        0
+      ],
+      "tmx": "maps/01_a2_banyue_26.tmx",
+      "json": "maps/01_a2_banyue_26.json",
+      "preview": "previews/01_a2_banyue_26_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_01_01",
+          "name": "伴月楼",
+          "x": 8,
+          "y": 8,
+          "w": 29,
+          "h": 17,
+          "confidence": "user_layout_ref",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_01_02",
+          "name": "第26教学楼",
+          "x": 63,
+          "y": 8,
+          "w": 28,
+          "h": 18,
+          "confidence": "user_layout_ref",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_01_01",
+          "name": "伴月楼 / 26教之间步行广场",
+          "x": 35,
+          "y": 31,
+          "w": 35,
+          "h": 22,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "07",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "00",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "02",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "name": "27教南侧",
+      "slug": "a3_27j_south",
+      "subtitle": "27教 · 教学支路",
+      "macro_area": "A 教学区",
+      "grid_position": [
+        2,
+        0
+      ],
+      "tmx": "maps/02_a3_27j_south.tmx",
+      "json": "maps/02_a3_27j_south.json",
+      "preview": "previews/02_a3_27j_south_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_02_01",
+          "name": "第27教学楼",
+          "x": 8,
+          "y": 8,
+          "w": 23,
+          "h": 19,
+          "confidence": "user_layout_ref",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_02_02",
+          "name": "教学支路东侧预留",
+          "x": 66,
+          "y": 50,
+          "w": 24,
+          "h": 17,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_02_01",
+          "name": "27教南侧步行广场",
+          "x": 33,
+          "y": 31,
+          "w": 37,
+          "h": 23,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "08",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "01",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "03",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "name": "28教与教学组团东口",
+      "slug": "a4_28j_east",
+      "subtitle": "28教 · 通往杏园",
+      "macro_area": "A 教学区",
+      "grid_position": [
+        3,
+        0
+      ],
+      "tmx": "maps/03_a4_28j_east.tmx",
+      "json": "maps/03_a4_28j_east.json",
+      "preview": "previews/03_a4_28j_east_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_03_01",
+          "name": "第28教学楼",
+          "x": 65,
+          "y": 9,
+          "w": 26,
+          "h": 18,
+          "confidence": "user_layout_ref",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_03_02",
+          "name": "教学组团东口配套楼预留",
+          "x": 8,
+          "y": 49,
+          "w": 21,
+          "h": 16,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_03_01",
+          "name": "通往杏园的教学东口",
+          "x": 32,
+          "y": 31,
+          "w": 33,
+          "h": 23,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "09",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "02",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "04",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "name": "杏园西北区",
+      "slug": "b1_xingyuan_nw",
+      "subtitle": "杏园1–4舍 · 宿舍北口",
+      "macro_area": "B 生活区",
+      "grid_position": [
+        4,
+        0
+      ],
+      "tmx": "maps/04_b1_xingyuan_nw.tmx",
+      "json": "maps/04_b1_xingyuan_nw.json",
+      "preview": "previews/04_b1_xingyuan_nw_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_04_01",
+          "name": "杏园1–2舍",
+          "x": 8,
+          "y": 8,
+          "w": 24,
+          "h": 17,
+          "confidence": "verified_area_approx",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_04_02",
+          "name": "杏园3–4舍",
+          "x": 63,
+          "y": 8,
+          "w": 28,
+          "h": 17,
+          "confidence": "verified_area_approx",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_04_01",
+          "name": "杏园西北宿舍步行轴",
+          "x": 31,
+          "y": 31,
+          "w": 39,
+          "h": 23,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "10",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "03",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "05",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "name": "第二运动场北口",
+      "slug": "b2_second_stadium_n",
+      "subtitle": "第二运动场 · 杏园北侧",
+      "macro_area": "B 生活区",
+      "grid_position": [
+        5,
+        0
+      ],
+      "tmx": "maps/05_b2_second_stadium_n.tmx",
+      "json": "maps/05_b2_second_stadium_n.json",
+      "preview": "previews/05_b2_second_stadium_n_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_05_01",
+          "name": "运动场北侧服务点预留",
+          "x": 9,
+          "y": 8,
+          "w": 16,
+          "h": 13,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_05_01",
+          "name": "第二运动场",
+          "x": 30,
+          "y": 16,
+          "w": 41,
+          "h": 45,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "11",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "04",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "name": "杏园食堂与宿舍南口",
+      "slug": "b3_xingyuan_dining",
+      "subtitle": "杏园5–8舍 · 杏园食堂",
+      "macro_area": "B 生活区",
+      "grid_position": [
+        0,
+        1
+      ],
+      "tmx": "maps/06_b3_xingyuan_dining.tmx",
+      "json": "maps/06_b3_xingyuan_dining.json",
+      "preview": "previews/06_b3_xingyuan_dining_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_06_01",
+          "name": "杏园5–6舍",
+          "x": 8,
+          "y": 8,
+          "w": 24,
+          "h": 17,
+          "confidence": "verified_area_approx",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_06_02",
+          "name": "杏园7–8舍",
+          "x": 64,
+          "y": 8,
+          "w": 27,
+          "h": 17,
+          "confidence": "verified_area_approx",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_06_03",
+          "name": "杏园食堂",
+          "x": 37,
+          "y": 52,
+          "w": 26,
+          "h": 15,
+          "confidence": "verified_area_approx",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_06_01",
+          "name": "杏园南侧生活广场",
+          "x": 31,
+          "y": 31,
+          "w": 39,
+          "h": 19,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "00",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "12",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "07",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "name": "保卫处与第二运动场南口",
+      "slug": "b4_security_stadium_s",
+      "subtitle": "保卫处 · 运动场南口",
+      "macro_area": "B 生活区",
+      "grid_position": [
+        1,
+        1
+      ],
+      "tmx": "maps/07_b4_security_stadium_s.tmx",
+      "json": "maps/07_b4_security_stadium_s.json",
+      "preview": "previews/07_b4_security_stadium_s_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_07_01",
+          "name": "保卫处",
+          "x": 10,
+          "y": 8,
+          "w": 19,
+          "h": 16,
+          "confidence": "user_layout_ref",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_07_01",
+          "name": "第二运动场南口",
+          "x": 42,
+          "y": 18,
+          "w": 41,
+          "h": 41,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "01",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "13",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "06",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "08",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "name": "北樟林西段",
+      "slug": "c1_north_camphor_w",
+      "subtitle": "北樟林 · 林下步道",
+      "macro_area": "C 北区",
+      "grid_position": [
+        2,
+        1
+      ],
+      "tmx": "maps/08_c1_north_camphor_w.tmx",
+      "json": "maps/08_c1_north_camphor_w.json",
+      "preview": "previews/08_c1_north_camphor_w_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_08_01",
+          "name": "北樟林边缘建筑预留",
+          "x": 68,
+          "y": 6,
+          "w": 23,
+          "h": 13,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_08_01",
+          "name": "北樟林",
+          "x": 7,
+          "y": 10,
+          "w": 87,
+          "h": 53,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "02",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "14",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "07",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "09",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "name": "北区图书馆与校医院北",
+      "slug": "c2_library_hospital_n",
+      "subtitle": "弘文楼（北区图书馆） · 北区校医院",
+      "macro_area": "C 北区",
+      "grid_position": [
+        3,
+        1
+      ],
+      "tmx": "maps/09_c2_library_hospital_n.tmx",
+      "json": "maps/09_c2_library_hospital_n.json",
+      "preview": "previews/09_c2_library_hospital_n_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_09_01",
+          "name": "弘文楼（北区图书馆）",
+          "x": 9,
+          "y": 8,
+          "w": 28,
+          "h": 17,
+          "confidence": "verified_name",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_09_02",
+          "name": "北区校医院",
+          "x": 63,
+          "y": 8,
+          "w": 28,
+          "h": 18,
+          "confidence": "user_layout_ref",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_09_01",
+          "name": "图书馆 / 校医院前场",
+          "x": 35,
+          "y": 31,
+          "w": 35,
+          "h": 22,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "03",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "15",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "08",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "10",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "name": "北樟林南段",
+      "slug": "c3_north_camphor_s",
+      "subtitle": "北樟林南口 · 教学生活路口",
+      "macro_area": "C 北区",
+      "grid_position": [
+        4,
+        1
+      ],
+      "tmx": "maps/10_c3_north_camphor_s.tmx",
+      "json": "maps/10_c3_north_camphor_s.json",
+      "preview": "previews/10_c3_north_camphor_s_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_10_01",
+          "name": "林地东侧配套楼预留",
+          "x": 73,
+          "y": 9,
+          "w": 19,
+          "h": 14,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_10_01",
+          "name": "北樟林南段",
+          "x": 8,
+          "y": 10,
+          "w": 61,
+          "h": 53,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "04",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "16",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "09",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "11",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "name": "篮球场与校医院南侧",
+      "slug": "c4_basketball_hospital_s",
+      "subtitle": "篮球场 · 北区校医院南口",
+      "macro_area": "C 北区",
+      "grid_position": [
+        5,
+        1
+      ],
+      "tmx": "maps/11_c4_basketball_hospital_s.tmx",
+      "json": "maps/11_c4_basketball_hospital_s.json",
+      "preview": "previews/11_c4_basketball_hospital_s_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_11_01",
+          "name": "北区校医院南侧配套预留",
+          "x": 8,
+          "y": 8,
+          "w": 22,
+          "h": 17,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_11_01",
+          "name": "篮球场",
+          "x": 61,
+          "y": 20,
+          "w": 27,
+          "h": 35,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "05",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "17",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "10",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "name": "中心图书馆与崇德湖",
+      "slug": "d1_library_lake",
+      "subtitle": "中心图书馆 · 崇德湖",
+      "macro_area": "D 学习生活区",
+      "grid_position": [
+        0,
+        2
+      ],
+      "tmx": "maps/12_d1_library_lake.tmx",
+      "json": "maps/12_d1_library_lake.json",
+      "preview": "previews/12_d1_library_lake_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_12_01",
+          "name": "中心图书馆",
+          "x": 9,
+          "y": 8,
+          "w": 25,
+          "h": 17,
+          "confidence": "verified_landmark",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_12_02",
+          "name": "湖畔建筑预留",
+          "x": 65,
+          "y": 50,
+          "w": 26,
+          "h": 17,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_12_01",
+          "name": "崇德湖",
+          "x": 58,
+          "y": 12,
+          "w": 33,
+          "h": 19,
+          "confidence": "landmark_area_approx"
+        },
+        {
+          "id": "area_12_02",
+          "name": "图书馆前步行区",
+          "x": 35,
+          "y": 31,
+          "w": 33,
+          "h": 23,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "06",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "18",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "13",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "name": "李园北区",
+      "slug": "d2_liyuan_north",
+      "subtitle": "李园1–4舍 · 李园北口",
+      "macro_area": "D 学习生活区",
+      "grid_position": [
+        1,
+        2
+      ],
+      "tmx": "maps/13_d2_liyuan_north.tmx",
+      "json": "maps/13_d2_liyuan_north.json",
+      "preview": "previews/13_d2_liyuan_north_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_13_01",
+          "name": "李园1–2舍",
+          "x": 8,
+          "y": 8,
+          "w": 24,
+          "h": 17,
+          "confidence": "verified_area_approx",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_13_02",
+          "name": "李园3–4舍",
+          "x": 63,
+          "y": 8,
+          "w": 28,
+          "h": 17,
+          "confidence": "verified_area_approx",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_13_03",
+          "name": "李园食堂北侧预留",
+          "x": 37,
+          "y": 52,
+          "w": 26,
+          "h": 15,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_13_01",
+          "name": "李园北区生活道路",
+          "x": 32,
+          "y": 31,
+          "w": 37,
+          "h": 22,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "07",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "19",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "12",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "14",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "name": "中心体育馆与第三运动场",
+      "slug": "d3_gym_third_stadium",
+      "subtitle": "中心体育馆 · 第三运动场",
+      "macro_area": "D 学习生活区",
+      "grid_position": [
+        2,
+        2
+      ],
+      "tmx": "maps/14_d3_gym_third_stadium.tmx",
+      "json": "maps/14_d3_gym_third_stadium.json",
+      "preview": "previews/14_d3_gym_third_stadium_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_14_01",
+          "name": "中心体育馆",
+          "x": 9,
+          "y": 49,
+          "w": 26,
+          "h": 18,
+          "confidence": "verified_landmark",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_14_01",
+          "name": "第三运动场",
+          "x": 56,
+          "y": 12,
+          "w": 36,
+          "h": 27,
+          "confidence": "landmark_area_approx"
+        },
+        {
+          "id": "area_14_02",
+          "name": "中心体育馆前场",
+          "x": 16,
+          "y": 18,
+          "w": 26,
+          "h": 18,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "08",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "20",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "13",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "15",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "name": "敬德楼与李园南区",
+      "slug": "d4_jingde_liyuan_south",
+      "subtitle": "敬德楼（第八教学楼） · 李园5–8舍",
+      "macro_area": "D 学习生活区",
+      "grid_position": [
+        3,
+        2
+      ],
+      "tmx": "maps/15_d4_jingde_liyuan_south.tmx",
+      "json": "maps/15_d4_jingde_liyuan_south.json",
+      "preview": "previews/15_d4_jingde_liyuan_south_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_15_01",
+          "name": "敬德楼（第八教学楼）",
+          "x": 8,
+          "y": 8,
+          "w": 27,
+          "h": 17,
+          "confidence": "verified_name",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_15_02",
+          "name": "李园5–6舍",
+          "x": 62,
+          "y": 8,
+          "w": 29,
+          "h": 17,
+          "confidence": "verified_area_approx",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_15_03",
+          "name": "李园7–8舍",
+          "x": 62,
+          "y": 49,
+          "w": 29,
+          "h": 18,
+          "confidence": "verified_area_approx",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_15_04",
+          "name": "校庆纪念园预留",
+          "x": 10,
+          "y": 51,
+          "w": 22,
+          "h": 16,
+          "confidence": "user_layout_ref",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_15_01",
+          "name": "李园南侧生活路口",
+          "x": 36,
+          "y": 31,
+          "w": 26,
+          "h": 23,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "09",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "21",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "14",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "16",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "name": "行署楼与行政广场",
+      "slug": "e1_xingshu_admin",
+      "subtitle": "行署楼A/B栋 · 行政广场",
+      "macro_area": "E 门区行政区",
+      "grid_position": [
+        4,
+        2
+      ],
+      "tmx": "maps/16_e1_xingshu_admin.tmx",
+      "json": "maps/16_e1_xingshu_admin.json",
+      "preview": "previews/16_e1_xingshu_admin_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_16_01",
+          "name": "行署楼 A 栋",
+          "x": 10,
+          "y": 8,
+          "w": 25,
+          "h": 17,
+          "confidence": "verified_name",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_16_02",
+          "name": "行署楼 B 栋",
+          "x": 62,
+          "y": 8,
+          "w": 25,
+          "h": 17,
+          "confidence": "verified_name",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_16_03",
+          "name": "同心楼 / 行政配套预留",
+          "x": 39,
+          "y": 52,
+          "w": 23,
+          "h": 15,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_16_01",
+          "name": "行政广场",
+          "x": 31,
+          "y": 31,
+          "w": 39,
+          "h": 23,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "10",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "22",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "15",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "17",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "name": "芳樟林与一运西口",
+      "slug": "e2_fang_camphor_west_stadium",
+      "subtitle": "芳樟林 · 第一运动场西口",
+      "macro_area": "E 门区行政区",
+      "grid_position": [
+        5,
+        2
+      ],
+      "tmx": "maps/17_e2_fang_camphor_west_stadium.tmx",
+      "json": "maps/17_e2_fang_camphor_west_stadium.json",
+      "preview": "previews/17_e2_fang_camphor_west_stadium_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_17_01",
+          "name": "西口配套建筑预留",
+          "x": 61,
+          "y": 8,
+          "w": 25,
+          "h": 9,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_17_01",
+          "name": "芳樟林",
+          "x": 8,
+          "y": 8,
+          "w": 39,
+          "h": 53,
+          "confidence": "landmark_area_approx"
+        },
+        {
+          "id": "area_17_02",
+          "name": "第一运动场西口",
+          "x": 61,
+          "y": 23,
+          "w": 28,
+          "h": 29,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "11",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_south",
+          "direction": "south",
+          "to": "23",
+          "rect_px": [
+            672,
+            1120,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            112
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "16",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "name": "含弘门与雕像广场",
+      "slug": "e3_hanhong_gate",
+      "subtitle": "含弘门（1号门） · 雕像广场",
+      "macro_area": "E 门区行政区",
+      "grid_position": [
+        0,
+        3
+      ],
+      "tmx": "maps/18_e3_hanhong_gate.tmx",
+      "json": "maps/18_e3_hanhong_gate.json",
+      "preview": "previews/18_e3_hanhong_gate_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_18_01",
+          "name": "一号门西侧门柱占地",
+          "x": 34,
+          "y": 56,
+          "w": 7,
+          "h": 7,
+          "confidence": "verified_landmark",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_18_02",
+          "name": "一号门东侧门柱占地",
+          "x": 60,
+          "y": 56,
+          "w": 7,
+          "h": 7,
+          "confidence": "verified_landmark",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_18_03",
+          "name": "毛泽东雕像 / 景观基座",
+          "x": 46,
+          "y": 29,
+          "w": 9,
+          "h": 6,
+          "confidence": "verified_landmark",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_18_01",
+          "name": "雕像花园",
+          "x": 30,
+          "y": 18,
+          "w": 41,
+          "h": 25,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "12",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "19",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "name": "门东路与行署路衔接",
+      "slug": "e4_gate_east_road",
+      "subtitle": "门内东侧主路 · 东向衔接区",
+      "macro_area": "E 门区行政区",
+      "grid_position": [
+        1,
+        3
+      ],
+      "tmx": "maps/19_e4_gate_east_road.tmx",
+      "json": "maps/19_e4_gate_east_road.json",
+      "preview": "previews/19_e4_gate_east_road_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_19_01",
+          "name": "东侧校园服务点预留",
+          "x": 10,
+          "y": 8,
+          "w": 22,
+          "h": 17,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_19_02",
+          "name": "东向门户建筑预留",
+          "x": 67,
+          "y": 8,
+          "w": 24,
+          "h": 17,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_19_01",
+          "name": "门东路与行署路衔接广场",
+          "x": 30,
+          "y": 31,
+          "w": 41,
+          "h": 23,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "13",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "18",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "20",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "name": "美术学院北区",
+      "slug": "f1_art_academy_north",
+      "subtitle": "至美楼（第15教学楼） · 美术学院北口",
+      "macro_area": "F 美术与运动区",
+      "grid_position": [
+        2,
+        3
+      ],
+      "tmx": "maps/20_f1_art_academy_north.tmx",
+      "json": "maps/20_f1_art_academy_north.json",
+      "preview": "previews/20_f1_art_academy_north_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_20_01",
+          "name": "至美楼（第15教学楼）",
+          "x": 10,
+          "y": 8,
+          "w": 28,
+          "h": 18,
+          "confidence": "verified_name",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_20_02",
+          "name": "美术学院北侧教学楼预留",
+          "x": 64,
+          "y": 8,
+          "w": 27,
+          "h": 17,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_20_01",
+          "name": "美术学院北侧庭院",
+          "x": 35,
+          "y": 31,
+          "w": 36,
+          "h": 23,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "14",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "19",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "21",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "21",
+      "name": "第一运动场北区",
+      "slug": "f2_first_stadium_north",
+      "subtitle": "第一运动场北半区",
+      "macro_area": "F 美术与运动区",
+      "grid_position": [
+        3,
+        3
+      ],
+      "tmx": "maps/21_f2_first_stadium_north.tmx",
+      "json": "maps/21_f2_first_stadium_north.json",
+      "preview": "previews/21_f2_first_stadium_north_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_21_01",
+          "name": "运动场北侧主席台预留",
+          "x": 34,
+          "y": 3,
+          "w": 39,
+          "h": 6,
+          "confidence": "landmark_area_approx",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_21_01",
+          "name": "第一运动场北半区",
+          "x": 24,
+          "y": 20,
+          "w": 53,
+          "h": 35,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "15",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "20",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "22",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "22",
+      "name": "美术学院南区",
+      "slug": "f3_art_academy_south",
+      "subtitle": "美术学院南口 · 展示庭院",
+      "macro_area": "F 美术与运动区",
+      "grid_position": [
+        4,
+        3
+      ],
+      "tmx": "maps/22_f3_art_academy_south.tmx",
+      "json": "maps/22_f3_art_academy_south.json",
+      "preview": "previews/22_f3_art_academy_south_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_22_01",
+          "name": "美术学院配套楼预留",
+          "x": 10,
+          "y": 8,
+          "w": 28,
+          "h": 17,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        },
+        {
+          "id": "slot_22_02",
+          "name": "展厅 / 工作坊预留",
+          "x": 65,
+          "y": 8,
+          "w": 26,
+          "h": 17,
+          "confidence": "schematic",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_22_01",
+          "name": "美术学院南侧展示庭院",
+          "x": 35,
+          "y": 31,
+          "w": 33,
+          "h": 22,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "16",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "21",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        },
+        {
+          "name": "exit_east",
+          "direction": "east",
+          "to": "23",
+          "rect_px": [
+            1520,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            160,
+            592
+          ]
+        }
+      ]
+    },
+    {
+      "id": "23",
+      "name": "第一运动场南区",
+      "slug": "f4_first_stadium_south",
+      "subtitle": "第一运动场南半区 · 篮球场",
+      "macro_area": "F 美术与运动区",
+      "grid_position": [
+        5,
+        3
+      ],
+      "tmx": "maps/23_f4_first_stadium_south.tmx",
+      "json": "maps/23_f4_first_stadium_south.json",
+      "preview": "previews/23_f4_first_stadium_south_annotated.png",
+      "building_slots": [
+        {
+          "id": "slot_23_01",
+          "name": "运动场南侧看台/设施预留",
+          "x": 27,
+          "y": 59,
+          "w": 40,
+          "h": 8,
+          "confidence": "landmark_area_approx",
+          "note": "建筑预留地，仅用于当前地图阶段，后续再放建筑与碰撞体"
+        }
+      ],
+      "areas": [
+        {
+          "id": "area_23_01",
+          "name": "篮球场",
+          "x": 72,
+          "y": 10,
+          "w": 20,
+          "h": 17,
+          "confidence": "landmark_area_approx"
+        },
+        {
+          "id": "area_23_02",
+          "name": "第一运动场南半区",
+          "x": 24,
+          "y": 19,
+          "w": 49,
+          "h": 31,
+          "confidence": "landmark_area_approx"
+        }
+      ],
+      "portals": [
+        {
+          "name": "exit_north",
+          "direction": "north",
+          "to": "17",
+          "rect_px": [
+            672,
+            0,
+            272,
+            64
+          ],
+          "arrival_feet_px": [
+            800,
+            1056
+          ]
+        },
+        {
+          "name": "exit_west",
+          "direction": "west",
+          "to": "22",
+          "rect_px": [
+            0,
+            480,
+            80,
+            240
+          ],
+          "arrival_feet_px": [
+            1424,
+            592
+          ]
+        }
+      ]
+    }
+  ]
+}
