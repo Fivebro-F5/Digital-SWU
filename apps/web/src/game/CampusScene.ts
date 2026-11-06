@@ -26,6 +26,8 @@ export interface DebugSnapshot {
   velocity: Point;
   cameraX: number;
   cameraY: number;
+  cameraCenterX: number;
+  cameraCenterY: number;
   cameraZoom: number;
   cameraMode: '跟随角色' | '自由视角';
   viewportWidth: number;
@@ -86,9 +88,12 @@ export class CampusScene extends Phaser.Scene {
   constructor(private readonly hooks: GameHooks) { super('campus'); }
 
   setGridMode(mode: GridMode): void { this.gridMode = mode; this.drawGrid(); }
+  setViewportSize(width: number, height: number): void { this.cameras.main.setSize(width, height); }
   zoomBy(wheelDelta: number): void {
+    if (!wheelDelta) return;
     const camera = this.cameras.main;
-    camera.setZoom(Phaser.Math.Clamp(camera.zoom * (wheelDelta > 0 ? 0.9 : 1.1), 0.5, 3));
+    const next = camera.zoom * (wheelDelta > 0 ? 0.9 : 1.1);
+    if (Number.isFinite(next) && next > 0) camera.setZoom(next);
   }
   beginPan(): void { this.cameras.main.stopFollow(); this.cameraMode = '自由视角'; }
   panBy(cssX: number, cssY: number): void {
@@ -134,6 +139,7 @@ export class CampusScene extends Phaser.Scene {
   getDebugSnapshot(): DebugSnapshot {
     const map = this.map;
     const camera = this.cameras.main;
+    const center = camera.getWorldPoint(camera.width / 2, camera.height / 2);
     const loop = this.game.loop;
     return {
       dimension: '室外 / 地表', zoneId: this.zone, mapName: map.name,
@@ -145,7 +151,8 @@ export class CampusScene extends Phaser.Scene {
       renderPosition: { x: this.player?.x ?? this.position.x, y: this.player?.y ?? this.position.y },
       facing: this.facing, moving: this.moving, sprint: this.keys?.SHIFT?.isDown ?? false,
       speed: Math.hypot(this.velocity.x, this.velocity.y), velocity: { ...this.velocity },
-      cameraX: camera.scrollX, cameraY: camera.scrollY, cameraZoom: camera.zoom, cameraMode: this.cameraMode,
+      cameraX: camera.scrollX, cameraY: camera.scrollY, cameraCenterX: center.x, cameraCenterY: center.y,
+      cameraZoom: camera.zoom, cameraMode: this.cameraMode,
       viewportWidth: camera.width, viewportHeight: camera.height,
       fps: loop.actualFps,
       renderer: this.game.renderer.type === Phaser.WEBGL ? 'WebGL' : 'Canvas',
