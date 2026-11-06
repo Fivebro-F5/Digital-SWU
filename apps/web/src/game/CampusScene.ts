@@ -1,6 +1,7 @@
 // 含弘门场景直接使用 TMX 数据，并复用小鸟的四向动画。
 import Phaser from 'phaser';
-import { canStep, directionFromAxes, step, type Direction, type Point } from './campus';
+// 切图与普通移动共用脚底坐标和方向键判定。
+import { canStep, crossingAt, directionFromAxes, step, type CampusZone, type Direction, type Point } from './campus';
 import { readGateMap } from './gateMap';
 
 export interface GameStatus { scene: string; position: Point; facing: Direction; sprint: boolean }
@@ -24,12 +25,21 @@ const birdActions = {
 type BirdAction = keyof typeof birdActions;
 const birdFrameKey = (animation: string, frame: number) =>
   `${animation}-${String(frame).padStart(3, '0')}`;
-const mapAssets = import.meta.glob<string>('../../../../picture/swu_gate_project/assets/*.png', {
+// 新版入口 TMX 的地形图集位于 maps 的同级 assets 目录。
+const mapAssets = import.meta.glob<string>('../../../../picture/pixel_swu_ground_6zones_v1/assets/*.png', {
   eager: true, query: '?url', import: 'default',
 });
 
 export class CampusScene extends Phaser.Scene {
-  private readonly map = readGateMap();
+  // 预解析六区地图，过界时只替换地图图层和贴图对象。
+  private readonly maps = {
+    '00': readGateMap('00'), '01': readGateMap('01'), '02': readGateMap('02'),
+    '03': readGateMap('03'), '04': readGateMap('04'),
+    '05': readGateMap('05'),
+  };
+  private zone: CampusZone = '00';
+  private get map() { return this.maps[this.zone]; }
+  private readonly mapObjects: Phaser.GameObjects.GameObject[] = [];
   private player!: Phaser.GameObjects.Sprite;
   private position = { ...this.map.spawn };
   private facing: Direction = 'down';
@@ -41,9 +51,13 @@ export class CampusScene extends Phaser.Scene {
 
   // 按 TMX 的相对路径加载图集和独立贴图。
   preload(): void {
-    const assets = new Set([this.map.terrain, ...this.map.sprites.map((sprite) => sprite.source)]);
+    // 提前加载各区共用资源，切换时无需重新请求图片。
+    const assets = new Set(Object.values(this.maps).flatMap((map) => [
+      map.terrain, ...map.sprites.map((sprite) => sprite.source),
+    ]));
     for (const source of assets) {
-      const url = mapAssets[`../../../../picture/swu_gate_project/${source}`];
+      // TMX 以 maps 为基准，Vite 的资源键以当前源文件为基准。
+      const url = source && mapAssets[`../../../../picture/pixel_swu_ground_6zones_v1/${source.replace(/^\.\.\//, '')}`];
       if (!source || !url) throw new Error(`含弘门地图素材缺失：${source}`);
       this.load.image(source, url);
     }
@@ -52,22 +66,30 @@ export class CampusScene extends Phaser.Scene {
     }
   }
 
-  // 保留 TMX 图层顺序，独立贴图使用 Tiled 瓦片对象的左下角锚点。
-  create(): void {
+  // 地面层保持在角色下方，即使角色落在 y=0 的边界上。
+  private drawMap(): void {
+    for (const object of this.mapObjects.splice(0)) object.destroy();
     const { tileSize, width, height, terrain, firstGid } = this.map;
     for (const data of this.map.layers) {
       const layer = this.make.tilemap({ data, tileWidth: tileSize, tileHeight: tileSize });
       const tileset = layer.addTilesetImage(terrain, terrain, tileSize, tileSize, 0, 0, firstGid)!;
-      layer.createLayer(0, tileset);
+      const ground = layer.createLayer(0, tileset);
+      if (ground) this.mapObjects.push(ground.setDepth(-1));
     }
     for (const sprite of this.map.sprites) {
-      this.add.image(sprite.x, sprite.y, sprite.source!).setOrigin(0, 1)
-        .setDisplaySize(sprite.width, sprite.height).setDepth(sprite.y);
+      this.mapObjects.push(this.add.image(sprite.x, sprite.y, sprite.source!).setOrigin(0, 1)
+        .setDisplaySize(sprite.width, sprite.height).setDepth(sprite.y));
     }
+    this.cameras.main.setBounds(0, 0, width, height);
+  }
 
+  // 首次进游戏使用 TMX 出生点，之后往返使用边界入口坐标。
+  create(): void {
+    this.zone = '00';
+    this.drawMap();
     this.position = { ...this.map.spawn };
     this.createPlayer();
-    this.cameras.main.setBounds(0, 0, width, height).startFollow(this.player, true);
+    this.cameras.main.startFollow(this.player, true);
     const keyboard = this.input.keyboard!;
     this.keys = keyboard.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,SHIFT,E,SPACE') as typeof this.keys;
     keyboard.on('keydown-E', this.interact, this);
@@ -91,6 +113,19 @@ export class CampusScene extends Phaser.Scene {
     }
     const turned = this.facing !== direction;
     this.facing = direction;
+    // 出口先于普通边界碰撞检查，切换后角色与镜头一起落到对侧。
+    const crossing = crossingAt(this.zone, this.position, direction);
+    if (crossing) {
+      this.zone = crossing.zone;
+      this.position = crossing.point;
+      this.drawMap();
+      const { x, y } = this.position;
+      this.player.setPosition(x, y).setDepth(y);
+      this.cameras.main.centerOn(x, y);
+      this.playPlayer(this.keys.SHIFT.isDown ? 'run' : 'walk');
+      this.report(this.keys.SHIFT.isDown);
+      return;
+    }
     const { tileSize, width, height, collisions } = this.map;
     const next = step(this.position, direction, tileSize);
     if (!canStep(this.position, next, width, height, collisions)) {
@@ -130,7 +165,8 @@ export class CampusScene extends Phaser.Scene {
   private report(sprint: boolean): void {
     const zone = this.nearby();
     this.hooks.onNearby(zone?.title ?? null, zone ? '按 E 查看介绍。' : undefined);
-    this.hooks.onStatus({ scene: '含弘门', position: { ...this.position }, facing: this.facing, sprint });
+    // 状态栏显示当前区域和切换后的脚底坐标。
+    this.hooks.onStatus({ scene: this.map.name, position: { ...this.position }, facing: this.facing, sprint });
   }
 
   // 使用统一的脚底锚点与步态帧序号，减少切换动作时的跳动。

@@ -3,6 +3,32 @@ export interface Point { x: number; y: number }
 export interface Rect extends Point { width: number; height: number }
 export type Direction = 'up' | 'down' | 'left' | 'right';
 
+// 含弘门的四个出口和雕像花园北口共用双向通道规则。
+const routes = [
+  { from: '00', to: '02', direction: 'right', axis: 'x', edge: 1584, opposite: 'left', oppositeEdge: 0, min: 496, max: 720 },
+  { from: '00', to: '03', direction: 'left', axis: 'x', edge: 0, opposite: 'right', oppositeEdge: 1584, min: 496, max: 720 },
+  { from: '00', to: '04', direction: 'up', axis: 'y', edge: 0, opposite: 'down', oppositeEdge: 1168, min: 688, max: 928 },
+  { from: '00', to: '01', direction: 'down', axis: 'y', edge: 1168, opposite: 'up', oppositeEdge: 0, min: 688, max: 928 },
+  { from: '04', to: '05', direction: 'up', axis: 'y', edge: 0, opposite: 'down', oppositeEdge: 1168, min: 688, max: 928 },
+] as const;
+export type CampusZone = (typeof routes)[number]['from' | 'to'];
+
+// 根据当前地图和朝外方向确定目的地，保留沿边界的坐标。
+export function crossingAt(zone: CampusZone, point: Point, direction: Direction): { zone: CampusZone; point: Point } | null {
+  const exit = routes.find((route) =>
+    (route.from === zone && route.direction === direction) ||
+    (route.to === zone && route.opposite === direction),
+  );
+  if (!exit) return null;
+  const outward = zone === exit.from;
+  const along = exit.axis === 'x' ? point.y : point.x;
+  if (point[exit.axis] !== (outward ? exit.edge : exit.oppositeEdge) || along < exit.min || along > exit.max) return null;
+  return {
+    zone: outward ? exit.to : exit.from,
+    point: { ...point, [exit.axis]: outward ? exit.oppositeEdge : exit.edge },
+  };
+}
+
 export function directionFromAxes(dx: number, dy: number): Direction | null {
   if (dy !== 0) return dy < 0 ? 'up' : 'down';
   return dx < 0 ? 'left' : dx > 0 ? 'right' : null;
