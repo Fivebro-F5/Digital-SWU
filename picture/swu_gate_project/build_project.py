@@ -25,6 +25,9 @@ for name,(x1,y1,x2,y2,w,h) in regions.items():
  crop=Image.fromarray(arr,'RGBA')
  # BOX is the most faithful reduction while retaining texture and edge readability.
  crop=crop.resize((w,h),Image.Resampling.BOX)
+ # 东侧门柱裁切框带入了邻近树冠，清除残片并保留原画布尺寸。
+ if name=='gate_right':
+  crop.paste((0,0,0,0),(170,32,190,99))
  crop.save(A/f'{name}.png')
  sprites[name]=(w,h)
 
