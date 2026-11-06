@@ -6,13 +6,14 @@ import type { CampusScene, DebugSnapshot, GameStatus, GameHooks, GridMode } from
 import type { Direction } from './game/campus';
 
 const canvasHost = ref<HTMLDivElement | null>(null);
-const gridCanvas = ref<HTMLCanvasElement | null>(null);
+const overlayCanvas = ref<HTMLCanvasElement | null>(null);
 const apiStatus = ref('检查中');
 const nearby = ref<{ name: string; description: string } | null>(null);
 const selected = ref<{ title: string; body: string } | null>(null);
 const status = ref<GameStatus>({ scene: '含弘门', position: { x: 0, y: 0 }, facing: 'down', sprint: false });
 const debug = ref<DebugSnapshot | null>(null);
 const gridMode = ref<GridMode>('off');
+const collisionMode = ref<'off' | 'on'>('off');
 const resolution = ref<'auto' | '384x240' | '768x480' | '1152x720' | '1536x960' | '1920x1200' | '2560x1600'>('auto');
 const zoomInput = ref('1');
 const dragging = ref(false);
@@ -23,8 +24,8 @@ let game: Phaser.Game | undefined;
 let disposed = false;
 let canvasObserver: ResizeObserver | undefined;
 let debugTimer: number | undefined;
-let gridFrame: number | undefined;
-let gridPainted = false;
+let overlayFrame: number | undefined;
+let overlayPainted = false;
 
 function activeScene(): CampusScene | undefined { return game?.scene.getScenes(true)[0] as CampusScene | undefined; }
 function setDirection(direction: Direction, pressed: boolean): void { activeScene()?.setDirection(direction, pressed); }
@@ -96,8 +97,8 @@ function refreshDebug(): void {
     debug.value = scene.getDebugSnapshot();
   }
 }
-function paintGrid(): void {
-  const overlay = gridCanvas.value;
+function paintDebugOverlay(): void {
+  const overlay = overlayCanvas.value;
   const host = canvasHost.value;
   if (overlay && host) {
     const width = Math.max(1, host.clientWidth);
@@ -105,16 +106,19 @@ function paintGrid(): void {
     if (overlay.width !== width || overlay.height !== height) {
       overlay.width = width;
       overlay.height = height;
-      gridPainted = false;
+      overlayPainted = false;
     }
     const context = overlay.getContext('2d');
     const scene = activeScene();
-    const active = gridMode.value !== 'off' && Boolean(scene?.scene.isActive());
-    if (context && (active || gridPainted)) context.clearRect(0, 0, width, height);
-    if (context && active && scene) scene.paintGrid(context, width, height);
-    gridPainted = Boolean(context && active);
+    const active = (gridMode.value !== 'off' || collisionMode.value === 'on') && Boolean(scene?.scene.isActive());
+    if (context && (active || overlayPainted)) context.clearRect(0, 0, width, height);
+    if (context && active && scene) {
+      if (gridMode.value !== 'off') scene.paintGrid(context, width, height);
+      if (collisionMode.value === 'on') scene.paintCollisionBoxes(context, width, height);
+    }
+    overlayPainted = Boolean(context && active);
   }
-  gridFrame = window.requestAnimationFrame(paintGrid);
+  overlayFrame = window.requestAnimationFrame(paintDebugOverlay);
 }
 
 onMounted(async () => {
@@ -132,7 +136,7 @@ onMounted(async () => {
     canvasObserver = new ResizeObserver(syncViewport);
     canvasObserver.observe(canvasHost.value);
     debugTimer = window.setInterval(refreshDebug, 50);
-    gridFrame = window.requestAnimationFrame(paintGrid);
+    overlayFrame = window.requestAnimationFrame(paintDebugOverlay);
   } catch (error) { apiStatus.value = '场景加载失败'; console.error(error); }
   try {
     const response = await fetch('/api/health');
@@ -141,7 +145,7 @@ onMounted(async () => {
     apiStatus.value = data.status === 'ok' ? '已连接' : '不可用';
   } catch { if (apiStatus.value !== '场景加载失败') apiStatus.value = '未连接'; }
 });
-onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopPan); if (debugTimer !== undefined) clearInterval(debugTimer); if (gridFrame !== undefined) cancelAnimationFrame(gridFrame); canvasObserver?.disconnect(); game?.destroy(true); });
+onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopPan); if (debugTimer !== undefined) clearInterval(debugTimer); if (overlayFrame !== undefined) cancelAnimationFrame(overlayFrame); canvasObserver?.disconnect(); game?.destroy(true); });
 </script>
 
 <template>
@@ -152,9 +156,9 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
     </header>
     <div class="debug-layout">
       <section class="viewport-panel" aria-label="游戏画面">
-        <div class="panel-heading"><span>01 / GAME VIEWPORT · {{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span><div class="viewport-toolbar"><label for="resolution">Canvas 尺寸</label><select id="resolution" v-model="resolution" @change="changeResolution"><option value="auto">随父级（原画）</option><option value="384x240">384 × 240</option><option value="768x480">768 × 480</option><option value="1152x720">1152 × 720</option><option value="1536x960">1536 × 960</option><option value="1920x1200">1920 × 1200</option><option value="2560x1600">2560 × 1600</option></select><label for="zoom-input">ZOOM</label><input id="zoom-input" type="number" inputmode="decimal" step="any" aria-label="镜头缩放倍数" :value="zoomInput" @change="changeZoom" @keyup.enter="changeZoom" /><label for="grid-mode">Tile 轮廓</label><select id="grid-mode" v-model="gridMode" @change="changeGridMode"><option value="off">关闭</option><option value="category">按类别</option><option value="cell">逐格</option></select><button type="button" @click="resetCamera">复位视角</button></div></div>
-        <div ref="canvasHost" class="canvas-host" :class="{ dragging }" aria-label="俯视角像素校园画布" @wheel.prevent="onWheel" @mousedown="onMouseDown" @mousemove="onMouseMove" @auxclick.prevent><canvas ref="gridCanvas" class="grid-overlay" aria-hidden="true" /></div>
-        <div class="viewport-stats"><span>CANVAS {{ debug?.viewportWidth ?? viewSize().width }} × {{ debug?.viewportHeight ?? viewSize().height }}</span><span>FPS {{ fixed(debug?.fps, 0) }}</span><span>{{ debug?.renderer ?? '—' }}</span><span>ZOOM {{ fixed(debug?.cameraZoom, 2) }}×</span></div>
+        <div class="panel-heading"><span>01 / GAME VIEWPORT · {{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span><div class="viewport-toolbar"><label for="resolution">Canvas 尺寸</label><select id="resolution" v-model="resolution" @change="changeResolution"><option value="auto">随父级（原画）</option><option value="384x240">384 × 240</option><option value="768x480">768 × 480</option><option value="1152x720">1152 × 720</option><option value="1536x960">1536 × 960</option><option value="1920x1200">1920 × 1200</option><option value="2560x1600">2560 × 1600</option></select><label for="zoom-input">ZOOM</label><input id="zoom-input" type="number" inputmode="decimal" step="any" aria-label="镜头缩放倍数" :value="zoomInput" @change="changeZoom" @keyup.enter="changeZoom" /><label for="grid-mode">Tile 轮廓</label><select id="grid-mode" v-model="gridMode" @change="changeGridMode"><option value="off">关闭</option><option value="category">按类别</option><option value="cell">逐格</option></select><label for="collision-mode">碰撞框</label><select id="collision-mode" v-model="collisionMode"><option value="off">关闭</option><option value="on">显示</option></select><button type="button" @click="resetCamera">复位视角</button></div></div>
+        <div ref="canvasHost" class="canvas-host" :class="{ dragging }" aria-label="俯视角像素校园画布" @wheel.prevent="onWheel" @mousedown="onMouseDown" @mousemove="onMouseMove" @auxclick.prevent><canvas ref="overlayCanvas" class="debug-overlay" aria-hidden="true" /></div>
+        <div class="viewport-stats"><span>CANVAS {{ debug?.viewportWidth ?? viewSize().width }} × {{ debug?.viewportHeight ?? viewSize().height }}</span><span>FPS {{ fixed(debug?.fps, 0) }}</span><span>{{ debug?.renderer ?? '—' }}</span><span>ZOOM {{ fixed(debug?.cameraZoom, 2) }}×</span><span v-if="collisionMode === 'on'">红框 TMX 碰撞区 · 青框 贴图范围 · 黄十字 脚底判定点</span></div>
         <div class="event-panel"><span class="panel-label">NEARBY / EVENT</span><strong>{{ nearby?.name ?? '无活动交互区域' }}</strong><p>{{ nearby?.description ?? '组合 WASD 斜向移动 · 滚轮缩放 · 中键拖动画面 · E 交互' }}</p><button type="button" @click="activeScene()?.interact()">触发交互 E</button></div>
       </section>
       <aside class="debug-sidebar">
@@ -166,6 +170,7 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
           <dt>渲染坐标 X / Y</dt><dd>{{ fixed(debug?.renderPosition.x) }} / {{ fixed(debug?.renderPosition.y) }} px</dd>
           <dt>瓦片坐标 X / Y</dt><dd>{{ debug ? Math.floor(debug.logicalPosition.x / debug.tileSize) : '—' }} / {{ debug ? Math.floor(debug.logicalPosition.y / debug.tileSize) : '—' }}</dd>
           <dt>朝向</dt><dd>{{ directionLabel(debug?.facing ?? status.facing) }}</dd>
+          <dt>贴图旋转</dt><dd>{{ fixed(debug?.playerAngle, 0) }}°</dd>
           <dt>运动状态</dt><dd>{{ debug?.moving ? (debug.sprint ? '疾跑' : '步行') : '静止' }}</dd>
           <dt>速度</dt><dd>{{ fixed(debug?.speed) }} px/s</dd>
           <dt>速度向量 X / Y</dt><dd>{{ fixed(debug?.velocity.x) }} / {{ fixed(debug?.velocity.y) }} px/s</dd>
