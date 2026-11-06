@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>像素西大 | 一号门 · 含弘门试玩</title>
+<style>
+:root { color-scheme: dark; font-family: system-ui, -apple-system, 'Microsoft Yahei', sans-serif; }
+*{box-sizing:border-box}body{margin:0;background:#121f21;color:#f0f0e9;}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 20px;border-bottom:1px solid #34524a;flex-wrap:wrap}
+header h1{font-size:18px;margin:0;letter-spacing:1px} header span{font-size:12px;color:#b2c6bd}
+main{max-width:1150px;margin:18px auto;padding:0 14px}
+.viewer{position:relative;background:#19291e;border:8px solid #2a3c32;border-radius:12px;box-shadow:0 22px 55px #0008;overflow:hidden}
+canvas{width:100%;display:block;aspect-ratio:3/2;image-rendering:pixelated;image-rendering:crisp-edges}
+.hint{position:absolute;left:16px;top:16px;max-width:min(550px,85%);padding:10px 15px;background:#142624dd;color:#e6edde;border:1px solid #789e88a8;border-radius:6px;font-size:13px;pointer-events:none}
+.hint strong{color:#ffe3aa}
+.dialog{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);width:min(570px,90%);background:#21332eec;border:2px solid #dec593;border-radius:11px;padding:18px 21px;display:none;box-shadow:0 18px 30px #0009}
+.dialog h3{margin:0 0 8px;color:#f8d9a2}.dialog p{margin:0 0 11px;font-size:14px;line-height:1.7}.dialog small{color:#adbdad}
+.info{display:flex;justify-content:space-between;flex-wrap:wrap;gap:7px;margin:12px 0;color:#c2d3c9;font-size:12px}
+.info code{font-size:12px;color:#ffe1a5}
+.controls{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px;justify-content:center}
+button{touch-action:none;background:#324e44;color:#fff;border:1px solid #638776;min-width:53px;min-height:42px;border-radius:9px;font-size:16px;cursor:pointer}button:active{background:#618674}button.wide{min-width:116px;font-size:14px}
+footer{margin:22px 0 30px;text-align:center;color:#92a699;font-size:12px;line-height:1.8}
+</style>
+</head>
+<body>
+<header><h1>🌳 像素西大 · 含弘门</h1><span>原创像素地图 | 西南大学一号门片区 · 原型试玩</span></header>
+<main>
+<div class="viewer">
+ <canvas id="game" width="960" height="640"></canvas>
+ <div class="hint" id="hint">WASD / 方向键移动，<strong>E</strong> 互动，<strong>C</strong> 显示碰撞区域，滚轮缩放。</div>
+ <div class="dialog" id="dialog"><h3 id="dialogTitle"></h3><p id="dialogMessage"></p><small>按 E 关闭对话</small></div>
+</div>
+<div class="info"><span>位置：<code id="xy">正在加载...</code></span><span>场景仅做游戏示意，不用于实际导航</span></div>
+<div class="controls"><button data-key="ArrowLeft" aria-label="向左">←</button><button data-key="ArrowUp" aria-label="向上">↑</button><button data-key="ArrowDown" aria-label="向下">↓</button><button data-key="ArrowRight" aria-label="向右">→</button><button class="wide" data-action="interact">E 互动</button><button data-action="zoomout">−</button><button data-action="zoomin">＋</button></div>
+<footer>依据西南大学含弘门实景照片进行艺术化重构；台阶后建筑外观和微观道路属示意。<br>本地图为非官方原创项目，可用于后续校园 RPG 网页开发。</footer>
+</main>
+<script>
+(async function(){
+ const canvas=document.getElementById('game'),ctx=canvas.getContext('2d'),dialog=document.getElementById('dialog');
+ ctx.imageSmoothingEnabled=false;
+ let map;
+ try {const res=await fetch('./map_game.json');if(!res.ok)throw new Error('无法读取 map_game.json');map=await res.json();}
+ catch(err){document.getElementById('hint').textContent='加载失败：请在工程目录运行 python -m http.server 8000，再访问 http://localhost:8000/play_demo.html。错误：'+err.message;return;}
+ const images={};function imgLoad(path){return new Promise((resolve,reject)=>{let img=new Image();img.onload=()=>resolve(img);img.onerror=()=>reject(Error(path));img.src=path;});}
+ try {images.terrain=await imgLoad(map.asset_tileset);await Promise.all(Object.entries(map.assets).map(async ([name,entry])=>{images[name]=await imgLoad(entry.src);}));images.player=await imgLoad('assets/player.png');}
+ catch(err){document.getElementById('hint').textContent='PNG 素材缺失：'+err.message;return;}
+ const tileSize=map.tilewidth,W=map.width*tileSize,H=map.height*tileSize;
+ const sheet=document.createElement('canvas');sheet.width=W;sheet.height=H;const sc=sheet.getContext('2d');sc.imageSmoothingEnabled=false;
+ for(const layer of Object.values(map.layers))for(let y=0;y<map.height;y++)for(let x=0;x<map.width;x++){
+  const gid=layer[y][x];if(!gid)continue;const i=gid-1;
+  sc.drawImage(images.terrain,(i%16)*16,Math.floor(i/16)*16,16,16,x*16,y*16,16,16);
+ }
+ const renderGroups=['Vegetation','LandmarkSprites','SmallProps','EntranceGate'];
+ const underObjs=map.objects.filter(o=>o.layer!=='EntranceGate').sort((a,b)=>renderGroups.indexOf(a.layer)-renderGroups.indexOf(b.layer));
+ const frontObjs=map.objects.filter(o=>o.layer==='EntranceGate');
+ for(const o of underObjs){sc.drawImage(images[o.sprite],o.x,o.y,o.width,o.height);}
+ const keys=new Set();let showCollision=false,dialogVisible=false,zoom=1.45;
+ const player={x:map.spawn.x,y:map.spawn.y,dir:'up'};
+ const speed=160;
+ function rectHit(x,y,rad,b){return (x+rad>b.x&&x-rad<b.x+b.width&&y+rad>b.y&&y-rad<b.y+b.height)}
+ function valid(nx,ny){if(nx<12||nx>W-12||ny<12||ny>H-12)return false;return !map.collisions.some(c=>rectHit(nx,ny,7,c));}
+ function nearest(){let minDist=1e9,trigger=null;for(const t of map.interactions){let xx=Math.max(t.x,Math.min(player.x,t.x+t.width)),yy=Math.max(t.y,Math.min(player.y,t.y+t.height));const d=Math.hypot(xx-player.x,yy-player.y);if(d<minDist){minDist=d;trigger=t;}}return minDist<57?trigger:null;}
+ function interact(){if(dialogVisible){dialogVisible=false;dialog.style.display='none';return;}const t=nearest();if(!t)return;
+ document.getElementById('dialogTitle').textContent=t.title;document.getElementById('dialogMessage').textContent=t.message;dialog.style.display='block';dialogVisible=true;}
+ window.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space'].includes(e.code))e.preventDefault();if(e.code==='KeyE'&&!e.repeat)interact();else if(e.code==='KeyC'&&!e.repeat)showCollision=!showCollision;keys.add(e.code);});
+ window.addEventListener('keyup',e=>keys.delete(e.code));window.addEventListener('blur',()=>keys.clear());
+ for(const button of document.querySelectorAll('[data-key]')){
+  const key=button.dataset.key;
+  button.addEventListener('pointerdown',e=>{button.setPointerCapture(e.pointerId);keys.add(key);});
+  button.addEventListener('pointerup',()=>keys.delete(key));button.addEventListener('pointercancel',()=>keys.delete(key));
+ }
+ document.querySelector('[data-action=interact]').addEventListener('click',interact);
+ const z=(amount)=>zoom=Math.max(.7,Math.min(2.6,zoom+amount));
+ document.querySelector('[data-action=zoomin]').addEventListener('click',()=>z(.2));
+ document.querySelector('[data-action=zoomout]').addEventListener('click',()=>z(-.2));
+ canvas.addEventListener('wheel',e=>{e.preventDefault();z(e.deltaY>0?-.1:.1);},{passive:false});
+ let last=performance.now();
+ function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;
+  if(!dialogVisible){let dx=(keys.has('ArrowRight')||keys.has('KeyD')?1:0)-(keys.has('ArrowLeft')||keys.has('KeyA')?1:0);
+   let dy=(keys.has('ArrowDown')||keys.has('KeyS')?1:0)-(keys.has('ArrowUp')||keys.has('KeyW')?1:0);
+   if(dx||dy){const norm=Math.hypot(dx,dy);dx/=norm;dy/=norm;const nx=player.x+dx*dt*speed,ny=player.y+dy*dt*speed;
+    if(valid(nx,player.y))player.x=nx;if(valid(player.x,ny))player.y=ny;
+    player.dir=Math.abs(dx)>Math.abs(dy)?(dx>0?'right':'left'):(dy>0?'down':'up');
+   }
+  }
+  ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#4d7751';ctx.fillRect(0,0,canvas.width,canvas.height);
+  // Camera follows player and clamps to full map bounds.
+  const viewW=canvas.width/zoom,viewH=canvas.height/zoom;
+  const cx=Math.max(viewW/2,Math.min(W-viewW/2,player.x));const cy=Math.max(viewH/2,Math.min(H-viewH/2,player.y));
+  ctx.save();ctx.scale(zoom,zoom);ctx.translate(-cx+viewW/2,-cy+viewH/2);
+  ctx.drawImage(sheet,0,0);
+  const near=nearest();
+  if(near&&!dialogVisible){ctx.strokeStyle='#f9e19c';ctx.lineWidth=3;ctx.setLineDash([6,5]);ctx.strokeRect(near.x-3,near.y-3,near.width+6,near.height+6);ctx.setLineDash([]);}
+  if(showCollision){for(const c of map.collisions){ctx.fillStyle='rgba(230,50,40,.35)';ctx.fillRect(c.x,c.y,c.width,c.height);ctx.strokeStyle='rgba(160,22,22,.8)';ctx.strokeRect(c.x,c.y,c.width,c.height);}}
+  // Player shadow and 20x29 sprite, foot center offset.
+  ctx.fillStyle='rgba(33,44,34,.30)';ctx.beginPath();ctx.ellipse(player.x,player.y+7,13,4,0,0,Math.PI*2);ctx.fill();
+  ctx.drawImage(images.player,Math.round(player.x-10),Math.round(player.y-22));
+  // Draw the gate on top of the avatar when standing behind its pillars.
+  if(player.y<1190)for(const o of frontObjs){ctx.drawImage(images[o.sprite],o.x,o.y,o.width,o.height);}
+  ctx.restore();
+  document.getElementById('xy').textContent=`${Math.round(player.x)}, ${Math.round(player.y)} · ${near?'靠近 '+near.title:'自由探索'}`;
+  document.getElementById('hint').innerHTML=near&&!dialogVisible?`靠近 <strong>${near.title}</strong>，按 <strong>E</strong> 互动。`:'WASD / 方向键移动，<strong>E</strong> 互动，<strong>C</strong> 显示碰撞区域，滚轮缩放。';
+  requestAnimationFrame(frame);
+ }
+ requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
