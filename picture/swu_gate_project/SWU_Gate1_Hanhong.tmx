@@ -383,8 +383,7 @@
     <object id="56" name="lamppost" gid="137" x="972" y="893" width="40" height="48"/>
     <object id="57" name="lamppost" gid="137" x="446" y="1003" width="40" height="48"/>
     <object id="58" name="lamppost" gid="137" x="1040" y="1003" width="40" height="48"/>
-    <object id="59" name="bench" gid="136" x="548" y="834" width="48" height="24"/>
-    <object id="60" name="bench" gid="136" x="930" y="834" width="48" height="24"/>
+    <!-- 雕像花园两侧的长椅已移除，保留含弘门附近的两张。 -->
     <object id="61" name="bench" gid="136" x="342" y="1112" width="48" height="24"/>
     <object id="62" name="bench" gid="136" x="1145" y="1112" width="48" height="24"/>
     <object id="63" name="校门导览牌（示意）" gid="139" x="1038" y="1175" width="48" height="42">
@@ -409,7 +408,8 @@
   </objectgroup>
   <objectgroup id="8" name="Collisions" visible="0">
     <object id="66" name="building" type="solid" x="570" y="235" width="395" height="83"/>
-    <object id="67" name="garden" type="solid" x="623" y="655" width="283" height="175"/>
+    <!-- 雕像碰撞区上边缘下移四格，底边保持原位。 -->
+    <object id="67" name="garden" type="solid" x="623" y="719" width="283" height="111"/>
     <object id="68" name="gate_post" type="solid" x="620" y="1088" width="69" height="98"/>
     <object id="69" name="gate_post" type="solid" x="890" y="1088" width="66" height="98"/>
     <object id="70" name="fence" type="solid" x="506" y="1117" width="118" height="52"/>
