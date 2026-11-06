@@ -80,6 +80,8 @@ export class CampusScene extends Phaser.Scene {
   private gridOverlay?: Phaser.GameObjects.Graphics;
   private gridMode: GridMode = 'off';
   private cameraMode: DebugSnapshot['cameraMode'] = '跟随角色';
+  private userZoom = 1;
+  private displayWidth = 768;
   private player!: Phaser.GameObjects.Sprite;
   private position = { ...this.map.spawn };
   private facing: Direction = 'down';
@@ -91,24 +93,27 @@ export class CampusScene extends Phaser.Scene {
   constructor(private readonly hooks: GameHooks) { super('campus'); }
 
   setGridMode(mode: GridMode): void { this.gridMode = mode; this.drawGrid(); }
-  setViewportSize(width: number, height: number): void {
+  setViewportSize(width: number, height: number, displayWidth: number): void {
     const camera = this.cameras.main;
     const center = camera.getWorldPoint(camera.width / 2, camera.height / 2);
     camera.setSize(width, height);
-    this.refreshRenderBounds();
+    this.displayWidth = displayWidth;
+    this.setZoom(this.userZoom);
     camera.centerOn(center.x, center.y);
   }
   setZoom(value: number): number {
     const camera = this.cameras.main;
-    const nativeZoom = value * CampusScene.BASE_ZOOM;
-    if (!Number.isFinite(nativeZoom) || nativeZoom <= 0 || !Number.isFinite(camera.width / nativeZoom) || !Number.isFinite(camera.height / nativeZoom)) return camera.zoom / CampusScene.BASE_ZOOM;
+    const nativeZoom = value * CampusScene.BASE_ZOOM * camera.width / this.displayWidth;
+    if (!Number.isFinite(nativeZoom) || nativeZoom <= 0 ||
+      !Number.isFinite(camera.width / nativeZoom) || !Number.isFinite(camera.height / nativeZoom)) return this.userZoom;
+    this.userZoom = value;
     camera.setZoom(nativeZoom);
     this.refreshRenderBounds();
-    return camera.zoom / CampusScene.BASE_ZOOM;
+    return this.userZoom;
   }
   zoomBy(wheelDelta: number): void {
     if (!wheelDelta) return;
-    this.setZoom(this.cameras.main.zoom / CampusScene.BASE_ZOOM * (wheelDelta > 0 ? 0.9 : 1.1));
+    this.setZoom(this.userZoom * (wheelDelta > 0 ? 0.9 : 1.1));
   }
   beginPan(): void { this.cameras.main.stopFollow(); this.cameraMode = '自由视角'; }
   panBy(cssX: number, cssY: number): void {
@@ -167,7 +172,7 @@ export class CampusScene extends Phaser.Scene {
       facing: this.facing, moving: this.moving, sprint: this.keys?.SHIFT?.isDown ?? false,
       speed: Math.hypot(this.velocity.x, this.velocity.y), velocity: { ...this.velocity },
       cameraX: camera.scrollX, cameraY: camera.scrollY, cameraCenterX: center.x, cameraCenterY: center.y,
-      cameraZoom: camera.zoom / CampusScene.BASE_ZOOM, visibleWorldWidth: camera.width / camera.zoom,
+      cameraZoom: this.userZoom, visibleWorldWidth: camera.width / camera.zoom,
       visibleWorldHeight: camera.height / camera.zoom, cameraMode: this.cameraMode,
       viewportWidth: camera.width, viewportHeight: camera.height,
       fps: loop.actualFps,
@@ -230,6 +235,7 @@ export class CampusScene extends Phaser.Scene {
     this.position = { ...this.map.spawn };
     this.velocity = { x: 0, y: 0 };
     this.createPlayer();
+    this.displayWidth = this.game.canvas.getBoundingClientRect().width || this.cameras.main.width;
     this.setZoom(1);
     this.cameras.main.startFollow(this.player, true);
     const keyboard = this.input.keyboard!;

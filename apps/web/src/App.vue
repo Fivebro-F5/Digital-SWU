@@ -12,7 +12,7 @@ const selected = ref<{ title: string; body: string } | null>(null);
 const status = ref<GameStatus>({ scene: '含弘门', position: { x: 0, y: 0 }, facing: 'down', sprint: false });
 const debug = ref<DebugSnapshot | null>(null);
 const gridMode = ref<GridMode>('off');
-const resolution = ref<'384x240' | '768x480' | '1152x720' | '1536x960' | '1920x1200' | '2560x1600'>('2560x1600');
+const resolution = ref<'auto' | '384x240' | '768x480' | '1152x720' | '1536x960' | '1920x1200' | '2560x1600'>('auto');
 const zoomInput = ref('1');
 const dragging = ref(false);
 let lastMouse = { x: 0, y: 0 };
@@ -27,17 +27,21 @@ function activeScene(): CampusScene | undefined { return game?.scene.getScenes(t
 function setDirection(direction: Direction, pressed: boolean): void { activeScene()?.setDirection(direction, pressed); }
 function changeGridMode(): void { activeScene()?.setGridMode(gridMode.value); }
 function viewSize(): { width: number; height: number } {
+  if (resolution.value === 'auto') return {
+    width: Math.max(1, canvasHost.value?.clientWidth ?? 768),
+    height: Math.max(1, canvasHost.value?.clientHeight ?? 480),
+  };
   const [width, height] = resolution.value.split('x').map(Number);
   return { width, height };
 }
-function changeResolution(): void {
+function syncViewport(): void {
   const { width, height } = viewSize();
-  activeScene()?.setViewportSize(width, height);
-  game?.scale.resize(width, height);
-  fitCanvas();
+  if (game && (game.scale.gameSize.width !== width || game.scale.gameSize.height !== height)) game.scale.resize(width, height);
+  activeScene()?.setViewportSize(width, height, canvasHost.value?.getBoundingClientRect().width ?? width);
   game?.scale.refresh();
   refreshDebug();
 }
+function changeResolution(): void { syncViewport(); }
 function onWheel(event: WheelEvent): void {
   const scene = activeScene();
   scene?.zoomBy(event.deltaY);
@@ -82,16 +86,6 @@ function stopPan(event: MouseEvent): void {
 }
 function directionLabel(direction: Direction): string { return { up: '北 ↑', down: '南 ↓', left: '西 ←', right: '东 →' }[direction]; }
 function fixed(value: number | undefined, digits = 1): string { return value === undefined || !Number.isFinite(value) ? '—' : value.toFixed(digits); }
-function fitCanvas(): void {
-  const host = canvasHost.value;
-  if (!host?.parentElement) return;
-  const available = host.parentElement.clientWidth;
-  const scale = Math.floor(available / 768);
-  const width = scale >= 1 ? scale * 768 : available;
-  if (host.style.width === `${width}px`) return;
-  host.style.width = `${width}px`;
-  if (game) requestAnimationFrame(() => { if (!disposed) game?.scale.refresh(); });
-}
 function refreshDebug(): void {
   const scene = activeScene();
   if (scene?.scene.isActive()) {
@@ -101,7 +95,6 @@ function refreshDebug(): void {
 }
 
 onMounted(async () => {
-  fitCanvas();
   window.addEventListener('mouseup', stopPan);
   try {
     const [{ default: PhaserRuntime }, { CampusScene: GateScene }] = await Promise.all([import('phaser'), import('./game/CampusScene')]);
@@ -113,8 +106,8 @@ onMounted(async () => {
       isDialogOpen: () => selected.value !== null,
     };
     game = new PhaserRuntime.Game({ type: PhaserRuntime.AUTO, parent: canvasHost.value, width: viewSize().width, height: viewSize().height, backgroundColor: '#92bd70', pixelArt: true, roundPixels: true, scene: [new GateScene(hooks)], scale: { mode: PhaserRuntime.Scale.FIT, autoCenter: PhaserRuntime.Scale.CENTER_BOTH } });
-    canvasObserver = new ResizeObserver(fitCanvas);
-    canvasObserver.observe(canvasHost.value.parentElement!);
+    canvasObserver = new ResizeObserver(syncViewport);
+    canvasObserver.observe(canvasHost.value);
     debugTimer = window.setInterval(refreshDebug, 50);
   } catch (error) { apiStatus.value = '场景加载失败'; console.error(error); }
   try {
@@ -135,9 +128,9 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
     </header>
     <div class="debug-layout">
       <section class="viewport-panel" aria-label="游戏画面">
-        <div class="panel-heading"><span>01 / GAME VIEWPORT · {{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span><div class="viewport-toolbar"><label for="resolution">分辨率</label><select id="resolution" v-model="resolution" @change="changeResolution"><option value="384x240">384 × 240</option><option value="768x480">768 × 480</option><option value="1152x720">1152 × 720</option><option value="1536x960">1536 × 960</option><option value="1920x1200">1920 × 1200</option><option value="2560x1600">2560 × 1600</option></select><label for="zoom-input">ZOOM</label><input id="zoom-input" type="number" inputmode="decimal" step="any" aria-label="镜头缩放倍数" :value="zoomInput" @change="changeZoom" @keyup.enter="changeZoom" /><label for="grid-mode">Tile 轮廓</label><select id="grid-mode" v-model="gridMode" @change="changeGridMode"><option value="off">关闭</option><option value="category">按类别</option><option value="cell">逐格</option></select><button type="button" @click="resetCamera">复位视角</button></div></div>
+        <div class="panel-heading"><span>01 / GAME VIEWPORT · {{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span><div class="viewport-toolbar"><label for="resolution">Canvas 尺寸</label><select id="resolution" v-model="resolution" @change="changeResolution"><option value="auto">随父级（原画）</option><option value="384x240">384 × 240</option><option value="768x480">768 × 480</option><option value="1152x720">1152 × 720</option><option value="1536x960">1536 × 960</option><option value="1920x1200">1920 × 1200</option><option value="2560x1600">2560 × 1600</option></select><label for="zoom-input">ZOOM</label><input id="zoom-input" type="number" inputmode="decimal" step="any" aria-label="镜头缩放倍数" :value="zoomInput" @change="changeZoom" @keyup.enter="changeZoom" /><label for="grid-mode">Tile 轮廓</label><select id="grid-mode" v-model="gridMode" @change="changeGridMode"><option value="off">关闭</option><option value="category">按类别</option><option value="cell">逐格</option></select><button type="button" @click="resetCamera">复位视角</button></div></div>
         <div ref="canvasHost" class="canvas-host" :class="{ dragging }" aria-label="俯视角像素校园画布" @wheel.prevent="onWheel" @mousedown="onMouseDown" @mousemove="onMouseMove" @auxclick.prevent />
-        <div class="viewport-stats"><span>LOGICAL {{ debug?.viewportWidth ?? viewSize().width }} × {{ debug?.viewportHeight ?? viewSize().height }}</span><span>FPS {{ fixed(debug?.fps, 0) }}</span><span>{{ debug?.renderer ?? '—' }}</span><span>ZOOM {{ fixed(debug?.cameraZoom, 2) }}×</span></div>
+        <div class="viewport-stats"><span>CANVAS {{ debug?.viewportWidth ?? viewSize().width }} × {{ debug?.viewportHeight ?? viewSize().height }}</span><span>FPS {{ fixed(debug?.fps, 0) }}</span><span>{{ debug?.renderer ?? '—' }}</span><span>ZOOM {{ fixed(debug?.cameraZoom, 2) }}×</span></div>
         <div class="event-panel"><span class="panel-label">NEARBY / EVENT</span><strong>{{ nearby?.name ?? '无活动交互区域' }}</strong><p>{{ nearby?.description ?? '组合 WASD 斜向移动 · 滚轮缩放 · 中键拖动画面 · E 交互' }}</p><button type="button" @click="activeScene()?.interact()">触发交互 E</button></div>
       </section>
       <aside class="debug-sidebar">
