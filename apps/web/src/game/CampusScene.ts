@@ -41,6 +41,7 @@ export interface DebugSnapshot {
   sceneObjects: number;
 }
 export type GridMode = 'off' | 'category' | 'cell';
+type GridSegment = { x1: number; y1: number; x2: number; y2: number };
 export interface GameHooks {
   onNearby: (name: string | null, description?: string) => void;
   onMessage: (title: string, body: string) => void;
@@ -77,7 +78,7 @@ export class CampusScene extends Phaser.Scene {
   private zone: CampusZone = '00';
   private get map() { return this.maps[this.zone]; }
   private readonly mapObjects: Phaser.GameObjects.GameObject[] = [];
-  private gridOverlay?: Phaser.GameObjects.Graphics;
+  private readonly gridSegmentsCache = new Map<string, GridSegment[]>();
   private gridMode: GridMode = 'off';
   private cameraMode: DebugSnapshot['cameraMode'] = '跟随角色';
   private userZoom = 1;
@@ -92,7 +93,7 @@ export class CampusScene extends Phaser.Scene {
 
   constructor(private readonly hooks: GameHooks) { super('campus'); }
 
-  setGridMode(mode: GridMode): void { this.gridMode = mode; this.drawGrid(); }
+  setGridMode(mode: GridMode): void { this.gridMode = mode; }
   setViewportSize(width: number, height: number, displayWidth: number): void {
     const camera = this.cameras.main;
     const center = camera.getWorldPoint(camera.width / 2, camera.height / 2);
@@ -130,17 +131,18 @@ export class CampusScene extends Phaser.Scene {
     this.cameraMode = '跟随角色';
   }
 
-  private drawGrid(): void {
-    this.gridOverlay?.destroy();
-    this.gridOverlay = undefined;
-    if (this.gridMode === 'off') return;
+  private gridSegments(): GridSegment[] {
+    if (this.gridMode === 'off') return [];
+    const key = `${this.zone}:${this.gridMode}`;
+    const cached = this.gridSegmentsCache.get(key);
+    if (cached) return cached;
     const { width, height, tileSize, layers } = this.map;
     const cols = width / tileSize; const rows = height / tileSize;
-    const graphics = this.add.graphics().setDepth(-0.5);
-    graphics.lineStyle(1, 0x3a6b63, 0.74);
+    const segments: GridSegment[] = [];
+    const line = (x1: number, y1: number, x2: number, y2: number) => segments.push({ x1, y1, x2, y2 });
     if (this.gridMode === 'cell') {
-      for (let x = 0; x <= cols; x++) graphics.lineBetween(x * tileSize, 0, x * tileSize, height);
-      for (let y = 0; y <= rows; y++) graphics.lineBetween(0, y * tileSize, width, y * tileSize);
+      for (let x = 0; x <= cols; x++) line(x * tileSize, 0, x * tileSize, height);
+      for (let y = 0; y <= rows; y++) line(0, y * tileSize, width, y * tileSize);
     } else {
       const categoryAt = (x: number, y: number) => {
         for (let layer = layers.length - 1; layer >= 0; layer--) if (layers[layer][y][x] >= 0) return layer;
@@ -148,12 +150,36 @@ export class CampusScene extends Phaser.Scene {
       };
       for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
         const current = categoryAt(x, y);
-        if (x + 1 < cols && current !== categoryAt(x + 1, y)) graphics.lineBetween((x + 1) * tileSize, y * tileSize, (x + 1) * tileSize, (y + 1) * tileSize);
-        if (y + 1 < rows && current !== categoryAt(x, y + 1)) graphics.lineBetween(x * tileSize, (y + 1) * tileSize, (x + 1) * tileSize, (y + 1) * tileSize);
+        if (x + 1 < cols && current !== categoryAt(x + 1, y)) line((x + 1) * tileSize, y * tileSize, (x + 1) * tileSize, (y + 1) * tileSize);
+        if (y + 1 < rows && current !== categoryAt(x, y + 1)) line(x * tileSize, (y + 1) * tileSize, (x + 1) * tileSize, (y + 1) * tileSize);
       }
-      graphics.strokeRect(0, 0, width, height);
+      line(0, 0, width, 0); line(width, 0, width, height);
+      line(width, height, 0, height); line(0, height, 0, 0);
     }
-    this.gridOverlay = graphics;
+    this.gridSegmentsCache.set(key, segments);
+    return segments;
+  }
+
+  paintGrid(context: CanvasRenderingContext2D, displayWidth: number, displayHeight: number): void {
+    if (this.gridMode === 'off') return;
+    const camera = this.cameras.main;
+    const topLeft = camera.getWorldPoint(0, 0);
+    const scaleX = camera.zoom * displayWidth / camera.width;
+    const scaleY = camera.zoom * displayHeight / camera.height;
+    context.strokeStyle = 'rgba(58, 107, 99, 0.74)';
+    context.lineWidth = 1;
+    context.beginPath();
+    for (const { x1, y1, x2, y2 } of this.gridSegments()) {
+      const screenX1 = (x1 - topLeft.x) * scaleX;
+      const screenY1 = (y1 - topLeft.y) * scaleY;
+      const screenX2 = (x2 - topLeft.x) * scaleX;
+      const screenY2 = (y2 - topLeft.y) * scaleY;
+      if (Math.max(screenX1, screenX2) < 0 || Math.min(screenX1, screenX2) > displayWidth ||
+          Math.max(screenY1, screenY2) < 0 || Math.min(screenY1, screenY2) > displayHeight) continue;
+      context.moveTo(Math.round(screenX1) + 0.5, Math.round(screenY1) + 0.5);
+      context.lineTo(Math.round(screenX2) + 0.5, Math.round(screenY2) + 0.5);
+    }
+    context.stroke();
   }
 
   getDebugSnapshot(): DebugSnapshot {
@@ -202,7 +228,6 @@ export class CampusScene extends Phaser.Scene {
 
   // 地面层保持在角色下方，即使角色落在 y=0 的边界上。
   private drawMap(): void {
-    this.gridOverlay?.destroy(); this.gridOverlay = undefined;
     for (const object of this.mapObjects.splice(0)) object.destroy();
     const { tileSize, terrain, firstGid } = this.map;
     for (const data of this.map.layers) {
@@ -216,7 +241,6 @@ export class CampusScene extends Phaser.Scene {
         .setDisplaySize(sprite.width, sprite.height).setDepth(sprite.y));
     }
     this.refreshRenderBounds();
-    this.drawGrid();
   }
 
   private refreshRenderBounds(): void {
