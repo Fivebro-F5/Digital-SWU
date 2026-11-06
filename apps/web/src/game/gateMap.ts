@@ -71,6 +71,7 @@ export function readGateMap(zone: CampusZone) {
   }));
   return {
     name,
+    backgroundColor: root.getAttribute('backgroundcolor') ?? '#95C679',
     tileSize, width: columns * tileSize, height: rows * tileSize, layers, sprites, collisions, interactions,
     spawn: spawnPoint, terrain: terrain.getAttribute('source')!, firstGid: number(terrain.parentElement!, 'firstgid'),
   };

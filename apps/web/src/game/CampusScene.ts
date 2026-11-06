@@ -29,7 +29,8 @@ export interface DebugSnapshot {
   cameraCenterX: number;
   cameraCenterY: number;
   cameraZoom: number;
-  cameraNativeZoom: number;
+  visibleWorldWidth: number;
+  visibleWorldHeight: number;
   cameraMode: '跟随角色' | '自由视角';
   viewportWidth: number;
   viewportHeight: number;
@@ -66,6 +67,7 @@ const mapAssets = import.meta.glob<string>('../../../../picture/pixel_swu_ground
 });
 
 export class CampusScene extends Phaser.Scene {
+  static readonly BASE_ZOOM = 1.5;
   // 预解析六区地图，过界时只替换地图图层和贴图对象。
   private readonly maps = {
     '00': readGateMap('00'), '01': readGateMap('01'), '02': readGateMap('02'),
@@ -92,16 +94,21 @@ export class CampusScene extends Phaser.Scene {
   setViewportSize(width: number, height: number): void {
     const camera = this.cameras.main;
     const center = camera.getWorldPoint(camera.width / 2, camera.height / 2);
-    const userZoom = camera.zoom / (camera.width / 768);
     camera.setSize(width, height);
-    camera.setZoom(userZoom * (width / 768));
+    this.refreshRenderBounds();
     camera.centerOn(center.x, center.y);
+  }
+  setZoom(value: number): number {
+    const camera = this.cameras.main;
+    const nativeZoom = value * CampusScene.BASE_ZOOM;
+    if (!Number.isFinite(nativeZoom) || nativeZoom <= 0 || !Number.isFinite(camera.width / nativeZoom) || !Number.isFinite(camera.height / nativeZoom)) return camera.zoom / CampusScene.BASE_ZOOM;
+    camera.setZoom(nativeZoom);
+    this.refreshRenderBounds();
+    return camera.zoom / CampusScene.BASE_ZOOM;
   }
   zoomBy(wheelDelta: number): void {
     if (!wheelDelta) return;
-    const camera = this.cameras.main;
-    const next = camera.zoom * (wheelDelta > 0 ? 0.9 : 1.1);
-    if (Number.isFinite(next) && next > 0) camera.setZoom(next);
+    this.setZoom(this.cameras.main.zoom / CampusScene.BASE_ZOOM * (wheelDelta > 0 ? 0.9 : 1.1));
   }
   beginPan(): void { this.cameras.main.stopFollow(); this.cameraMode = '自由视角'; }
   panBy(cssX: number, cssY: number): void {
@@ -112,7 +119,7 @@ export class CampusScene extends Phaser.Scene {
   }
   resetCamera(): void {
     const camera = this.cameras.main;
-    camera.setZoom(camera.width / 768);
+    this.setZoom(1);
     camera.startFollow(this.player, true);
     camera.centerOn(this.player.x, this.player.y);
     this.cameraMode = '跟随角色';
@@ -160,7 +167,8 @@ export class CampusScene extends Phaser.Scene {
       facing: this.facing, moving: this.moving, sprint: this.keys?.SHIFT?.isDown ?? false,
       speed: Math.hypot(this.velocity.x, this.velocity.y), velocity: { ...this.velocity },
       cameraX: camera.scrollX, cameraY: camera.scrollY, cameraCenterX: center.x, cameraCenterY: center.y,
-      cameraZoom: camera.zoom / (camera.width / 768), cameraNativeZoom: camera.zoom, cameraMode: this.cameraMode,
+      cameraZoom: camera.zoom / CampusScene.BASE_ZOOM, visibleWorldWidth: camera.width / camera.zoom,
+      visibleWorldHeight: camera.height / camera.zoom, cameraMode: this.cameraMode,
       viewportWidth: camera.width, viewportHeight: camera.height,
       fps: loop.actualFps,
       renderer: this.game.renderer.type === Phaser.WEBGL ? 'WebGL' : 'Canvas',
@@ -191,7 +199,7 @@ export class CampusScene extends Phaser.Scene {
   private drawMap(): void {
     this.gridOverlay?.destroy(); this.gridOverlay = undefined;
     for (const object of this.mapObjects.splice(0)) object.destroy();
-    const { tileSize, width, height, terrain, firstGid } = this.map;
+    const { tileSize, terrain, firstGid } = this.map;
     for (const data of this.map.layers) {
       const layer = this.make.tilemap({ data, tileWidth: tileSize, tileHeight: tileSize });
       const tileset = layer.addTilesetImage(terrain, terrain, tileSize, tileSize, 0, 0, firstGid)!;
@@ -202,8 +210,17 @@ export class CampusScene extends Phaser.Scene {
       this.mapObjects.push(this.add.image(sprite.x, sprite.y, sprite.source!).setOrigin(0, 1)
         .setDisplaySize(sprite.width, sprite.height).setDepth(sprite.y));
     }
-    this.cameras.main.setBounds(0, 0, width, height);
+    this.refreshRenderBounds();
     this.drawGrid();
+  }
+
+  private refreshRenderBounds(): void {
+    const camera = this.cameras.main;
+    const horizontalPadding = camera.width / camera.zoom / 2;
+    const verticalPadding = camera.height / camera.zoom / 2;
+    camera.setBounds(-horizontalPadding, -verticalPadding,
+      this.map.width + horizontalPadding * 2, this.map.height + verticalPadding * 2);
+    camera.setBackgroundColor(this.map.backgroundColor);
   }
 
   // 首次进游戏使用 TMX 出生点，之后往返使用边界入口坐标。
@@ -213,6 +230,7 @@ export class CampusScene extends Phaser.Scene {
     this.position = { ...this.map.spawn };
     this.velocity = { x: 0, y: 0 };
     this.createPlayer();
+    this.setZoom(1);
     this.cameras.main.startFollow(this.player, true);
     const keyboard = this.input.keyboard!;
     this.keys = keyboard.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,SHIFT,E,SPACE') as typeof this.keys;

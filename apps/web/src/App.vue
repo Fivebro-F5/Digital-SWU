@@ -12,7 +12,8 @@ const selected = ref<{ title: string; body: string } | null>(null);
 const status = ref<GameStatus>({ scene: '含弘门', position: { x: 0, y: 0 }, facing: 'down', sprint: false });
 const debug = ref<DebugSnapshot | null>(null);
 const gridMode = ref<GridMode>('off');
-const resolution = ref<'384x240' | '768x480' | '1152x720' | '1536x960' | '1920x1200' | '2560x1600'>('768x480');
+const resolution = ref<'384x240' | '768x480' | '1152x720' | '1536x960' | '1920x1200' | '2560x1600'>('2560x1600');
+const zoomInput = ref('1');
 const dragging = ref(false);
 let lastMouse = { x: 0, y: 0 };
 let panStart = { x: 0, y: 0 };
@@ -37,7 +38,24 @@ function changeResolution(): void {
   game?.scale.refresh();
   refreshDebug();
 }
-function onWheel(event: WheelEvent): void { activeScene()?.zoomBy(event.deltaY); refreshDebug(); }
+function onWheel(event: WheelEvent): void {
+  const scene = activeScene();
+  scene?.zoomBy(event.deltaY);
+  if (scene) zoomInput.value = String(scene.getDebugSnapshot().cameraZoom);
+  refreshDebug();
+}
+function changeZoom(event: Event): void {
+  const scene = activeScene();
+  const input = event.target as HTMLInputElement;
+  const zoom = scene?.setZoom(Number(input.value)) ?? 1;
+  zoomInput.value = input.value = String(zoom);
+  refreshDebug();
+}
+function resetCamera(): void {
+  activeScene()?.resetCamera();
+  zoomInput.value = '1';
+  refreshDebug();
+}
 function onMouseDown(event: MouseEvent): void {
   if (event.button !== 1) return;
   event.preventDefault();
@@ -58,7 +76,7 @@ function onMouseMove(event: MouseEvent): void {
   lastMouse = { x: event.clientX, y: event.clientY };
 }
 function stopPan(event: MouseEvent): void {
-  if (event.button === 1 && dragging.value && !panMoved) activeScene()?.resetCamera();
+  if (event.button === 1 && dragging.value && !panMoved) resetCamera();
   dragging.value = false;
   panMoved = false;
 }
@@ -117,7 +135,7 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
     </header>
     <div class="debug-layout">
       <section class="viewport-panel" aria-label="游戏画面">
-        <div class="panel-heading"><span>01 / GAME VIEWPORT · {{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span><div class="viewport-toolbar"><label for="resolution">分辨率</label><select id="resolution" v-model="resolution" @change="changeResolution"><option value="384x240">384 × 240</option><option value="768x480">768 × 480</option><option value="1152x720">1152 × 720</option><option value="1536x960">1536 × 960</option><option value="1920x1200">1920 × 1200</option><option value="2560x1600">2560 × 1600</option></select><label for="grid-mode">Tile 轮廓</label><select id="grid-mode" v-model="gridMode" @change="changeGridMode"><option value="off">关闭</option><option value="category">按类别</option><option value="cell">逐格</option></select><button type="button" @click="activeScene()?.resetCamera()">复位视角</button></div></div>
+        <div class="panel-heading"><span>01 / GAME VIEWPORT · {{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span><div class="viewport-toolbar"><label for="resolution">分辨率</label><select id="resolution" v-model="resolution" @change="changeResolution"><option value="384x240">384 × 240</option><option value="768x480">768 × 480</option><option value="1152x720">1152 × 720</option><option value="1536x960">1536 × 960</option><option value="1920x1200">1920 × 1200</option><option value="2560x1600">2560 × 1600</option></select><label for="zoom-input">ZOOM</label><input id="zoom-input" type="number" inputmode="decimal" step="any" aria-label="镜头缩放倍数" :value="zoomInput" @change="changeZoom" @keyup.enter="changeZoom" /><label for="grid-mode">Tile 轮廓</label><select id="grid-mode" v-model="gridMode" @change="changeGridMode"><option value="off">关闭</option><option value="category">按类别</option><option value="cell">逐格</option></select><button type="button" @click="resetCamera">复位视角</button></div></div>
         <div ref="canvasHost" class="canvas-host" :class="{ dragging }" aria-label="俯视角像素校园画布" @wheel.prevent="onWheel" @mousedown="onMouseDown" @mousemove="onMouseMove" @auxclick.prevent />
         <div class="viewport-stats"><span>LOGICAL {{ debug?.viewportWidth ?? viewSize().width }} × {{ debug?.viewportHeight ?? viewSize().height }}</span><span>FPS {{ fixed(debug?.fps, 0) }}</span><span>{{ debug?.renderer ?? '—' }}</span><span>ZOOM {{ fixed(debug?.cameraZoom, 2) }}×</span></div>
         <div class="event-panel"><span class="panel-label">NEARBY / EVENT</span><strong>{{ nearby?.name ?? '无活动交互区域' }}</strong><p>{{ nearby?.description ?? '组合 WASD 斜向移动 · 滚轮缩放 · 中键拖动画面 · E 交互' }}</p><button type="button" @click="activeScene()?.interact()">触发交互 E</button></div>
@@ -146,7 +164,7 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
           <dt>镜头滚动 X / Y</dt><dd>{{ fixed(debug?.cameraX) }} / {{ fixed(debug?.cameraY) }} px</dd>
           <dt>画面中心 X / Y</dt><dd>{{ fixed(debug?.cameraCenterX) }} / {{ fixed(debug?.cameraCenterY) }} px</dd>
           <dt>镜头模式</dt><dd>{{ debug?.cameraMode ?? '—' }}</dd>
-          <dt>内部渲染倍率</dt><dd>{{ fixed(debug?.cameraNativeZoom, 2) }}×</dd>
+          <dt>可见世界范围</dt><dd>{{ fixed(debug?.visibleWorldWidth, 0) }} × {{ fixed(debug?.visibleWorldHeight, 0) }} px</dd>
         </dl></section>
         <section class="debug-card"><h2><span>04</span> 运行资源 / RUNTIME</h2><dl class="telemetry">
           <dt>实时帧率</dt><dd>{{ fixed(debug?.fps, 0) }} FPS</dd>
