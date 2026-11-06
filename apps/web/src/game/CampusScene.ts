@@ -1,7 +1,7 @@
 // 含弘门场景直接使用 TMX 数据，并复用小鸟的四向动画。
 import Phaser from 'phaser';
 // 切图与普通移动共用脚底坐标和方向键判定。
-import { canStep, crossingAt, directionFromAxes, facingForMove, step, type CampusZone, type Direction, type MoveDirection, type Point } from './campus';
+import { canStep, crossingAt, directionFromAxes, facingForMove, step, type CampusZone, type Direction, type Point } from './campus';
 import { readGateMap } from './gateMap';
 
 export interface GameStatus { scene: string; position: Point; facing: Direction; sprint: boolean }
@@ -20,7 +20,6 @@ export interface DebugSnapshot {
   logicalPosition: Point;
   renderPosition: Point;
   facing: Direction;
-  playerAngle: number;
   moving: boolean;
   sprint: boolean;
   speed: number;
@@ -247,7 +246,7 @@ export class CampusScene extends Phaser.Scene {
       zoneCount: Object.keys(this.maps).length,
       logicalPosition: { ...this.position },
       renderPosition: { x: this.player?.x ?? this.position.x, y: this.player?.y ?? this.position.y },
-      facing: this.facing, playerAngle: this.player.angle, moving: this.moving, sprint: this.keys?.SHIFT?.isDown ?? false,
+      facing: this.facing, moving: this.moving, sprint: this.keys?.SHIFT?.isDown ?? false,
       speed: Math.hypot(this.velocity.x, this.velocity.y), velocity: { ...this.velocity },
       cameraX: camera.scrollX, cameraY: camera.scrollY, cameraCenterX: center.x, cameraCenterY: center.y,
       cameraZoom: this.userZoom, visibleWorldWidth: camera.width / camera.zoom,
@@ -357,7 +356,7 @@ export class CampusScene extends Phaser.Scene {
       const { x, y } = this.position;
       this.player.setPosition(x, y).setDepth(y);
       this.cameras.main.centerOn(x, y);
-      this.playPlayer(this.keys.SHIFT.isDown ? 'run' : 'walk', direction);
+      this.playPlayer(this.keys.SHIFT.isDown ? 'run' : 'walk');
       this.report(this.keys.SHIFT.isDown);
       return;
     }
@@ -384,7 +383,7 @@ export class CampusScene extends Phaser.Scene {
     const distance = Math.hypot(next.x - this.position.x, next.y - this.position.y) / tileSize;
     const duration = Math.round((sprint ? 68 : 132) * distance);
     this.velocity = { x: (next.x - this.position.x) * 1000 / duration, y: (next.y - this.position.y) * 1000 / duration };
-    this.playPlayer(sprint ? 'run' : 'walk', actualDirection ?? direction);
+    this.playPlayer(sprint ? 'run' : 'walk');
     this.tweens.add({
       targets: this.player, x: next.x, y: next.y, duration,
       onUpdate: () => this.player.setDepth(this.player.y),
@@ -440,8 +439,7 @@ export class CampusScene extends Phaser.Scene {
       .setDepth(this.position.y);
     this.playPlayer('idle');
   }
-  private playPlayer(action: BirdAction, movement: MoveDirection | null = null): void {
-    this.player.setAngle(action === 'idle' ? 0 : movement?.includes('left') ? -45 : movement?.includes('right') ? 45 : 0);
+  private playPlayer(action: BirdAction): void {
     const direction = this.facing;
     const key = `bird-original-${action}-${direction}`;
     const { currentAnim, currentFrame, isPlaying } = this.player.anims;

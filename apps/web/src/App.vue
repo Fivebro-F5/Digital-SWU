@@ -170,7 +170,6 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
           <dt>渲染坐标 X / Y</dt><dd>{{ fixed(debug?.renderPosition.x) }} / {{ fixed(debug?.renderPosition.y) }} px</dd>
           <dt>瓦片坐标 X / Y</dt><dd>{{ debug ? Math.floor(debug.logicalPosition.x / debug.tileSize) : '—' }} / {{ debug ? Math.floor(debug.logicalPosition.y / debug.tileSize) : '—' }}</dd>
           <dt>朝向</dt><dd>{{ directionLabel(debug?.facing ?? status.facing) }}</dd>
-          <dt>贴图旋转</dt><dd>{{ fixed(debug?.playerAngle, 0) }}°</dd>
           <dt>运动状态</dt><dd>{{ debug?.moving ? (debug.sprint ? '疾跑' : '步行') : '静止' }}</dd>
           <dt>速度</dt><dd>{{ fixed(debug?.speed) }} px/s</dd>
           <dt>速度向量 X / Y</dt><dd>{{ fixed(debug?.velocity.x) }} / {{ fixed(debug?.velocity.y) }} px/s</dd>
