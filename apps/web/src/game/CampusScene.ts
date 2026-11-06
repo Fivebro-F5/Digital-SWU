@@ -1,7 +1,7 @@
 // 含弘门场景直接使用 TMX 数据，并复用小鸟的四向动画。
 import Phaser from 'phaser';
 // 切图与普通移动共用脚底坐标和方向键判定。
-import { canStep, crossingAt, directionFromAxes, step, type CampusZone, type Direction, type Point } from './campus';
+import { canStep, crossingAt, directionFromAxes, facingForMove, step, type CampusZone, type Direction, type Point } from './campus';
 import { readGateMap } from './gateMap';
 
 export interface GameStatus { scene: string; position: Point; facing: Direction; sprint: boolean }
@@ -29,6 +29,7 @@ export interface DebugSnapshot {
   cameraCenterX: number;
   cameraCenterY: number;
   cameraZoom: number;
+  cameraNativeZoom: number;
   cameraMode: '跟随角色' | '自由视角';
   viewportWidth: number;
   viewportHeight: number;
@@ -88,7 +89,14 @@ export class CampusScene extends Phaser.Scene {
   constructor(private readonly hooks: GameHooks) { super('campus'); }
 
   setGridMode(mode: GridMode): void { this.gridMode = mode; this.drawGrid(); }
-  setViewportSize(width: number, height: number): void { this.cameras.main.setSize(width, height); }
+  setViewportSize(width: number, height: number): void {
+    const camera = this.cameras.main;
+    const center = camera.getWorldPoint(camera.width / 2, camera.height / 2);
+    const userZoom = camera.zoom / (camera.width / 768);
+    camera.setSize(width, height);
+    camera.setZoom(userZoom * (width / 768));
+    camera.centerOn(center.x, center.y);
+  }
   zoomBy(wheelDelta: number): void {
     if (!wheelDelta) return;
     const camera = this.cameras.main;
@@ -104,7 +112,7 @@ export class CampusScene extends Phaser.Scene {
   }
   resetCamera(): void {
     const camera = this.cameras.main;
-    camera.setZoom(1);
+    camera.setZoom(camera.width / 768);
     camera.startFollow(this.player, true);
     camera.centerOn(this.player.x, this.player.y);
     this.cameraMode = '跟随角色';
@@ -152,7 +160,7 @@ export class CampusScene extends Phaser.Scene {
       facing: this.facing, moving: this.moving, sprint: this.keys?.SHIFT?.isDown ?? false,
       speed: Math.hypot(this.velocity.x, this.velocity.y), velocity: { ...this.velocity },
       cameraX: camera.scrollX, cameraY: camera.scrollY, cameraCenterX: center.x, cameraCenterY: center.y,
-      cameraZoom: camera.zoom, cameraMode: this.cameraMode,
+      cameraZoom: camera.zoom / (camera.width / 768), cameraNativeZoom: camera.zoom, cameraMode: this.cameraMode,
       viewportWidth: camera.width, viewportHeight: camera.height,
       fps: loop.actualFps,
       renderer: this.game.renderer.type === Phaser.WEBGL ? 'WebGL' : 'Canvas',
@@ -213,7 +221,7 @@ export class CampusScene extends Phaser.Scene {
     this.report(false);
   }
 
-  // 四向移动以脚底为坐标，每次尝试沿一个轴移动一格。
+  // 按键可组合为八向移动；角色动画仍使用四个朝向。
   setDirection(direction: Direction, pressed: boolean): void { this.held[direction] = pressed; }
 
   update(): void {
@@ -227,10 +235,14 @@ export class CampusScene extends Phaser.Scene {
       this.playPlayer('idle');
       return;
     }
-    const turned = this.facing !== direction;
-    this.facing = direction;
+    const desiredFacing = facingForMove(direction);
+    const turned = this.facing !== desiredFacing;
+    this.facing = desiredFacing;
     // 出口先于普通边界碰撞检查，切换后角色与镜头一起落到对侧。
-    const crossing = crossingAt(this.zone, this.position, direction);
+    const candidates: Direction[] = direction.includes('up') ? ['up'] : direction.includes('down') ? ['down'] : [];
+    if (direction.includes('left')) candidates.push('left');
+    if (direction.includes('right')) candidates.push('right');
+    const crossing = candidates.map((candidate) => crossingAt(this.zone, this.position, candidate)).find((route) => route !== null);
     if (crossing) {
       this.velocity = { x: 0, y: 0 };
       this.zone = crossing.zone;
@@ -244,16 +256,27 @@ export class CampusScene extends Phaser.Scene {
       return;
     }
     const { tileSize, width, height, collisions } = this.map;
-    const next = step(this.position, direction, tileSize);
+    const desired = step(this.position, direction, tileSize);
+    let next = desired;
+    if (!canStep(this.position, desired, width, height, collisions) && direction.includes('-')) {
+      const horizontal: Direction = direction.includes('left') ? 'left' : 'right';
+      const vertical: Direction = direction.includes('up') ? 'up' : 'down';
+      const alongX = step(this.position, horizontal, tileSize);
+      const alongY = step(this.position, vertical, tileSize);
+      next = canStep(this.position, alongX, width, height, collisions) ? alongX : alongY;
+    }
     if (!canStep(this.position, next, width, height, collisions)) {
       this.playPlayer('idle');
       if (turned) this.report(false);
       return;
     }
+    const actualDirection = directionFromAxes(next.x - this.position.x, next.y - this.position.y);
+    if (actualDirection) this.facing = facingForMove(actualDirection);
 
     const sprint = this.keys.SHIFT.isDown;
     this.moving = true;
-    const duration = sprint ? 68 : 132;
+    const distance = Math.hypot(next.x - this.position.x, next.y - this.position.y) / tileSize;
+    const duration = Math.round((sprint ? 68 : 132) * distance);
     this.velocity = { x: (next.x - this.position.x) * 1000 / duration, y: (next.y - this.position.y) * 1000 / duration };
     this.playPlayer(sprint ? 'run' : 'walk');
     this.tweens.add({

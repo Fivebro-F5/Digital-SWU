@@ -2,6 +2,7 @@
 export interface Point { x: number; y: number }
 export interface Rect extends Point { width: number; height: number }
 export type Direction = 'up' | 'down' | 'left' | 'right';
+export type MoveDirection = Direction | 'up-left' | 'up-right' | 'down-left' | 'down-right';
 
 // 含弘门的四个出口和雕像花园北口共用双向通道规则。
 const routes = [
@@ -29,15 +30,22 @@ export function crossingAt(zone: CampusZone, point: Point, direction: Direction)
   };
 }
 
-export function directionFromAxes(dx: number, dy: number): Direction | null {
-  if (dy !== 0) return dy < 0 ? 'up' : 'down';
-  return dx < 0 ? 'left' : dx > 0 ? 'right' : null;
+export function directionFromAxes(dx: number, dy: number): MoveDirection | null {
+  const vertical = dy < 0 ? 'up' : dy > 0 ? 'down' : '';
+  const horizontal = dx < 0 ? 'left' : dx > 0 ? 'right' : '';
+  return (vertical && horizontal ? `${vertical}-${horizontal}` : vertical || horizontal || null) as MoveDirection | null;
 }
 
-export function step(point: Point, direction: Direction, tileSize: number): Point {
-  const offsets: Record<Direction, Point> = {
+export function facingForMove(direction: MoveDirection): Direction {
+  return direction.includes('up') ? 'up' : direction.includes('down') ? 'down' : direction.includes('left') ? 'left' : 'right';
+}
+
+export function step(point: Point, direction: MoveDirection, tileSize: number): Point {
+  const offsets: Record<MoveDirection, Point> = {
     up: { x: 0, y: -1 }, down: { x: 0, y: 1 },
     left: { x: -1, y: 0 }, right: { x: 1, y: 0 },
+    'up-left': { x: -1, y: -1 }, 'up-right': { x: 1, y: -1 },
+    'down-left': { x: -1, y: 1 }, 'down-right': { x: 1, y: 1 },
   };
   const offset = offsets[direction];
   return { x: point.x + offset.x * tileSize, y: point.y + offset.y * tileSize };

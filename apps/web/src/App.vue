@@ -12,7 +12,7 @@ const selected = ref<{ title: string; body: string } | null>(null);
 const status = ref<GameStatus>({ scene: '含弘门', position: { x: 0, y: 0 }, facing: 'down', sprint: false });
 const debug = ref<DebugSnapshot | null>(null);
 const gridMode = ref<GridMode>('off');
-const resolution = ref<'384x240' | '768x480' | '1152x720'>('768x480');
+const resolution = ref<'384x240' | '768x480' | '1152x720' | '1536x960' | '1920x1200' | '2560x1600'>('768x480');
 const dragging = ref(false);
 let lastMouse = { x: 0, y: 0 };
 let panStart = { x: 0, y: 0 };
@@ -31,9 +31,10 @@ function viewSize(): { width: number; height: number } {
 }
 function changeResolution(): void {
   const { width, height } = viewSize();
-  game?.scale.resize(width, height);
   activeScene()?.setViewportSize(width, height);
+  game?.scale.resize(width, height);
   fitCanvas();
+  game?.scale.refresh();
   refreshDebug();
 }
 function onWheel(event: WheelEvent): void { activeScene()?.zoomBy(event.deltaY); refreshDebug(); }
@@ -67,9 +68,8 @@ function fitCanvas(): void {
   const host = canvasHost.value;
   if (!host?.parentElement) return;
   const available = host.parentElement.clientWidth;
-  const logicalWidth = viewSize().width;
-  const scale = Math.floor(available / logicalWidth);
-  const width = scale >= 1 ? scale * logicalWidth : available;
+  const scale = Math.floor(available / 768);
+  const width = scale >= 1 ? scale * 768 : available;
   if (host.style.width === `${width}px`) return;
   host.style.width = `${width}px`;
   if (game) requestAnimationFrame(() => { if (!disposed) game?.scale.refresh(); });
@@ -117,10 +117,10 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
     </header>
     <div class="debug-layout">
       <section class="viewport-panel" aria-label="游戏画面">
-        <div class="panel-heading"><span>01 / GAME VIEWPORT · {{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span><div class="viewport-toolbar"><label for="resolution">分辨率</label><select id="resolution" v-model="resolution" @change="changeResolution"><option value="384x240">384 × 240</option><option value="768x480">768 × 480</option><option value="1152x720">1152 × 720</option></select><label for="grid-mode">Tile 轮廓</label><select id="grid-mode" v-model="gridMode" @change="changeGridMode"><option value="off">关闭</option><option value="category">按类别</option><option value="cell">逐格</option></select><button type="button" @click="activeScene()?.resetCamera()">复位视角</button></div></div>
+        <div class="panel-heading"><span>01 / GAME VIEWPORT · {{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span><div class="viewport-toolbar"><label for="resolution">分辨率</label><select id="resolution" v-model="resolution" @change="changeResolution"><option value="384x240">384 × 240</option><option value="768x480">768 × 480</option><option value="1152x720">1152 × 720</option><option value="1536x960">1536 × 960</option><option value="1920x1200">1920 × 1200</option><option value="2560x1600">2560 × 1600</option></select><label for="grid-mode">Tile 轮廓</label><select id="grid-mode" v-model="gridMode" @change="changeGridMode"><option value="off">关闭</option><option value="category">按类别</option><option value="cell">逐格</option></select><button type="button" @click="activeScene()?.resetCamera()">复位视角</button></div></div>
         <div ref="canvasHost" class="canvas-host" :class="{ dragging }" aria-label="俯视角像素校园画布" @wheel.prevent="onWheel" @mousedown="onMouseDown" @mousemove="onMouseMove" @auxclick.prevent />
         <div class="viewport-stats"><span>LOGICAL {{ debug?.viewportWidth ?? viewSize().width }} × {{ debug?.viewportHeight ?? viewSize().height }}</span><span>FPS {{ fixed(debug?.fps, 0) }}</span><span>{{ debug?.renderer ?? '—' }}</span><span>ZOOM {{ fixed(debug?.cameraZoom, 2) }}×</span></div>
-        <div class="event-panel"><span class="panel-label">NEARBY / EVENT</span><strong>{{ nearby?.name ?? '无活动交互区域' }}</strong><p>{{ nearby?.description ?? 'WASD 移动 · 滚轮缩放 · 中键拖动画面 · E 交互' }}</p><button type="button" @click="activeScene()?.interact()">触发交互 E</button></div>
+        <div class="event-panel"><span class="panel-label">NEARBY / EVENT</span><strong>{{ nearby?.name ?? '无活动交互区域' }}</strong><p>{{ nearby?.description ?? '组合 WASD 斜向移动 · 滚轮缩放 · 中键拖动画面 · E 交互' }}</p><button type="button" @click="activeScene()?.interact()">触发交互 E</button></div>
       </section>
       <aside class="debug-sidebar">
         <section class="debug-card"><h2><span>02</span> 玩家状态 / PLAYER</h2><dl class="telemetry">
@@ -146,6 +146,7 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
           <dt>镜头滚动 X / Y</dt><dd>{{ fixed(debug?.cameraX) }} / {{ fixed(debug?.cameraY) }} px</dd>
           <dt>画面中心 X / Y</dt><dd>{{ fixed(debug?.cameraCenterX) }} / {{ fixed(debug?.cameraCenterY) }} px</dd>
           <dt>镜头模式</dt><dd>{{ debug?.cameraMode ?? '—' }}</dd>
+          <dt>内部渲染倍率</dt><dd>{{ fixed(debug?.cameraNativeZoom, 2) }}×</dd>
         </dl></section>
         <section class="debug-card"><h2><span>04</span> 运行资源 / RUNTIME</h2><dl class="telemetry">
           <dt>实时帧率</dt><dd>{{ fixed(debug?.fps, 0) }} FPS</dd>
@@ -155,7 +156,7 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
           <dt>场景对象</dt><dd>{{ debug?.sceneObjects ?? '—' }}</dd>
           <dt>API 健康状态</dt><dd>{{ apiStatus }}</dd>
         </dl></section>
-        <section class="debug-card input-card"><h2><span>05</span> 输入测试 / INPUT</h2><p>WASD / 方向键移动 · Shift 疾跑 · E / 空格交互</p><div class="controls" aria-label="屏幕方向键">
+        <section class="debug-card input-card"><h2><span>05</span> 输入测试 / INPUT</h2><p>组合 WASD / 方向键八向移动 · Shift 疾跑 · E / 空格交互</p><div class="controls" aria-label="屏幕方向键">
           <button class="up" type="button" aria-label="向上" @pointerdown="setDirection('up', true)" @pointerup="setDirection('up', false)" @pointerleave="setDirection('up', false)" @pointercancel="setDirection('up', false)">↑</button>
           <button class="left" type="button" aria-label="向左" @pointerdown="setDirection('left', true)" @pointerup="setDirection('left', false)" @pointerleave="setDirection('left', false)" @pointercancel="setDirection('left', false)">←</button>
           <button class="down" type="button" aria-label="向下" @pointerdown="setDirection('down', true)" @pointerup="setDirection('down', false)" @pointerleave="setDirection('down', false)" @pointercancel="setDirection('down', false)">↓</button>
