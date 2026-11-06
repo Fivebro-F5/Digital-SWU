@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import type Phaser from 'phaser';
 import type { HealthStatus } from '@digital-swu/contracts';
-import type { CampusScene, DebugSnapshot, GameStatus, GameHooks } from './game/CampusScene';
+import type { CampusScene, DebugSnapshot, GameStatus, GameHooks, GridMode } from './game/CampusScene';
 import type { Direction } from './game/campus';
 
 const canvasHost = ref<HTMLDivElement | null>(null);
@@ -11,6 +11,9 @@ const nearby = ref<{ name: string; description: string } | null>(null);
 const selected = ref<{ title: string; body: string } | null>(null);
 const status = ref<GameStatus>({ scene: '含弘门', position: { x: 0, y: 0 }, facing: 'down', sprint: false });
 const debug = ref<DebugSnapshot | null>(null);
+const gridMode = ref<GridMode>('off');
+const dragging = ref(false);
+let lastMouse = { x: 0, y: 0 };
 let game: Phaser.Game | undefined;
 let disposed = false;
 let canvasObserver: ResizeObserver | undefined;
@@ -18,6 +21,22 @@ let debugTimer: number | undefined;
 
 function activeScene(): CampusScene | undefined { return game?.scene.getScenes(true)[0] as CampusScene | undefined; }
 function setDirection(direction: Direction, pressed: boolean): void { activeScene()?.setDirection(direction, pressed); }
+function changeGridMode(): void { activeScene()?.setGridMode(gridMode.value); }
+function onWheel(event: WheelEvent): void { activeScene()?.zoomBy(event.deltaY); refreshDebug(); }
+function onMouseDown(event: MouseEvent): void {
+  if (event.button !== 1) return;
+  event.preventDefault();
+  dragging.value = true;
+  lastMouse = { x: event.clientX, y: event.clientY };
+  activeScene()?.beginPan();
+}
+function onMouseMove(event: MouseEvent): void {
+  if (!dragging.value) return;
+  if (!(event.buttons & 4)) { dragging.value = false; return; }
+  activeScene()?.panBy(event.clientX - lastMouse.x, event.clientY - lastMouse.y);
+  lastMouse = { x: event.clientX, y: event.clientY };
+}
+function stopPan(): void { dragging.value = false; }
 function directionLabel(direction: Direction): string { return { up: '北 ↑', down: '南 ↓', left: '西 ←', right: '东 →' }[direction]; }
 function fixed(value: number | undefined, digits = 1): string { return value === undefined || !Number.isFinite(value) ? '—' : value.toFixed(digits); }
 function fitCanvas(): void {
@@ -32,11 +51,15 @@ function fitCanvas(): void {
 }
 function refreshDebug(): void {
   const scene = activeScene();
-  if (scene?.scene.isActive()) debug.value = scene.getDebugSnapshot();
+  if (scene?.scene.isActive()) {
+    if (!debug.value) scene.setGridMode(gridMode.value);
+    debug.value = scene.getDebugSnapshot();
+  }
 }
 
 onMounted(async () => {
   fitCanvas();
+  window.addEventListener('mouseup', stopPan);
   try {
     const [{ default: PhaserRuntime }, { CampusScene: GateScene }] = await Promise.all([import('phaser'), import('./game/CampusScene')]);
     if (disposed || !canvasHost.value) return;
@@ -58,7 +81,7 @@ onMounted(async () => {
     apiStatus.value = data.status === 'ok' ? '已连接' : '不可用';
   } catch { if (apiStatus.value !== '场景加载失败') apiStatus.value = '未连接'; }
 });
-onUnmounted(() => { disposed = true; if (debugTimer !== undefined) clearInterval(debugTimer); canvasObserver?.disconnect(); game?.destroy(true); });
+onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopPan); if (debugTimer !== undefined) clearInterval(debugTimer); canvasObserver?.disconnect(); game?.destroy(true); });
 </script>
 
 <template>
@@ -69,10 +92,10 @@ onUnmounted(() => { disposed = true; if (debugTimer !== undefined) clearInterval
     </header>
     <div class="debug-layout">
       <section class="viewport-panel" aria-label="游戏画面">
-        <div class="panel-heading"><span>01 / GAME VIEWPORT</span><span>{{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span></div>
-        <div ref="canvasHost" class="canvas-host" aria-label="俯视角像素校园画布" />
+        <div class="panel-heading"><span>01 / GAME VIEWPORT · {{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span><div class="viewport-toolbar"><label for="grid-mode">Tile 轮廓</label><select id="grid-mode" v-model="gridMode" @change="changeGridMode"><option value="off">关闭</option><option value="category">按类别</option><option value="cell">逐格</option></select><button type="button" @click="activeScene()?.resetCamera()">复位视角</button></div></div>
+        <div ref="canvasHost" class="canvas-host" :class="{ dragging }" aria-label="俯视角像素校园画布" @wheel.prevent="onWheel" @mousedown="onMouseDown" @mousemove="onMouseMove" @auxclick.prevent />
         <div class="viewport-stats"><span>LOGICAL {{ debug?.viewportWidth ?? 384 }} × {{ debug?.viewportHeight ?? 240 }}</span><span>FPS {{ fixed(debug?.fps, 0) }}</span><span>{{ debug?.renderer ?? '—' }}</span><span>ZOOM {{ fixed(debug?.cameraZoom, 2) }}×</span></div>
-        <div class="event-panel"><span class="panel-label">NEARBY / EVENT</span><strong>{{ nearby?.name ?? '无活动交互区域' }}</strong><p>{{ nearby?.description ?? '面向区域按 E 查看；方向键或 WASD 移动，Shift 疾跑。' }}</p><button type="button" @click="activeScene()?.interact()">触发交互 E</button></div>
+        <div class="event-panel"><span class="panel-label">NEARBY / EVENT</span><strong>{{ nearby?.name ?? '无活动交互区域' }}</strong><p>{{ nearby?.description ?? 'WASD 移动 · 滚轮缩放 · 中键拖动画面 · E 交互' }}</p><button type="button" @click="activeScene()?.interact()">触发交互 E</button></div>
       </section>
       <aside class="debug-sidebar">
         <section class="debug-card"><h2><span>02</span> 玩家状态 / PLAYER</h2><dl class="telemetry">
@@ -96,6 +119,7 @@ onUnmounted(() => { disposed = true; if (debugTimer !== undefined) clearInterval
           <dt>碰撞区域</dt><dd>{{ debug?.collisionAreas ?? '—' }}</dd>
           <dt>交互区域</dt><dd>{{ debug?.interactionAreas ?? '—' }}</dd>
           <dt>镜头滚动 X / Y</dt><dd>{{ fixed(debug?.cameraX) }} / {{ fixed(debug?.cameraY) }} px</dd>
+          <dt>镜头模式</dt><dd>{{ debug?.cameraMode ?? '—' }}</dd>
         </dl></section>
         <section class="debug-card"><h2><span>04</span> 运行资源 / RUNTIME</h2><dl class="telemetry">
           <dt>实时帧率</dt><dd>{{ fixed(debug?.fps, 0) }} FPS</dd>

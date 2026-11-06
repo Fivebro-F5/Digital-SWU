@@ -27,6 +27,7 @@ export interface DebugSnapshot {
   cameraX: number;
   cameraY: number;
   cameraZoom: number;
+  cameraMode: '跟随角色' | '自由视角';
   viewportWidth: number;
   viewportHeight: number;
   fps: number;
@@ -35,6 +36,7 @@ export interface DebugSnapshot {
   declaredImages: number;
   sceneObjects: number;
 }
+export type GridMode = 'off' | 'category' | 'cell';
 export interface GameHooks {
   onNearby: (name: string | null, description?: string) => void;
   onMessage: (title: string, body: string) => void;
@@ -70,6 +72,9 @@ export class CampusScene extends Phaser.Scene {
   private zone: CampusZone = '00';
   private get map() { return this.maps[this.zone]; }
   private readonly mapObjects: Phaser.GameObjects.GameObject[] = [];
+  private gridOverlay?: Phaser.GameObjects.Graphics;
+  private gridMode: GridMode = 'off';
+  private cameraMode: DebugSnapshot['cameraMode'] = '跟随角色';
   private player!: Phaser.GameObjects.Sprite;
   private position = { ...this.map.spawn };
   private facing: Direction = 'down';
@@ -79,6 +84,52 @@ export class CampusScene extends Phaser.Scene {
   private keys!: Record<string, Phaser.Input.Keyboard.Key>;
 
   constructor(private readonly hooks: GameHooks) { super('campus'); }
+
+  setGridMode(mode: GridMode): void { this.gridMode = mode; this.drawGrid(); }
+  zoomBy(wheelDelta: number): void {
+    const camera = this.cameras.main;
+    camera.setZoom(Phaser.Math.Clamp(camera.zoom * (wheelDelta > 0 ? 0.9 : 1.1), 0.5, 3));
+  }
+  beginPan(): void { this.cameras.main.stopFollow(); this.cameraMode = '自由视角'; }
+  panBy(cssX: number, cssY: number): void {
+    const camera = this.cameras.main;
+    const displayScale = this.game.canvas.getBoundingClientRect().width / camera.width || 1;
+    camera.scrollX -= cssX / displayScale / camera.zoom;
+    camera.scrollY -= cssY / displayScale / camera.zoom;
+  }
+  resetCamera(): void {
+    const camera = this.cameras.main;
+    camera.setZoom(1);
+    camera.startFollow(this.player, true);
+    camera.centerOn(this.player.x, this.player.y);
+    this.cameraMode = '跟随角色';
+  }
+
+  private drawGrid(): void {
+    this.gridOverlay?.destroy();
+    this.gridOverlay = undefined;
+    if (this.gridMode === 'off') return;
+    const { width, height, tileSize, layers } = this.map;
+    const cols = width / tileSize; const rows = height / tileSize;
+    const graphics = this.add.graphics().setDepth(-0.5);
+    graphics.lineStyle(1, 0x3a6b63, 0.74);
+    if (this.gridMode === 'cell') {
+      for (let x = 0; x <= cols; x++) graphics.lineBetween(x * tileSize, 0, x * tileSize, height);
+      for (let y = 0; y <= rows; y++) graphics.lineBetween(0, y * tileSize, width, y * tileSize);
+    } else {
+      const categoryAt = (x: number, y: number) => {
+        for (let layer = layers.length - 1; layer >= 0; layer--) if (layers[layer][y][x] >= 0) return layer;
+        return -1;
+      };
+      for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+        const current = categoryAt(x, y);
+        if (x + 1 < cols && current !== categoryAt(x + 1, y)) graphics.lineBetween((x + 1) * tileSize, y * tileSize, (x + 1) * tileSize, (y + 1) * tileSize);
+        if (y + 1 < rows && current !== categoryAt(x, y + 1)) graphics.lineBetween(x * tileSize, (y + 1) * tileSize, (x + 1) * tileSize, (y + 1) * tileSize);
+      }
+      graphics.strokeRect(0, 0, width, height);
+    }
+    this.gridOverlay = graphics;
+  }
 
   getDebugSnapshot(): DebugSnapshot {
     const map = this.map;
@@ -94,7 +145,7 @@ export class CampusScene extends Phaser.Scene {
       renderPosition: { x: this.player?.x ?? this.position.x, y: this.player?.y ?? this.position.y },
       facing: this.facing, moving: this.moving, sprint: this.keys?.SHIFT?.isDown ?? false,
       speed: Math.hypot(this.velocity.x, this.velocity.y), velocity: { ...this.velocity },
-      cameraX: camera.scrollX, cameraY: camera.scrollY, cameraZoom: camera.zoom,
+      cameraX: camera.scrollX, cameraY: camera.scrollY, cameraZoom: camera.zoom, cameraMode: this.cameraMode,
       viewportWidth: camera.width, viewportHeight: camera.height,
       fps: loop.actualFps,
       renderer: this.game.renderer.type === Phaser.WEBGL ? 'WebGL' : 'Canvas',
@@ -123,6 +174,7 @@ export class CampusScene extends Phaser.Scene {
 
   // 地面层保持在角色下方，即使角色落在 y=0 的边界上。
   private drawMap(): void {
+    this.gridOverlay?.destroy(); this.gridOverlay = undefined;
     for (const object of this.mapObjects.splice(0)) object.destroy();
     const { tileSize, width, height, terrain, firstGid } = this.map;
     for (const data of this.map.layers) {
@@ -136,6 +188,7 @@ export class CampusScene extends Phaser.Scene {
         .setDisplaySize(sprite.width, sprite.height).setDepth(sprite.y));
     }
     this.cameras.main.setBounds(0, 0, width, height);
+    this.drawGrid();
   }
 
   // 首次进游戏使用 TMX 出生点，之后往返使用边界入口坐标。
