@@ -16,6 +16,8 @@ export interface DebugSnapshot {
   mapSprites: number;
   collisionAreas: number;
   interactionAreas: number;
+  portalAreas: number;
+  specialEntityAreas: number;
   zoneCount: number;
   logicalPosition: Point;
   renderPosition: Point;
@@ -41,6 +43,7 @@ export interface DebugSnapshot {
   sceneObjects: number;
 }
 export type GridMode = 'off' | 'category' | 'cell';
+export type ObjectDebugMode = 'off' | 'interaction' | 'entity' | 'all';
 type GridSegment = { x1: number; y1: number; x2: number; y2: number };
 export interface GameHooks {
   onNearby: (name: string | null, description?: string) => void;
@@ -233,6 +236,42 @@ export class CampusScene extends Phaser.Scene {
     context.stroke();
   }
 
+  paintObjectDebugBoxes(context: CanvasRenderingContext2D, displayWidth: number, displayHeight: number, mode: ObjectDebugMode): void {
+    if (mode === 'off') return;
+    const camera = this.cameras.main;
+    const topLeft = camera.getWorldPoint(0, 0);
+    const scaleX = camera.zoom * displayWidth / camera.width;
+    const scaleY = camera.zoom * displayHeight / camera.height;
+    const draw = (area: { x: number; y: number; width: number; height: number }, label: string, color: string) => {
+      const left = Math.round((area.x - topLeft.x) * scaleX);
+      const top = Math.round((area.y - topLeft.y) * scaleY);
+      const right = Math.round((area.x + area.width - topLeft.x) * scaleX);
+      const bottom = Math.round((area.y + area.height - topLeft.y) * scaleY);
+      if (right < 0 || bottom < 0 || left > displayWidth || top > displayHeight) return;
+      context.strokeStyle = color;
+      context.strokeRect(left + 0.5, top + 0.5, right - left, bottom - top);
+      if (left >= displayWidth || top >= displayHeight || right - left < 24 || bottom - top < 12) return;
+      context.font = '11px monospace';
+      const textWidth = context.measureText(label).width;
+      const textX = Math.max(0, Math.min(left + 3, displayWidth - textWidth - 5));
+      const textY = Math.max(12, top + 13);
+      context.fillStyle = 'rgba(22, 34, 36, 0.85)';
+      context.fillRect(textX - 2, textY - 11, textWidth + 4, 14);
+      context.fillStyle = color;
+      context.fillText(label, textX, textY);
+    };
+    context.save();
+    context.lineWidth = 1;
+    if (mode === 'interaction' || mode === 'all') {
+      for (const area of this.map.interactions) draw(area, area.title || '交互', '#f1c34d');
+      for (const area of this.map.portals) draw(area, `传送 ${area.name}`, '#4ca3d9');
+    }
+    if (mode === 'entity' || mode === 'all') {
+      for (const area of this.map.specialEntities) draw(area, area.name, '#bb83e4');
+    }
+    context.restore();
+  }
+
   getDebugSnapshot(): DebugSnapshot {
     const map = this.map;
     const camera = this.cameras.main;
@@ -243,6 +282,7 @@ export class CampusScene extends Phaser.Scene {
       mapWidth: map.width, mapHeight: map.height, tileSize: map.tileSize,
       tileLayers: map.layers.length, mapSprites: map.sprites.length,
       collisionAreas: map.collisions.length, interactionAreas: map.interactions.length,
+      portalAreas: map.portals.length, specialEntityAreas: map.specialEntities.length,
       zoneCount: Object.keys(this.maps).length,
       logicalPosition: { ...this.position },
       renderPosition: { x: this.player?.x ?? this.position.x, y: this.player?.y ?? this.position.y },

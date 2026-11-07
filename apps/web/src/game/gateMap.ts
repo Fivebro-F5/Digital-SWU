@@ -69,10 +69,19 @@ export function readGateMap(zone: CampusZone) {
   const interactions = [...root.querySelectorAll('objectgroup[name="Interactions"] > object')].map((object) => ({
     ...rectangle(object), title: property(object, 'title'), message: property(object, 'message'),
   }));
+  const portals = [...root.querySelectorAll('objectgroup[name="Portals"] > object')].map((object) => ({
+    ...rectangle(object), name: object.getAttribute('name') ?? 'portal',
+  }));
+  const specialEntities = [...root.querySelectorAll('objectgroup > object')]
+    .filter((object) => !['Spawn', 'Collisions', 'Interactions', 'Portals'].includes(object.parentElement?.getAttribute('name') ?? ''))
+    .map((object) => ({
+      ...rectangle(object),
+      name: property(object, 'display_name') || object.getAttribute('name') || object.getAttribute('type') || 'entity',
+    }));
   return {
     name,
     backgroundColor: root.getAttribute('backgroundcolor') ?? '#95C679',
-    tileSize, width: columns * tileSize, height: rows * tileSize, layers, sprites, collisions, interactions,
+    tileSize, width: columns * tileSize, height: rows * tileSize, layers, sprites, collisions, interactions, portals, specialEntities,
     spawn: spawnPoint, terrain: terrain.getAttribute('source')!, firstGid: number(terrain.parentElement!, 'firstgid'),
   };
 }

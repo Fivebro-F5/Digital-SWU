@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import type Phaser from 'phaser';
 import type { HealthStatus } from '@digital-swu/contracts';
-import type { CampusScene, DebugSnapshot, GameStatus, GameHooks, GridMode } from './game/CampusScene';
+import type { CampusScene, DebugSnapshot, GameStatus, GameHooks, GridMode, ObjectDebugMode } from './game/CampusScene';
 import type { Direction } from './game/campus';
 
 const canvasHost = ref<HTMLDivElement | null>(null);
@@ -14,6 +14,7 @@ const status = ref<GameStatus>({ scene: '含弘门', position: { x: 0, y: 0 }, f
 const debug = ref<DebugSnapshot | null>(null);
 const gridMode = ref<GridMode>('off');
 const collisionMode = ref<'off' | 'on'>('off');
+const objectDebugMode = ref<ObjectDebugMode>('off');
 const resolution = ref<'auto' | '384x240' | '768x480' | '1152x720' | '1536x960' | '1920x1200' | '2560x1600'>('auto');
 const zoomInput = ref('1');
 const dragging = ref(false);
@@ -110,10 +111,11 @@ function paintDebugOverlay(): void {
     }
     const context = overlay.getContext('2d');
     const scene = activeScene();
-    const active = (gridMode.value !== 'off' || collisionMode.value === 'on') && Boolean(scene?.scene.isActive());
+    const active = (gridMode.value !== 'off' || collisionMode.value === 'on' || objectDebugMode.value !== 'off') && Boolean(scene?.scene.isActive());
     if (context && (active || overlayPainted)) context.clearRect(0, 0, width, height);
     if (context && active && scene) {
       if (gridMode.value !== 'off') scene.paintGrid(context, width, height);
+      if (objectDebugMode.value !== 'off') scene.paintObjectDebugBoxes(context, width, height, objectDebugMode.value);
       if (collisionMode.value === 'on') scene.paintCollisionBoxes(context, width, height);
     }
     overlayPainted = Boolean(context && active);
@@ -156,9 +158,9 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
     </header>
     <div class="debug-layout">
       <section class="viewport-panel" aria-label="游戏画面">
-        <div class="panel-heading"><span>01 / GAME VIEWPORT · {{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span><div class="viewport-toolbar"><label for="resolution">Canvas 尺寸</label><select id="resolution" v-model="resolution" @change="changeResolution"><option value="auto">随父级（原画）</option><option value="384x240">384 × 240</option><option value="768x480">768 × 480</option><option value="1152x720">1152 × 720</option><option value="1536x960">1536 × 960</option><option value="1920x1200">1920 × 1200</option><option value="2560x1600">2560 × 1600</option></select><label for="zoom-input">ZOOM</label><input id="zoom-input" type="number" inputmode="decimal" step="any" aria-label="镜头缩放倍数" :value="zoomInput" @change="changeZoom" @keyup.enter="changeZoom" /><label for="grid-mode">Tile 轮廓</label><select id="grid-mode" v-model="gridMode" @change="changeGridMode"><option value="off">关闭</option><option value="category">按类别</option><option value="cell">逐格</option></select><label for="collision-mode">碰撞框</label><select id="collision-mode" v-model="collisionMode"><option value="off">关闭</option><option value="on">显示</option></select><button type="button" @click="resetCamera">复位视角</button></div></div>
+        <div class="panel-heading"><span>01 / GAME VIEWPORT · {{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span><div class="viewport-toolbar"><label for="resolution">Canvas 尺寸</label><select id="resolution" v-model="resolution" @change="changeResolution"><option value="auto">随父级（原画）</option><option value="384x240">384 × 240</option><option value="768x480">768 × 480</option><option value="1152x720">1152 × 720</option><option value="1536x960">1536 × 960</option><option value="1920x1200">1920 × 1200</option><option value="2560x1600">2560 × 1600</option></select><label for="zoom-input">ZOOM</label><input id="zoom-input" type="number" inputmode="decimal" step="any" aria-label="镜头缩放倍数" :value="zoomInput" @change="changeZoom" @keyup.enter="changeZoom" /><label for="grid-mode">Tile 轮廓</label><select id="grid-mode" v-model="gridMode" @change="changeGridMode"><option value="off">关闭</option><option value="category">按类别</option><option value="cell">逐格</option></select><label for="collision-mode">碰撞框</label><select id="collision-mode" v-model="collisionMode"><option value="off">关闭</option><option value="on">显示</option></select><label for="object-debug-mode">对象调试框</label><select id="object-debug-mode" v-model="objectDebugMode"><option value="off">关闭</option><option value="interaction">交互与传送</option><option value="entity">特殊实体</option><option value="all">全部</option></select><button type="button" @click="resetCamera">复位视角</button></div></div>
         <div ref="canvasHost" class="canvas-host" :class="{ dragging }" aria-label="俯视角像素校园画布" @wheel.prevent="onWheel" @mousedown="onMouseDown" @mousemove="onMouseMove" @auxclick.prevent><canvas ref="overlayCanvas" class="debug-overlay" aria-hidden="true" /></div>
-        <div class="viewport-stats"><span>CANVAS {{ debug?.viewportWidth ?? viewSize().width }} × {{ debug?.viewportHeight ?? viewSize().height }}</span><span>FPS {{ fixed(debug?.fps, 0) }}</span><span>{{ debug?.renderer ?? '—' }}</span><span>ZOOM {{ fixed(debug?.cameraZoom, 2) }}×</span><span v-if="collisionMode === 'on'">红框 TMX 碰撞区 · 青框 贴图范围 · 黄十字 脚底判定点</span></div>
+        <div class="viewport-stats"><span>CANVAS {{ debug?.viewportWidth ?? viewSize().width }} × {{ debug?.viewportHeight ?? viewSize().height }}</span><span>FPS {{ fixed(debug?.fps, 0) }}</span><span>{{ debug?.renderer ?? '—' }}</span><span>ZOOM {{ fixed(debug?.cameraZoom, 2) }}×</span><span v-if="collisionMode === 'on'">红框 TMX 碰撞区 · 青框 贴图范围 · 黄十字 脚底判定点</span><span v-if="objectDebugMode !== 'off'">黄框 交互 · 蓝框 传送 · 紫框 特殊实体/占位</span></div>
         <div class="event-panel"><span class="panel-label">NEARBY / EVENT</span><strong>{{ nearby?.name ?? '无活动交互区域' }}</strong><p>{{ nearby?.description ?? '组合 WASD 斜向移动 · 滚轮缩放 · 中键拖动画面 · E 交互' }}</p><button type="button" @click="activeScene()?.interact()">触发交互 E</button></div>
       </section>
       <aside class="debug-sidebar">
@@ -182,6 +184,8 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
           <dt>地图贴图对象</dt><dd>{{ debug?.mapSprites ?? '—' }}</dd>
           <dt>碰撞区域</dt><dd>{{ debug?.collisionAreas ?? '—' }}</dd>
           <dt>交互区域</dt><dd>{{ debug?.interactionAreas ?? '—' }}</dd>
+          <dt>传送区域</dt><dd>{{ debug?.portalAreas ?? '—' }}</dd>
+          <dt>特殊实体/占位</dt><dd>{{ debug?.specialEntityAreas ?? '—' }}</dd>
           <dt>镜头滚动 X / Y</dt><dd>{{ fixed(debug?.cameraX) }} / {{ fixed(debug?.cameraY) }} px</dd>
           <dt>画面中心 X / Y</dt><dd>{{ fixed(debug?.cameraCenterX) }} / {{ fixed(debug?.cameraCenterY) }} px</dd>
           <dt>镜头模式</dt><dd>{{ debug?.cameraMode ?? '—' }}</dd>
