@@ -1,8 +1,9 @@
 // 含弘门场景直接使用 TMX 数据，并复用小鸟的四向动画。
 import Phaser from 'phaser';
-// 切图与普通移动共用脚底坐标和方向键判定。
-import { canStep, crossingAt, directionFromAxes, facingForMove, step, type CampusZone, type Direction, type Point } from './campus';
-import { readGateMap } from './gateMap';
+// 六区共用连续的全局脚底坐标。
+import { canWorldStep, zoneAt, zoneOffsets, worldBounds, directionFromAxes, facingForMove, step, type CampusZone, type Direction, type Point } from './campus';
+import { placeGateMap } from './gateMap';
+import type { MinimapSnapshot } from './minimap';
 
 export interface GameStatus { scene: string; position: Point; facing: Direction; sprint: boolean }
 export interface DebugSnapshot {
@@ -72,12 +73,14 @@ const mapAssets = import.meta.glob<string>('../../../../picture/pixel_swu_ground
 
 export class CampusScene extends Phaser.Scene {
   static readonly BASE_ZOOM = 1.5;
-  // 预解析六区地图，过界时只替换地图图层和贴图对象。
+  // 六区一次加载到同一场景，跨缝时仅更新当前区域名称。
   private readonly maps = {
-    '00': readGateMap('00'), '01': readGateMap('01'), '02': readGateMap('02'),
-    '03': readGateMap('03'), '04': readGateMap('04'),
-    '05': readGateMap('05'),
+    '00': placeGateMap('00', zoneOffsets['00']), '01': placeGateMap('01', zoneOffsets['01']), '02': placeGateMap('02', zoneOffsets['02']),
+    '03': placeGateMap('03', zoneOffsets['03']), '04': placeGateMap('04', zoneOffsets['04']),
+    '05': placeGateMap('05', zoneOffsets['05']),
   };
+  private readonly worldMaps = Object.values(this.maps);
+  private readonly worldCollisions = this.worldMaps.flatMap((map) => map.collisions);
   private zone: CampusZone = '00';
   private get map() { return this.maps[this.zone]; }
   private readonly mapObjects: Phaser.GameObjects.GameObject[] = [];
@@ -158,28 +161,30 @@ export class CampusScene extends Phaser.Scene {
 
   private gridSegments(): GridSegment[] {
     if (this.gridMode === 'off') return [];
-    const key = `${this.zone}:${this.gridMode}`;
+    const key = this.gridMode;
     const cached = this.gridSegmentsCache.get(key);
     if (cached) return cached;
-    const { width, height, tileSize, layers } = this.map;
-    const cols = width / tileSize; const rows = height / tileSize;
     const segments: GridSegment[] = [];
-    const line = (x1: number, y1: number, x2: number, y2: number) => segments.push({ x1, y1, x2, y2 });
-    if (this.gridMode === 'cell') {
-      for (let x = 0; x <= cols; x++) line(x * tileSize, 0, x * tileSize, height);
-      for (let y = 0; y <= rows; y++) line(0, y * tileSize, width, y * tileSize);
-    } else {
-      const categoryAt = (x: number, y: number) => {
-        for (let layer = layers.length - 1; layer >= 0; layer--) if (layers[layer][y][x] >= 0) return layer;
-        return -1;
-      };
-      for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
-        const current = categoryAt(x, y);
-        if (x + 1 < cols && current !== categoryAt(x + 1, y)) line((x + 1) * tileSize, y * tileSize, (x + 1) * tileSize, (y + 1) * tileSize);
-        if (y + 1 < rows && current !== categoryAt(x, y + 1)) line(x * tileSize, (y + 1) * tileSize, (x + 1) * tileSize, (y + 1) * tileSize);
+    for (const map of this.worldMaps) {
+      const { width, height, tileSize, layers, offset } = map;
+      const cols = width / tileSize; const rows = height / tileSize;
+      const line = (x1: number, y1: number, x2: number, y2: number) => segments.push({ x1: x1 + offset.x, y1: y1 + offset.y, x2: x2 + offset.x, y2: y2 + offset.y });
+      if (this.gridMode === 'cell') {
+        for (let x = 0; x <= cols; x++) line(x * tileSize, 0, x * tileSize, height);
+        for (let y = 0; y <= rows; y++) line(0, y * tileSize, width, y * tileSize);
+      } else {
+        const categoryAt = (x: number, y: number) => {
+          for (let layer = layers.length - 1; layer >= 0; layer--) if (layers[layer][y][x] >= 0) return layer;
+          return -1;
+        };
+        for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+          const current = categoryAt(x, y);
+          if (x + 1 < cols && current !== categoryAt(x + 1, y)) line((x + 1) * tileSize, y * tileSize, (x + 1) * tileSize, (y + 1) * tileSize);
+          if (y + 1 < rows && current !== categoryAt(x, y + 1)) line(x * tileSize, (y + 1) * tileSize, (x + 1) * tileSize, (y + 1) * tileSize);
+        }
+        line(0, 0, width, 0); line(width, 0, width, height);
+        line(width, height, 0, height); line(0, height, 0, 0);
       }
-      line(0, 0, width, 0); line(width, 0, width, height);
-      line(width, height, 0, height); line(0, height, 0, 0);
     }
     this.gridSegmentsCache.set(key, segments);
     return segments;
@@ -221,7 +226,7 @@ export class CampusScene extends Phaser.Scene {
     };
     context.lineWidth = 1;
     context.strokeStyle = '#c54a3e';
-    for (const area of this.map.collisions) outline(area.x, area.y, area.width, area.height);
+    for (const area of this.worldCollisions) outline(area.x, area.y, area.width, area.height);
 
     // 青框是贴图边界；当前角色实际碰撞判定使用脚底点，绘成黄色十字。
     const playerBounds = this.player.getBounds();
@@ -263,13 +268,50 @@ export class CampusScene extends Phaser.Scene {
     context.save();
     context.lineWidth = 1;
     if (mode === 'interaction' || mode === 'all') {
-      for (const area of this.map.interactions) draw(area, area.title || '交互', '#f1c34d');
-      for (const area of this.map.portals) draw(area, `传送 ${area.name}`, '#4ca3d9');
+      for (const area of this.worldMaps.flatMap((map) => map.interactions)) draw(area, area.title || '交互', '#f1c34d');
+      for (const area of this.worldMaps.flatMap((map) => map.portals)) draw(area, `接缝标记 ${area.name}`, '#4ca3d9');
     }
     if (mode === 'entity' || mode === 'all') {
-      for (const area of this.map.specialEntities) draw(area, area.name, '#bb83e4');
+      for (const area of this.worldMaps.flatMap((map) => map.specialEntities)) draw(area, area.name, '#bb83e4');
     }
     context.restore();
+  }
+
+  private minimapOverview: HTMLCanvasElement | undefined;
+
+  // 只生成一次地形缩略图；返回缓存画布，UI 仅将其作为图片绘制。
+  getMinimapOverview(): HTMLCanvasElement {
+    if (this.minimapOverview) return this.minimapOverview;
+    const canvas = document.createElement('canvas');
+    canvas.width = worldBounds.width / 8;
+    canvas.height = worldBounds.height / 8;
+    const context = canvas.getContext('2d')!;
+    context.imageSmoothingEnabled = false;
+    for (const map of this.worldMaps) {
+      const image = this.textures.get(map.terrain).getSourceImage() as HTMLImageElement;
+      const columns = Math.floor(image.width / map.tileSize);
+      for (const layer of map.layers) layer.forEach((row, y) => row.forEach((gid, x) => {
+        if (gid < map.firstGid) return;
+        const tile = gid - map.firstGid;
+        context.drawImage(image, tile % columns * map.tileSize, Math.floor(tile / columns) * map.tileSize,
+          map.tileSize, map.tileSize, (map.offset.x - worldBounds.x + x * map.tileSize) / 8,
+          (map.offset.y - worldBounds.y + y * map.tileSize) / 8, map.tileSize / 8, map.tileSize / 8);
+      }));
+    }
+    this.minimapOverview = canvas;
+    return canvas;
+  }
+
+  getMinimapSnapshot(): MinimapSnapshot {
+    const camera = this.cameras.main;
+    const center = camera.getWorldPoint(camera.width / 2, camera.height / 2);
+    const width = camera.width / camera.zoom;
+    const height = camera.height / camera.zoom;
+    return {
+      position: { x: this.player.x, y: this.player.y }, facing: this.facing,
+      zone: zoneAt(this.player) ?? this.zone,
+      viewport: { x: center.x - width / 2, y: center.y - height / 2, width, height },
+    };
   }
 
   getDebugSnapshot(): DebugSnapshot {
@@ -279,10 +321,10 @@ export class CampusScene extends Phaser.Scene {
     const loop = this.game.loop;
     return {
       dimension: '室外 / 地表', zoneId: this.zone, mapName: map.name,
-      mapWidth: map.width, mapHeight: map.height, tileSize: map.tileSize,
-      tileLayers: map.layers.length, mapSprites: map.sprites.length,
-      collisionAreas: map.collisions.length, interactionAreas: map.interactions.length,
-      portalAreas: map.portals.length, specialEntityAreas: map.specialEntities.length,
+      mapWidth: worldBounds.width, mapHeight: worldBounds.height, tileSize: map.tileSize,
+      tileLayers: this.worldMaps.reduce((sum, entry) => sum + entry.layers.length, 0), mapSprites: this.worldMaps.reduce((sum, entry) => sum + entry.sprites.length, 0),
+      collisionAreas: this.worldMaps.reduce((sum, entry) => sum + entry.collisions.length, 0), interactionAreas: this.worldMaps.reduce((sum, entry) => sum + entry.interactions.length, 0),
+      portalAreas: this.worldMaps.reduce((sum, entry) => sum + entry.portals.length, 0), specialEntityAreas: this.worldMaps.reduce((sum, entry) => sum + entry.specialEntities.length, 0),
       zoneCount: Object.keys(this.maps).length,
       logicalPosition: { ...this.position },
       renderPosition: { x: this.player?.x ?? this.position.x, y: this.player?.y ?? this.position.y },
@@ -317,19 +359,21 @@ export class CampusScene extends Phaser.Scene {
     }
   }
 
-  // 地面层保持在角色下方，即使角色落在 y=0 的边界上。
+  // 地面层低于所有区域的角色与实体（北侧区域使用负 Y）。
   private drawMap(): void {
     for (const object of this.mapObjects.splice(0)) object.destroy();
-    const { tileSize, terrain, firstGid } = this.map;
-    for (const data of this.map.layers) {
-      const layer = this.make.tilemap({ data, tileWidth: tileSize, tileHeight: tileSize });
-      const tileset = layer.addTilesetImage(terrain, terrain, tileSize, tileSize, 0, 0, firstGid)!;
-      const ground = layer.createLayer(0, tileset);
-      if (ground) this.mapObjects.push(ground.setDepth(-1));
-    }
-    for (const sprite of this.map.sprites) {
-      this.mapObjects.push(this.add.image(sprite.x, sprite.y, sprite.source!).setOrigin(0, 1)
-        .setDisplaySize(sprite.width, sprite.height).setDepth(sprite.y));
+    for (const map of this.worldMaps) {
+      const { tileSize, terrain, firstGid, offset } = map;
+      for (const data of map.layers) {
+        const layer = this.make.tilemap({ data, tileWidth: tileSize, tileHeight: tileSize });
+        const tileset = layer.addTilesetImage(terrain, terrain, tileSize, tileSize, 0, 0, firstGid)!;
+        const ground = layer.createLayer(0, tileset, offset.x, offset.y);
+        if (ground) this.mapObjects.push(ground.setDepth(-10000));
+      }
+      for (const sprite of map.sprites) {
+        this.mapObjects.push(this.add.image(sprite.x, sprite.y, sprite.source!).setOrigin(0, 1)
+          .setDisplaySize(sprite.width, sprite.height).setDepth(sprite.y));
+      }
     }
     this.refreshRenderBounds();
   }
@@ -338,12 +382,12 @@ export class CampusScene extends Phaser.Scene {
     const camera = this.cameras.main;
     const horizontalPadding = camera.width / camera.zoom / 2 + 1 / camera.zoom;
     const verticalPadding = camera.height / camera.zoom / 2 + 1 / camera.zoom;
-    camera.setBounds(-horizontalPadding, -verticalPadding,
-      this.map.width + horizontalPadding * 2, this.map.height + verticalPadding * 2);
+    camera.setBounds(worldBounds.x - horizontalPadding, worldBounds.y - verticalPadding,
+      worldBounds.width + horizontalPadding * 2, worldBounds.height + verticalPadding * 2);
     camera.setBackgroundColor(this.map.backgroundColor);
   }
 
-  // 首次进游戏使用 TMX 出生点，之后往返使用边界入口坐标。
+  // 首次进游戏使用 00 的出生点，之后全局坐标连续移动。
   create(): void {
     this.zone = '00';
     this.drawMap();
@@ -383,34 +427,18 @@ export class CampusScene extends Phaser.Scene {
     const desiredFacing = facingForMove(direction);
     const turned = this.facing !== desiredFacing;
     this.facing = desiredFacing;
-    // 出口先于普通边界碰撞检查，切换后角色与镜头一起落到对侧。
-    const candidates: Direction[] = direction.includes('up') ? ['up'] : direction.includes('down') ? ['down'] : [];
-    if (direction.includes('left')) candidates.push('left');
-    if (direction.includes('right')) candidates.push('right');
-    const crossing = candidates.map((candidate) => crossingAt(this.zone, this.position, candidate)).find((route) => route !== null);
-    if (crossing) {
-      this.velocity = { x: 0, y: 0 };
-      this.zone = crossing.zone;
-      this.position = crossing.point;
-      this.drawMap();
-      const { x, y } = this.position;
-      this.player.setPosition(x, y).setDepth(y);
-      this.cameras.main.centerOn(x, y);
-      this.playPlayer(this.keys.SHIFT.isDown ? 'run' : 'walk');
-      this.report(this.keys.SHIFT.isDown);
-      return;
-    }
-    const { tileSize, width, height, collisions } = this.map;
+    const { tileSize } = this.map;
+    const canMove = (to: Point) => canWorldStep(this.position, to, tileSize, this.worldCollisions);
     const desired = step(this.position, direction, tileSize);
     let next = desired;
-    if (!canStep(this.position, desired, width, height, collisions) && direction.includes('-')) {
+    if (!canMove(desired) && direction.includes('-')) {
       const horizontal: Direction = direction.includes('left') ? 'left' : 'right';
       const vertical: Direction = direction.includes('up') ? 'up' : 'down';
       const alongX = step(this.position, horizontal, tileSize);
       const alongY = step(this.position, vertical, tileSize);
-      next = canStep(this.position, alongX, width, height, collisions) ? alongX : alongY;
+      next = canMove(alongX) ? alongX : alongY;
     }
-    if (!canStep(this.position, next, width, height, collisions)) {
+    if (!canMove(next)) {
       this.playPlayer('idle');
       if (turned) this.report(false);
       return;
@@ -429,6 +457,7 @@ export class CampusScene extends Phaser.Scene {
       onUpdate: () => this.player.setDepth(this.player.y),
       onComplete: () => {
         this.position = next;
+        this.zone = zoneAt(next)!;
         this.moving = false;
         this.velocity = { x: 0, y: 0 };
         this.report(sprint);
@@ -439,7 +468,7 @@ export class CampusScene extends Phaser.Scene {
   // 在脚下或面前一格的 TMX 对话区域按 E 触发互动。
   private nearby() {
     const ahead = step(this.position, this.facing, this.map.tileSize);
-    return this.map.interactions.find((zone) => [this.position, ahead].some((point) =>
+    return this.worldMaps.flatMap((map) => map.interactions).find((zone) => [this.position, ahead].some((point) =>
       point.x >= zone.x && point.x < zone.x + zone.width && point.y >= zone.y && point.y < zone.y + zone.height,
     ));
   }
@@ -453,7 +482,7 @@ export class CampusScene extends Phaser.Scene {
   private report(sprint: boolean): void {
     const zone = this.nearby();
     this.hooks.onNearby(zone?.title ?? null, zone ? '按 E 查看介绍。' : undefined);
-    // 状态栏显示当前区域和切换后的脚底坐标。
+    // 状态栏显示当前区域及全局游戏脚底坐标。
     this.hooks.onStatus({ scene: this.map.name, position: { ...this.position }, facing: this.facing, sprint });
   }
 

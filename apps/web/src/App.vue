@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, shallowRef } from 'vue';
 import type Phaser from 'phaser';
 import type { HealthStatus } from '@digital-swu/contracts';
 import type { CampusScene, DebugSnapshot, GameStatus, GameHooks, GridMode, ObjectDebugMode } from './game/CampusScene';
+import CampusMinimap from './components/CampusMinimap.vue';
+import type { MinimapSnapshot } from './game/minimap';
 import type { Direction } from './game/campus';
 
 const canvasHost = ref<HTMLDivElement | null>(null);
 const overlayCanvas = ref<HTMLCanvasElement | null>(null);
+const minimapCollapsed = ref(false);
+const minimapSnapshot = shallowRef<MinimapSnapshot | null>(null);
+const minimapOverview = shallowRef<HTMLCanvasElement | null>(null);
 const apiStatus = ref('检查中');
 const nearby = ref<{ name: string; description: string } | null>(null);
 const selected = ref<{ title: string; body: string } | null>(null);
@@ -96,6 +101,10 @@ function refreshDebug(): void {
   if (scene?.scene.isActive()) {
     if (!debug.value) scene.setGridMode(gridMode.value);
     debug.value = scene.getDebugSnapshot();
+    if (!minimapCollapsed.value) {
+      minimapOverview.value = scene.getMinimapOverview();
+      minimapSnapshot.value = scene.getMinimapSnapshot();
+    }
   }
 }
 function paintDebugOverlay(): void {
@@ -159,7 +168,7 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
     <div class="debug-layout">
       <section class="viewport-panel" aria-label="游戏画面">
         <div class="panel-heading"><span>01 / GAME VIEWPORT · {{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span><div class="viewport-toolbar"><label for="resolution">Canvas 尺寸</label><select id="resolution" v-model="resolution" @change="changeResolution"><option value="auto">随父级（原画）</option><option value="384x240">384 × 240</option><option value="768x480">768 × 480</option><option value="1152x720">1152 × 720</option><option value="1536x960">1536 × 960</option><option value="1920x1200">1920 × 1200</option><option value="2560x1600">2560 × 1600</option></select><label for="zoom-input">ZOOM</label><input id="zoom-input" type="number" inputmode="decimal" step="any" aria-label="镜头缩放倍数" :value="zoomInput" @change="changeZoom" @keyup.enter="changeZoom" /><label for="grid-mode">Tile 轮廓</label><select id="grid-mode" v-model="gridMode" @change="changeGridMode"><option value="off">关闭</option><option value="category">按类别</option><option value="cell">逐格</option></select><label for="collision-mode">碰撞框</label><select id="collision-mode" v-model="collisionMode"><option value="off">关闭</option><option value="on">显示</option></select><label for="object-debug-mode">对象调试框</label><select id="object-debug-mode" v-model="objectDebugMode"><option value="off">关闭</option><option value="interaction">交互与传送</option><option value="entity">特殊实体</option><option value="all">全部</option></select><button type="button" @click="resetCamera">复位视角</button></div></div>
-        <div ref="canvasHost" class="canvas-host" :class="{ dragging }" aria-label="俯视角像素校园画布" @wheel.prevent="onWheel" @mousedown="onMouseDown" @mousemove="onMouseMove" @auxclick.prevent><canvas ref="overlayCanvas" class="debug-overlay" aria-hidden="true" /></div>
+        <div ref="canvasHost" class="canvas-host" :class="{ dragging }" aria-label="俯视角像素校园画布" @wheel.prevent="onWheel" @mousedown="onMouseDown" @mousemove="onMouseMove" @auxclick.prevent><canvas ref="overlayCanvas" class="debug-overlay" aria-hidden="true" /><CampusMinimap v-model:collapsed="minimapCollapsed" :snapshot="minimapSnapshot" :overview="minimapOverview" /></div>
         <div class="viewport-stats"><span>CANVAS {{ debug?.viewportWidth ?? viewSize().width }} × {{ debug?.viewportHeight ?? viewSize().height }}</span><span>FPS {{ fixed(debug?.fps, 0) }}</span><span>{{ debug?.renderer ?? '—' }}</span><span>ZOOM {{ fixed(debug?.cameraZoom, 2) }}×</span><span v-if="collisionMode === 'on'">红框 TMX 碰撞区 · 青框 贴图范围 · 黄十字 脚底判定点</span><span v-if="objectDebugMode !== 'off'">黄框 交互 · 蓝框 传送 · 紫框 特殊实体/占位</span></div>
         <div class="event-panel"><span class="panel-label">NEARBY / EVENT</span><strong>{{ nearby?.name ?? '无活动交互区域' }}</strong><p>{{ nearby?.description ?? '组合 WASD 斜向移动 · 滚轮缩放 · 中键拖动画面 · E 交互' }}</p><button type="button" @click="activeScene()?.interact()">触发交互 E</button></div>
       </section>

@@ -4,30 +4,46 @@ export interface Rect extends Point { width: number; height: number }
 export type Direction = 'up' | 'down' | 'left' | 'right';
 export type MoveDirection = Direction | 'up-left' | 'up-right' | 'down-left' | 'down-right';
 
-// 含弘门的四个出口和雕像花园北口共用双向通道规则。
-const routes = [
-  { from: '00', to: '02', direction: 'right', axis: 'x', edge: 1584, opposite: 'left', oppositeEdge: 0, min: 496, max: 720 },
-  { from: '00', to: '03', direction: 'left', axis: 'x', edge: 0, opposite: 'right', oppositeEdge: 1584, min: 496, max: 720 },
-  { from: '00', to: '04', direction: 'up', axis: 'y', edge: 0, opposite: 'down', oppositeEdge: 1168, min: 688, max: 928 },
-  { from: '00', to: '01', direction: 'down', axis: 'y', edge: 1168, opposite: 'up', oppositeEdge: 0, min: 688, max: 928 },
-  { from: '04', to: '05', direction: 'up', axis: 'y', edge: 0, opposite: 'down', oppositeEdge: 1168, min: 688, max: 928 },
+// 以 00 左上角为游戏世界原点，按完整 TMX 尺寸拼接，不重叠边缘瓦片。
+export const zoneOffsets = {
+  '00': { x: 0, y: 0 }, '01': { x: 0, y: 1184 },
+  '02': { x: 1600, y: 0 }, '03': { x: -1600, y: 0 },
+  '04': { x: 0, y: -1184 }, '05': { x: 0, y: -2368 },
+} as const;
+export type CampusZone = keyof typeof zoneOffsets;
+export interface WorldRegion extends Rect { id: CampusZone }
+export const worldRegions: WorldRegion[] = Object.entries(zoneOffsets).map(([id, offset]) => ({
+  id: id as CampusZone, ...offset, width: 1600, height: 1184,
+}));
+export const worldBounds: Rect = { x: -1600, y: -2368, width: 4800, height: 4736 };
+export function zoneAt(point: Point): CampusZone | undefined {
+  return worldRegions.find((area) => point.x >= area.x && point.x < area.x + area.width &&
+    point.y >= area.y && point.y < area.y + area.height)?.id;
+}
+const seams = [
+  { from: '00', to: '02', axis: 'x', edge: 1600, min: 496, max: 720 },
+  { from: '03', to: '00', axis: 'x', edge: 0, min: 496, max: 720 },
+  { from: '04', to: '00', axis: 'y', edge: 0, min: 688, max: 928 },
+  { from: '00', to: '01', axis: 'y', edge: 1184, min: 688, max: 928 },
+  { from: '05', to: '04', axis: 'y', edge: -1184, min: 688, max: 928 },
 ] as const;
-export type CampusZone = (typeof routes)[number]['from' | 'to'];
-
-// 根据当前地图和朝外方向确定目的地，保留沿边界的坐标。
-export function crossingAt(zone: CampusZone, point: Point, direction: Direction): { zone: CampusZone; point: Point } | null {
-  const exit = routes.find((route) =>
-    (route.from === zone && route.direction === direction) ||
-    (route.to === zone && route.opposite === direction),
-  );
-  if (!exit) return null;
-  const outward = zone === exit.from;
-  const along = exit.axis === 'x' ? point.y : point.x;
-  if (point[exit.axis] !== (outward ? exit.edge : exit.oppositeEdge) || along < exit.min || along > exit.max) return null;
-  return {
-    zone: outward ? exit.to : exit.from,
-    point: { ...point, [exit.axis]: outward ? exit.oppositeEdge : exit.edge },
-  };
+// 只处理一格输入；接缝按移动线段的交点检查，斜向不能绕过通道限制。
+export function canWorldStep(from: Point, to: Point, tileSize: number, collisions: readonly Rect[]): boolean {
+  if (![from.x, from.y, to.x, to.y].every(Number.isFinite) ||
+      Math.abs(to.x - from.x) > tileSize || Math.abs(to.y - from.y) > tileSize) return false;
+  const source = zoneAt(from); const target = zoneAt(to);
+  if (!source || !target) return false;
+  if (source !== target) {
+    const seam = seams.find((entry) => (entry.from === source && entry.to === target) ||
+      (entry.to === source && entry.from === target));
+    if (!seam) return false;
+    const t = (seam.edge - from[seam.axis]) / (to[seam.axis] - from[seam.axis]);
+    const along = seam.axis === 'x' ? from.y + (to.y - from.y) * t : from.x + (to.x - from.x) * t;
+    if (along < seam.min || along > seam.max) return false;
+  }
+  return !collisions.some((wall) =>
+    Math.max(from.x, to.x) >= wall.x && Math.min(from.x, to.x) < wall.x + wall.width &&
+    Math.max(from.y, to.y) >= wall.y && Math.min(from.y, to.y) < wall.y + wall.height);
 }
 
 export function directionFromAxes(dx: number, dy: number): MoveDirection | null {

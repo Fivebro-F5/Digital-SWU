@@ -85,3 +85,15 @@ export function readGateMap(zone: CampusZone) {
     spawn: spawnPoint, terrain: terrain.getAttribute('source')!, firstGid: number(terrain.parentElement!, 'firstgid'),
   };
 }
+
+// TMX 保留局部坐标；仅在运行时将对象平移到拼接后的游戏坐标。
+export function placeGateMap(zone: CampusZone, offset: Point) {
+  const map = readGateMap(zone);
+  const translate = <T extends Point>(point: T): T => ({ ...point, x: point.x + offset.x, y: point.y + offset.y });
+  if (map.width !== 1600 || map.height !== 1184 || map.tileSize !== 16) {
+    throw new Error(`地图 ${zone} 尺寸与六区拼接布局不匹配，请同步更新布局。`);
+  }
+  return { ...map, offset, spawn: translate(map.spawn), sprites: map.sprites.map(translate),
+    collisions: map.collisions.map(translate), interactions: map.interactions.map(translate),
+    portals: map.portals.map(translate), specialEntities: map.specialEntities.map(translate) };
+}
