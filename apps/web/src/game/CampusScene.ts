@@ -80,6 +80,14 @@ export class CampusScene extends Phaser.Scene {
     '05': placeGateMap('05', zoneOffsets['05']),
   };
   private readonly worldMaps = Object.values(this.maps);
+  private readonly mapInteractions = this.worldMaps.flatMap((map) => map.interactions);
+  private readonly guide = {
+    x: this.maps['00'].spawn.x + 3 * this.maps['00'].tileSize,
+    y: this.maps['00'].spawn.y,
+    width: 16, height: 16, title: '游览手册',
+    message: '欢迎来到像素校园。沿路散步时，靠近木牌就能读到这里的留言。\n按空格或点「下一页」翻页。阅读时试试方向键，小鸟会停在原地。\n读完后按空格或点「读完」返回。也可以随时按 Esc 关闭，再用方向键继续走。',
+  };
+  private readonly interactions = this.mapInteractions.length ? this.mapInteractions : [this.guide];
   private readonly worldCollisions = this.worldMaps.flatMap((map) => map.collisions);
   private zone: CampusZone = '00';
   private get map() { return this.maps[this.zone]; }
@@ -268,7 +276,7 @@ export class CampusScene extends Phaser.Scene {
     context.save();
     context.lineWidth = 1;
     if (mode === 'interaction' || mode === 'all') {
-      for (const area of this.worldMaps.flatMap((map) => map.interactions)) draw(area, area.title || '交互', '#f1c34d');
+      for (const area of this.interactions) draw(area, area.title || '交互', '#f1c34d');
       for (const area of this.worldMaps.flatMap((map) => map.portals)) draw(area, `接缝标记 ${area.name}`, '#4ca3d9');
     }
     if (mode === 'entity' || mode === 'all') {
@@ -323,7 +331,7 @@ export class CampusScene extends Phaser.Scene {
       dimension: '室外 / 地表', zoneId: this.zone, mapName: map.name,
       mapWidth: worldBounds.width, mapHeight: worldBounds.height, tileSize: map.tileSize,
       tileLayers: this.worldMaps.reduce((sum, entry) => sum + entry.layers.length, 0), mapSprites: this.worldMaps.reduce((sum, entry) => sum + entry.sprites.length, 0),
-      collisionAreas: this.worldMaps.reduce((sum, entry) => sum + entry.collisions.length, 0), interactionAreas: this.worldMaps.reduce((sum, entry) => sum + entry.interactions.length, 0),
+      collisionAreas: this.worldMaps.reduce((sum, entry) => sum + entry.collisions.length, 0), interactionAreas: this.interactions.length,
       portalAreas: this.worldMaps.reduce((sum, entry) => sum + entry.portals.length, 0), specialEntityAreas: this.worldMaps.reduce((sum, entry) => sum + entry.specialEntities.length, 0),
       zoneCount: Object.keys(this.maps).length,
       logicalPosition: { ...this.position },
@@ -391,6 +399,13 @@ export class CampusScene extends Phaser.Scene {
   create(): void {
     this.zone = '00';
     this.drawMap();
+    if (!this.mapInteractions.length) {
+      const { x, y } = this.guide;
+      const sign = this.add.graphics().setPosition(x, y).setDepth(y);
+      sign.fillStyle(0x384737).fillRect(-2, -10, 4, 10).fillRect(-9, -18, 18, 11);
+      sign.fillStyle(0xe7cb8d).fillRect(-7, -16, 14, 7);
+      sign.fillStyle(0x886647).fillRect(-5, -14, 10, 1).fillRect(-5, -12, 6, 1);
+    }
     this.position = { ...this.map.spawn };
     this.velocity = { x: 0, y: 0 };
     this.createPlayer();
@@ -405,8 +420,9 @@ export class CampusScene extends Phaser.Scene {
       this.events.off(Phaser.Scenes.Events.POST_UPDATE, this.updateCamera, this));
     const keyboard = this.input.keyboard!;
     this.keys = keyboard.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,SHIFT,E,SPACE') as typeof this.keys;
-    keyboard.on('keydown-E', this.interact, this);
-    keyboard.on('keydown-SPACE', this.interact, this);
+    const openNearby = (event: KeyboardEvent) => { if (!event.repeat) this.interact(); };
+    keyboard.on('keydown-E', openNearby);
+    keyboard.on('keydown-SPACE', openNearby);
     this.report(false);
   }
 
@@ -468,7 +484,7 @@ export class CampusScene extends Phaser.Scene {
   // 在脚下或面前一格的 TMX 对话区域按 E 触发互动。
   private nearby() {
     const ahead = step(this.position, this.facing, this.map.tileSize);
-    return this.worldMaps.flatMap((map) => map.interactions).find((zone) => [this.position, ahead].some((point) =>
+    return this.interactions.find((zone) => [this.position, ahead].some((point) =>
       point.x >= zone.x && point.x < zone.x + zone.width && point.y >= zone.y && point.y < zone.y + zone.height,
     ));
   }
