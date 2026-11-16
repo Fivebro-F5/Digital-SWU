@@ -5,6 +5,22 @@ import assert from 'node:assert/strict';
 // 验证边界出口和普通移动共用的坐标规则。
 import { canStep, canWorldStep, zoneAt, worldRegions, directionFromAxes, facingForMove, step } from './campus.ts';
 
+test('fractional Tiled spawn can move beyond x=1011.333 without allowing oversized steps', () => {
+  const from = { x: 1011.333, y: 1012.67 };
+  const to = step(from, 'right', 16);
+  assert.ok(to.x - from.x > 16); // Reproduce the floating-point rounding error.
+  assert.equal(canWorldStep(from, to, 16, []), true);
+  assert.equal(canWorldStep(to, from, 16, []), true);
+  assert.equal(canWorldStep(from, { x: from.x + 16.001, y: from.y }, 16, []), false);
+  assert.equal(canWorldStep(from, to, 16, [{ x: 1020, y: 1000, width: 10, height: 30 }]), false);
+  let current = { x: 819.333, y: 1012.67 };
+  for (let i = 0; i < 40; i++) {
+    const next = step(current, 'right', 16);
+    assert.equal(canWorldStep(current, next, 16, []), true);
+    current = next;
+  }
+});
+
 test('moves one 16-pixel tile from the exact spawn coordinates', () => {
   const spawn = { x: 768, y: 1220 };
   assert.deepEqual(step(spawn, 'up', 16), { x: 768, y: 1204 });
@@ -16,15 +32,16 @@ test('moves one 16-pixel tile from the exact spawn coordinates', () => {
 });
 
 // 接缝上的一步保持连续全局坐标，覆盖五条通道的两个端点及双向移动。
-test('walks continuously across all five seams in both directions', () => {
+test('walks continuously across all exit channels in both directions', () => {
   const seams = [
     ['00', '02', 'x', 1600, 496, 720], ['03', '00', 'x', 0, 496, 720],
-    ['04', '00', 'y', 0, 688, 928], ['00', '01', 'y', 1184, 688, 928],
+    ['04', '00', 'y', 0, 480, 592], ['04', '00', 'y', 0, 768, 832],
+    ['04', '00', 'y', 0, 1024, 1152], ['00', '01', 'y', 1184, 656, 992],
     ['05', '04', 'y', -1184, 688, 928],
   ];
   for (const [source, target, axis, edge, min, max] of seams) {
     const other = axis === 'x' ? 'y' : 'x';
-    for (const along of [min, max, (min + max) / 2]) {
+    for (const along of [min, max - 1, (min + max) / 2]) {
       const from = { [axis]: edge - 16, [other]: along };
       const to = { [axis]: edge, [other]: along };
       assert.equal(zoneAt(from), source);

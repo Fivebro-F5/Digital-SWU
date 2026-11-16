@@ -23,23 +23,29 @@ export function zoneAt(point: Point): CampusZone | undefined {
 const seams = [
   { from: '00', to: '02', axis: 'x', edge: 1600, min: 496, max: 720 },
   { from: '03', to: '00', axis: 'x', edge: 0, min: 496, max: 720 },
-  { from: '04', to: '00', axis: 'y', edge: 0, min: 688, max: 928 },
-  { from: '00', to: '01', axis: 'y', edge: 1184, min: 688, max: 928 },
+  { from: '04', to: '00', axis: 'y', edge: 0, min: 480, max: 592 },
+  { from: '04', to: '00', axis: 'y', edge: 0, min: 768, max: 832 },
+  { from: '04', to: '00', axis: 'y', edge: 0, min: 1024, max: 1152 },
+  { from: '00', to: '01', axis: 'y', edge: 1184, min: 656, max: 992 },
   { from: '05', to: '04', axis: 'y', edge: -1184, min: 688, max: 928 },
 ] as const;
 // 只处理一格输入；接缝按移动线段的交点检查，斜向不能绕过通道限制。
 export function canWorldStep(from: Point, to: Point, tileSize: number, collisions: readonly Rect[]): boolean {
+  // Tiled 出生点允许小数；跨过二进制精度边界时，16 像素差值可能略大于 16。
+  const tolerance = Number.EPSILON * Math.max(1, Math.abs(from.x), Math.abs(from.y), Math.abs(to.x), Math.abs(to.y), tileSize) * 4;
   if (![from.x, from.y, to.x, to.y].every(Number.isFinite) ||
-      Math.abs(to.x - from.x) > tileSize || Math.abs(to.y - from.y) > tileSize) return false;
+      !Number.isFinite(tileSize) || tileSize <= 0 ||
+      Math.abs(to.x - from.x) > tileSize + tolerance || Math.abs(to.y - from.y) > tileSize + tolerance) return false;
   const source = zoneAt(from); const target = zoneAt(to);
   if (!source || !target) return false;
   if (source !== target) {
-    const seam = seams.find((entry) => (entry.from === source && entry.to === target) ||
+    const candidates = seams.filter((entry) => (entry.from === source && entry.to === target) ||
       (entry.to === source && entry.from === target));
-    if (!seam) return false;
+    if (!candidates.some((seam) => {
     const t = (seam.edge - from[seam.axis]) / (to[seam.axis] - from[seam.axis]);
     const along = seam.axis === 'x' ? from.y + (to.y - from.y) * t : from.x + (to.x - from.x) * t;
-    if (along < seam.min || along > seam.max) return false;
+    return along >= seam.min && along < seam.max;
+    })) return false;
   }
   return !collisions.some((wall) =>
     Math.max(from.x, to.x) >= wall.x && Math.min(from.x, to.x) < wall.x + wall.width &&

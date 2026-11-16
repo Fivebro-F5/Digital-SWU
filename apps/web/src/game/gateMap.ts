@@ -56,6 +56,15 @@ export function readGateMap(zone: CampusZone) {
       gids.slice(y * columns, (y + 1) * columns).map((gid) => gid || -1),
     );
   });
+  const tilesets = [...root.querySelectorAll('map > tileset')].map((entry) => {
+    const firstGid = number(entry, 'firstgid');
+    const external = entry.getAttribute('source');
+    const source = external === '../assets/stone_stairs_seamless_16.tsx'
+      ? '../assets/stone_stairs_seamless_16.png' : entry.querySelector('image')?.getAttribute('source');
+    const tileCount = external ? 1 : number(entry, 'tilecount');
+    if (!source || !tileCount) throw new Error(`地图图块集缺少图像或尺寸：${external ?? firstGid}`);
+    return { firstGid, tileCount, source };
+  });
   const images = new Map<number, string>();
   for (const tile of root.querySelectorAll('tileset > tile')) {
     const source = tile.querySelector('image')?.getAttribute('source');
@@ -81,7 +90,7 @@ export function readGateMap(zone: CampusZone) {
   return {
     name,
     backgroundColor: root.getAttribute('backgroundcolor') ?? '#95C679',
-    tileSize, width: columns * tileSize, height: rows * tileSize, layers, sprites, collisions, interactions, portals, specialEntities,
+    tileSize, width: columns * tileSize, height: rows * tileSize, layers, tilesets, sprites, collisions, interactions, portals, specialEntities,
     spawn: spawnPoint, terrain: terrain.getAttribute('source')!, firstGid: number(terrain.parentElement!, 'firstgid'),
   };
 }

@@ -296,11 +296,12 @@ export class CampusScene extends Phaser.Scene {
     const context = canvas.getContext('2d')!;
     context.imageSmoothingEnabled = false;
     for (const map of this.worldMaps) {
-      const image = this.textures.get(map.terrain).getSourceImage() as HTMLImageElement;
-      const columns = Math.floor(image.width / map.tileSize);
       for (const layer of map.layers) layer.forEach((row, y) => row.forEach((gid, x) => {
-        if (gid < map.firstGid) return;
-        const tile = gid - map.firstGid;
+        const tileset = map.tilesets.find((item) => gid >= item.firstGid && gid < item.firstGid + item.tileCount);
+        if (!tileset) return;
+        const image = this.textures.get(tileset.source).getSourceImage() as HTMLImageElement;
+        const columns = Math.floor(image.width / map.tileSize);
+        const tile = gid - tileset.firstGid;
         context.drawImage(image, tile % columns * map.tileSize, Math.floor(tile / columns) * map.tileSize,
           map.tileSize, map.tileSize, (map.offset.x - worldBounds.x + x * map.tileSize) / 8,
           (map.offset.y - worldBounds.y + y * map.tileSize) / 8, map.tileSize / 8, map.tileSize / 8);
@@ -345,7 +346,7 @@ export class CampusScene extends Phaser.Scene {
       fps: loop.actualFps,
       renderer: this.game.renderer.type === Phaser.WEBGL ? 'WebGL' : 'Canvas',
       loadedTextures: Object.keys(this.textures.list).filter((key) => !key.startsWith('__')).length,
-      declaredImages: Object.keys(birdFrameUrls).length + new Set(Object.values(this.maps).flatMap((entry) => [entry.terrain, ...entry.sprites.map((sprite) => sprite.source)])).size,
+      declaredImages: Object.keys(birdFrameUrls).length + new Set(Object.values(this.maps).flatMap((entry) => [...entry.tilesets.map((tileset) => tileset.source), ...entry.sprites.map((sprite) => sprite.source)])).size,
       sceneObjects: this.children.length,
     };
   }
@@ -354,7 +355,7 @@ export class CampusScene extends Phaser.Scene {
   preload(): void {
     // 提前加载各区共用资源，切换时无需重新请求图片。
     const assets = new Set(Object.values(this.maps).flatMap((map) => [
-      map.terrain, ...map.sprites.map((sprite) => sprite.source),
+      ...map.tilesets.map((tileset) => tileset.source), ...map.sprites.map((sprite) => sprite.source),
     ]));
     for (const source of assets) {
       // TMX 以 maps 为基准，Vite 的资源键以当前源文件为基准。
@@ -371,11 +372,11 @@ export class CampusScene extends Phaser.Scene {
   private drawMap(): void {
     for (const object of this.mapObjects.splice(0)) object.destroy();
     for (const map of this.worldMaps) {
-      const { tileSize, terrain, firstGid, offset } = map;
+      const { tileSize, offset } = map;
       for (const data of map.layers) {
         const layer = this.make.tilemap({ data, tileWidth: tileSize, tileHeight: tileSize });
-        const tileset = layer.addTilesetImage(terrain, terrain, tileSize, tileSize, 0, 0, firstGid)!;
-        const ground = layer.createLayer(0, tileset, offset.x, offset.y);
+        const tilesets = map.tilesets.map((entry) => layer.addTilesetImage(entry.source, entry.source, tileSize, tileSize, 0, 0, entry.firstGid)!);
+        const ground = layer.createLayer(0, tilesets, offset.x, offset.y);
         if (ground) this.mapObjects.push(ground.setDepth(-10000));
       }
       for (const sprite of map.sprites) {
