@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>像素西大 · 六区地面地图行走验收</title>
+<style>
+:root{--cream:#f7f5e7;--ink:#25483c;--muted:#72867a;--line:#abc5aa}
+*{box-sizing:border-box}body{background:#e5e8d7;color:var(--ink);margin:0;font-family:system-ui,"Microsoft YaHei",sans-serif}
+header{max-width:1340px;margin:0 auto;padding:24px 18px 12px;display:flex;gap:20px;align-items:flex-end;justify-content:space-between}
+h1{margin:0;font-size:28px}header p{margin:4px 0 0;color:#61786a;font-size:14px}
+.pill{padding:7px 13px;border:2px solid #527365;background:#f2f4e5;font-size:13px;border-radius:4px}
+main{max-width:1340px;margin:auto;display:grid;grid-template-columns:minmax(480px,1fr) 270px;gap:18px;padding:0 18px 24px}
+.frame{background:#253c32;border:7px solid #34594a;box-shadow:6px 7px 0 #b5c4ab;overflow:hidden;position:relative}
+canvas{width:100%;aspect-ratio:3/2;display:block;image-rendering:pixelated;background:#8ebd7b}
+#tag{position:absolute;top:12px;left:12px;background:#193c35dd;color:#f4edd4;padding:9px 13px;font-size:14px;font-weight:bold;pointer-events:none}
+#foot{background:#e6edcf;padding:10px 13px;display:flex;justify-content:space-between;font-size:13px;color:#526c5a}
+aside{display:flex;flex-direction:column;gap:13px}
+.panel{border:3px solid #385b4c;padding:16px;background:#fff9e3;box-shadow:4px 4px 0 #b9c7ac}
+.panel h2{margin:0 0 12px;font-size:17px}.panel p{font-size:14px;line-height:1.65}
+#sceneList{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+#sceneList button{border:1px solid #b6c4aa;background:#e9f2dd;padding:8px 10px;width:100%;text-align:left;color:#365b4b;cursor:pointer}
+#sceneList button.active{background:#395e4f;color:white}
+.btn{font-weight:700;cursor:pointer;background:#dcebd1;border:1px solid #547761;color:#375d48;padding:9px 11px;width:100%;margin-top:8px}
+.keys{display:grid;grid-template-columns:repeat(3,50px);gap:5px;justify-content:center}.keys button{height:48px;font-size:18px;font-weight:bold;border:2px solid #395c4f;background:#d2e4cb;touch-action:none;cursor:pointer}.keys .u{grid-column:2}.keys .l{grid-column:1}.keys .d{grid-column:2}.keys .r{grid-column:3}
+small{color:#69816e}code{background:#e6eedc;padding:2px 5px}
+@media(max-width:880px){main{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}aside{display:grid;grid-template-columns:1fr 1fr}main{padding:0 8px 20px}}@media(max-width:550px){aside{grid-template-columns:1fr}.pill{display:none}}
+</style></head><body>
+<header><div><h1>数字西大 <span style="color:#b95f52">· 一号门六区漫游</span></h1><p>GROUND-ONLY 验收页面 / 像素人物 48×48 · 连通场景</p></div><span class="pill">从 TMX 同步生成的地图 PNG · 六区切换演示</span></header>
+<main><section><div class="frame"><canvas id="game" width="960" height="640"></canvas><div id="tag">读取地图中……</div></div><div id="foot"><span>WASD / 方向键：移动 | Shift：加速 | H：预留区与出口</span><span id="coords">x 0 / y 0</span></div></section>
+<aside><div class="panel"><h2>六个场景</h2><ul id="sceneList"></ul><p><small>点击场景可直接检查地面；走到蓝色出口边缘可自动切换。</small></p></div><div class="panel"><h2>地面制作阶段</h2><p>绿色草地和绿化带均可行走。矩形区域仅是未来建筑的<strong>占地预留</strong>，未放建筑立面、树、路灯或实体碰撞。</p><button id="guides" class="btn">显示 / 隐藏占地与出口（H）</button></div><div class="panel"><h2>移动控制</h2><div class="keys"><button class="u" data-dir="ArrowUp">▲</button><button class="l" data-dir="ArrowLeft">◀</button><button class="d" data-dir="ArrowDown">▼</button><button class="r" data-dir="ArrowRight">▶</button></div><p><small>如果页面空白，请在工程目录运行 <code>python -m http.server 8000</code> 再打开本网页。</small></p></div></aside></main>
+<script>
+const cvs=document.querySelector('#game'),ctx=cvs.getContext('2d');ctx.imageSmoothingEnabled=false;
+let manifest,scenes={},scene='00',im=new Image(),imgCache={},ready=false,showGuides=true,camX=0,camY=0,player={x:800,y:896},pressed={};
+const W=1600,H=1184;
+const sid=id=>manifest.scenes.find(s=>s.id===id);
+function setTag(){const s=sid(scene);document.querySelector('#tag').textContent=`${scene}  ${s?.name||''} · 地面可自由行走`;document.querySelectorAll('#sceneList button').forEach(b=>b.classList.toggle('active',b.dataset.id===scene));}
+async function change(id,x,y){
+ scene=id;ready=false;const s=sid(id);player.x=x??(id==='00'?800:800);player.y=y??(id==='00'?896:500);
+ let source=s.tmx.replace('maps/','previews/').replace('.tmx','_clean.png');
+ if(!imgCache[id]){const next=new Image();next.src=source;await new Promise((resolve,reject)=>{next.onload=resolve;next.onerror=reject;});imgCache[id]=next;}
+ im=imgCache[id];setTag();ready=true;
+}
+const spawn={"00":[800,896],"01":[800,224],"02":[256,592],"03":[1344,592],"04":[800,1056],"05":[800,1024]};
+const exits={};
+async function load(){
+ try{manifest=await (await fetch('./map_connections.json')).json();scenes=Object.fromEntries(manifest.scenes.map(s=>[s.id,s]));
+ let list=document.querySelector('#sceneList');manifest.scenes.forEach(s=>{let li=document.createElement('li'),b=document.createElement('button');b.dataset.id=s.id;b.textContent=`${s.id} · ${s.name}`;b.onclick=()=>change(s.id,...spawn[s.id]);li.append(b);list.append(li);});
+ await change('00',...spawn['00']);
+ }catch(err){document.querySelector('#tag').textContent='读取失败：请使用本地 HTTP 服务打开 · '+err.message;console.error(err);}
+}
+function paintPlayer(ctx,x,y){let px=Math.floor(x)-24,py=Math.floor(y)-48;
+ ctx.fillStyle='rgba(27,52,41,.28)';ctx.fillRect(px+9,py+44,32,4);
+ ctx.fillStyle='#293d53';ctx.fillRect(px+9,py+28,30,14);ctx.fillRect(px+10,py+42,10,5);ctx.fillRect(px+28,py+42,10,5);
+ ctx.fillStyle='#f2c59f';ctx.fillRect(px+12,py+17,24,15);ctx.fillRect(px+11,py+31,4,7);ctx.fillRect(px+35,py+31,4,7);
+ ctx.fillStyle='#223647';ctx.fillRect(px+9,py+7,31,16);ctx.fillRect(px+7,py+13,8,9);
+ ctx.fillStyle='#e6e2e0';ctx.fillRect(px+16,py+2,23,9);ctx.fillRect(px+30,py+0,7,8);
+ ctx.fillStyle='#141e2a';ctx.fillRect(px+17,py+25,4,3);ctx.fillRect(px+29,py+25,4,3);
+ ctx.fillStyle='#a7c4af';ctx.fillRect(px+16,py+33,16,4);
+}
+let last=performance.now(),lastChange=0;
+function animate(now){requestAnimationFrame(animate);const dt=Math.min(.05,(now-last)/1000);last=now;if(!ready||!manifest)return;
+ let vx=(pressed.ArrowRight||pressed.d?1:0)-(pressed.ArrowLeft||pressed.a?1:0),vy=(pressed.ArrowDown||pressed.s?1:0)-(pressed.ArrowUp||pressed.w?1:0);if(vx&&vy){vx*=Math.SQRT1_2;vy*=Math.SQRT1_2;}
+ const speed=(pressed.Shift?320:190);player.x+=vx*speed*dt;player.y+=vy*speed*dt;
+ let changeP=null;const ports=sid(scene).portals;
+ for(const p of ports){let [x,y,w,h]=p.rect_px,dir=p.direction;
+ if(dir==='north'&&player.y<12&&player.x>x&&player.x<x+w&&vy<0)changeP=p;
+ if(dir==='south'&&player.y>H-12&&player.x>x&&player.x<x+w&&vy>0)changeP=p;
+ if(dir==='west'&&player.x<12&&player.y>y&&player.y<y+h&&vx<0)changeP=p;
+ if(dir==='east'&&player.x>W-12&&player.y>y&&player.y<y+h&&vx>0)changeP=p;
+ }
+ if(changeP&&now-lastChange>650){lastChange=now;change(changeP.to,...changeP.arrival_feet_px);return;}
+ player.x=Math.min(W-6,Math.max(6,player.x));player.y=Math.min(H-6,Math.max(6,player.y));
+ camX=Math.max(0,Math.min(W-cvs.width,player.x-cvs.width/2));camY=Math.max(0,Math.min(H-cvs.height,player.y-cvs.height/2));
+ ctx.clearRect(0,0,cvs.width,cvs.height);ctx.drawImage(im,-Math.round(camX),-Math.round(camY));
+ if(showGuides){
+  ctx.save();ctx.translate(-Math.round(camX),-Math.round(camY));
+  for(const p of ports){const [x,y,w,h]=p.rect_px;ctx.fillStyle='rgba(30,145,201,.30)';ctx.fillRect(x,y,w,h);ctx.strokeStyle='#17659e';ctx.lineWidth=3;ctx.strokeRect(x,y,w,h);}
+  for(const s of sid(scene).building_slots){ctx.strokeStyle='#556b63';ctx.lineWidth=3;ctx.strokeRect(s.x*16,s.y*16,s.w*16,s.h*16);}
+  ctx.restore();
+ }
+ paintPlayer(ctx,Math.round(player.x-camX),Math.round(player.y-camY));
+ document.querySelector('#coords').textContent=`脚底坐标 ${Math.round(player.x)}, ${Math.round(player.y)} / 目标 ${scene}`;
+}
+window.addEventListener('keydown',e=>{if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();if(e.key.toLowerCase()==='h'&&!e.repeat)showGuides=!showGuides;pressed[e.key.length===1?e.key.toLowerCase():e.key]=true;});
+window.addEventListener('keyup',e=>pressed[e.key.length===1?e.key.toLowerCase():e.key]=false);
+window.addEventListener('blur',()=>pressed={});
+document.querySelector('#guides').onclick=()=>showGuides=!showGuides;
+document.querySelectorAll('[data-dir]').forEach(b=>{const dir=b.dataset.dir;b.onpointerdown=e=>{e.preventDefault();pressed[dir]=true;b.setPointerCapture(e.pointerId)};b.onpointerup=b.onpointercancel=()=>pressed[dir]=false;});
+requestAnimationFrame(animate);load();
+</script></body></html>
