@@ -6,29 +6,57 @@ export type MoveDirection = Direction | 'up-left' | 'up-right' | 'down-left' | '
 
 // 以 00 左上角为游戏世界原点，按完整 TMX 尺寸拼接，不重叠边缘瓦片。
 export const zoneOffsets = {
-  '00': { x: 0, y: 0 }, '01': { x: 0, y: 1184 },
-  '02': { x: 1600, y: 0 }, '03': { x: -1600, y: 0 },
-  '04': { x: 0, y: -1184 }, '05': { x: 0, y: -2368 },
+  "10": {
+    "x": -1600,
+    "y": -2368,
+    "width": 1376,
+    "height": 1712
+  },
+  "04": {
+    "x": -224,
+    "y": -2368,
+    "width": 2272,
+    "height": 1712
+  },
+  "11": {
+    "x": 2048,
+    "y": -2368,
+    "width": 1152,
+    "height": 1712
+  },
+  "06": {
+    "x": -1600,
+    "y": -656,
+    "width": 1376,
+    "height": 1840
+  },
+  "00": {
+    "x": -224,
+    "y": -656,
+    "width": 2272,
+    "height": 1840
+  },
+  "07": {
+    "x": 2048,
+    "y": -656,
+    "width": 1152,
+    "height": 1840
+  }
 } as const;
 export type CampusZone = keyof typeof zoneOffsets;
 export interface WorldRegion extends Rect { id: CampusZone }
-export const worldRegions: WorldRegion[] = Object.entries(zoneOffsets).map(([id, offset]) => ({
-  id: id as CampusZone, ...offset, width: 1600, height: 1184,
-}));
-export const worldBounds: Rect = { x: -1600, y: -2368, width: 4800, height: 4736 };
+export const worldRegions: WorldRegion[] = Object.entries(zoneOffsets).map(([id, area]) => ({ id: id as CampusZone, ...area }));
+export const worldBounds: Rect = { x: -1600, y: -2368, width: 4800, height: 3552 };
 export function zoneAt(point: Point): CampusZone | undefined {
   return worldRegions.find((area) => point.x >= area.x && point.x < area.x + area.width &&
     point.y >= area.y && point.y < area.y + area.height)?.id;
 }
-const seams = [
-  { from: '00', to: '02', axis: 'x', edge: 1600, min: 496, max: 720 },
-  { from: '03', to: '00', axis: 'x', edge: 0, min: 496, max: 720 },
-  { from: '04', to: '00', axis: 'y', edge: 0, min: 480, max: 592 },
-  { from: '04', to: '00', axis: 'y', edge: 0, min: 768, max: 832 },
-  { from: '04', to: '00', axis: 'y', edge: 0, min: 1024, max: 1152 },
-  { from: '00', to: '01', axis: 'y', edge: 1184, min: 656, max: 992 },
-  { from: '05', to: '04', axis: 'y', edge: -1184, min: 688, max: 928 },
-] as const;
+// 新边界切过连续地形，不再用旧区块的出口限制切分线。
+const seams: { from: CampusZone; to: CampusZone; axis: 'x' | 'y'; edge: number; min: number; max: number }[] = [];
+for (const a of worldRegions) for (const b of worldRegions) {
+  if (a.x + a.width === b.x && a.y === b.y) seams.push({ from: a.id, to: b.id, axis: 'x', edge: b.x, min: a.y, max: a.y + a.height });
+  if (a.y + a.height === b.y && a.x === b.x) seams.push({ from: a.id, to: b.id, axis: 'y', edge: b.y, min: a.x, max: a.x + a.width });
+}
 // 只处理一格输入；接缝按移动线段的交点检查，斜向不能绕过通道限制。
 export function canWorldStep(from: Point, to: Point, tileSize: number, collisions: readonly Rect[]): boolean {
   // Tiled 出生点允许小数；跨过二进制精度边界时，16 像素差值可能略大于 16。

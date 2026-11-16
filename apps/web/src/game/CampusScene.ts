@@ -73,12 +73,10 @@ const mapAssets = import.meta.glob<string>('../../../../picture/pixel_swu_ground
 
 export class CampusScene extends Phaser.Scene {
   static readonly BASE_ZOOM = 1.5;
-  // 六区一次加载到同一场景，跨缝时仅更新当前区域名称。
-  private readonly maps = {
-    '00': placeGateMap('00', zoneOffsets['00']), '01': placeGateMap('01', zoneOffsets['01']), '02': placeGateMap('02', zoneOffsets['02']),
-    '03': placeGateMap('03', zoneOffsets['03']), '04': placeGateMap('04', zoneOffsets['04']),
-    '05': placeGateMap('05', zoneOffsets['05']),
-  };
+  // 九区一次加载到同一场景，跨缝时仅更新当前区域名称。
+  private readonly maps = Object.fromEntries(
+    (Object.keys(zoneOffsets) as CampusZone[]).map((zone) => [zone, placeGateMap(zone, zoneOffsets[zone])]),
+  ) as Record<CampusZone, ReturnType<typeof placeGateMap>>;
   private readonly worldMaps = Object.values(this.maps);
   private readonly mapInteractions = this.worldMaps.flatMap((map) => map.interactions);
   private readonly guide = {

@@ -9,10 +9,7 @@ const props = defineProps<{
 }>();
 const collapsed = defineModel<boolean>('collapsed', { required: true });
 const canvas = ref<HTMLCanvasElement | null>(null);
-const names: Record<CampusZone, string> = {
-  '00': '含弘门', '01': '门外衔接', '02': '东侧樟林',
-  '03': '西侧樟林', '04': '雕像花园', '05': '行署路',
-};
+const names: Record<CampusZone, string> = {'10':'西北区','04':'北部中区','11':'东北区','06':'西南区','00':'含弘门与花园','07':'东南区'};
 let observer: ResizeObserver | undefined;
 
 function paint(): void {

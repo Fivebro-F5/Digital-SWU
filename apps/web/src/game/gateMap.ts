@@ -1,23 +1,18 @@
-// 读取含弘门周边六区的 TMX 地形。
-import gate from '../../../../picture/pixel_swu_ground_6zones_v1/maps/00_hanhong_gate.tmx?raw';
-import outer from '../../../../picture/pixel_swu_ground_6zones_v1/maps/01_outer_approach.tmx?raw';
-import east from '../../../../picture/pixel_swu_ground_6zones_v1/maps/02_east_camphor.tmx?raw';
-import west from '../../../../picture/pixel_swu_ground_6zones_v1/maps/03_west_camphor.tmx?raw';
-import memorial from '../../../../picture/pixel_swu_ground_6zones_v1/maps/04_memorial_steps.tmx?raw';
-// 行署路由雕像花园北口进入。
-import xingshu from '../../../../picture/pixel_swu_ground_6zones_v1/maps/05_xingshu_road.tmx?raw';
-import type { CampusZone, Point, Rect } from './campus';
-
+import map10 from '../../../../picture/pixel_swu_ground_6zones_v1/maps_final/10_final.tmx?raw';
+import map04 from '../../../../picture/pixel_swu_ground_6zones_v1/maps_final/04_final.tmx?raw';
+import map11 from '../../../../picture/pixel_swu_ground_6zones_v1/maps_final/11_final.tmx?raw';
+import map06 from '../../../../picture/pixel_swu_ground_6zones_v1/maps_final/06_final.tmx?raw';
+import map00 from '../../../../picture/pixel_swu_ground_6zones_v1/maps_final/00_final.tmx?raw';
+import map07 from '../../../../picture/pixel_swu_ground_6zones_v1/maps_final/07_final.tmx?raw';
+import { zoneOffsets, type CampusZone, type Point, type Rect } from './campus';
 const zones = {
-  '00': { name: '含弘门', tmx: gate },
-  '01': { name: '校门外衔接区', tmx: outer },
-  '02': { name: '东侧樟林', tmx: east },
-  '03': { name: '西侧樟林', tmx: west },
-  '04': { name: '雕像花园', tmx: memorial },
-  // 状态栏使用地图的区域名称。
-  '05': { name: '行署路', tmx: xingshu },
-} satisfies Record<CampusZone, { name: string; tmx: string }>;
-
+  '10': {name: '西北区', tmx: map10},
+  '04': {name: '北部中区', tmx: map04},
+  '11': {name: '东北区', tmx: map11},
+  '06': {name: '西南区', tmx: map06},
+  '00': {name: '含弘门与雕像花园', tmx: map00},
+  '07': {name: '东南区', tmx: map07},
+} satisfies Record<CampusZone, {name: string; tmx: string}>;
 const number = (element: Element, attribute: string): number => Number(element.getAttribute(attribute));
 const position = (element: Element): Point => ({ x: number(element, 'x'), y: number(element, 'y') });
 const rectangle = (element: Element): Rect => ({
@@ -99,7 +94,7 @@ export function readGateMap(zone: CampusZone) {
 export function placeGateMap(zone: CampusZone, offset: Point) {
   const map = readGateMap(zone);
   const translate = <T extends Point>(point: T): T => ({ ...point, x: point.x + offset.x, y: point.y + offset.y });
-  if (map.width !== 1600 || map.height !== 1184 || map.tileSize !== 16) {
+  if (map.width !== zoneOffsets[zone].width || map.height !== zoneOffsets[zone].height || map.tileSize !== 16) {
     throw new Error(`地图 ${zone} 尺寸与六区拼接布局不匹配，请同步更新布局。`);
   }
   return { ...map, offset, spawn: translate(map.spawn), sprites: map.sprites.map(translate),

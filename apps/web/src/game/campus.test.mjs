@@ -32,49 +32,26 @@ test('moves one 16-pixel tile from the exact spawn coordinates', () => {
 });
 
 // 接缝上的一步保持连续全局坐标，覆盖五条通道的两个端点及双向移动。
-test('walks continuously across all exit channels in both directions', () => {
-  const seams = [
-    ['00', '02', 'x', 1600, 496, 720], ['03', '00', 'x', 0, 496, 720],
-    ['04', '00', 'y', 0, 480, 592], ['04', '00', 'y', 0, 768, 832],
-    ['04', '00', 'y', 0, 1024, 1152], ['00', '01', 'y', 1184, 656, 992],
-    ['05', '04', 'y', -1184, 688, 928],
-  ];
-  for (const [source, target, axis, edge, min, max] of seams) {
-    const other = axis === 'x' ? 'y' : 'x';
-    for (const along of [min, max - 1, (min + max) / 2]) {
-      const from = { [axis]: edge - 16, [other]: along };
-      const to = { [axis]: edge, [other]: along };
-      assert.equal(zoneAt(from), source);
-      assert.equal(zoneAt(to), target);
+test('six final regions cover the world with continuous bidirectional seams', () => {
+  assert.equal(worldRegions.length, 6);
+  assert.equal(worldRegions.reduce((sum, r) => sum + r.width * r.height, 0), 4800 * 3552);
+  for (const a of worldRegions) for (const b of worldRegions) {
+    if (a.x + a.width === b.x && a.y === b.y) {
+      const from = { x: b.x - 8, y: a.y + a.height / 2 };
+      const to = { ...from, x: b.x + 8 };
       assert.equal(canWorldStep(from, to, 16, []), true);
       assert.equal(canWorldStep(to, from, 16, []), true);
     }
-    for (const along of [min - 16, max + 16]) {
-      const from = { [axis]: edge - 16, [other]: along };
-      const to = { [axis]: edge, [other]: along };
-      assert.equal(canWorldStep(from, to, 16, []), false);
-      assert.equal(canWorldStep(to, from, 16, []), false);
+    if (a.y + a.height === b.y && a.x === b.x) {
+      const from = { x: a.x + a.width / 2, y: b.y - 8 };
+      const to = { ...from, y: b.y + 8 };
+      assert.equal(canWorldStep(from, to, 16, []), true);
+      assert.equal(canWorldStep(to, from, 16, []), true);
     }
   }
-});
-
-test('blocks holes, outer edges, long jumps and obstacles in translated regions', () => {
-  assert.equal(worldRegions.length, 6);
-  assert.equal(zoneAt({ x: -1, y: -1 }), undefined);
-  assert.equal(canWorldStep({ x: 0, y: -16 }, { x: -16, y: -16 }, 16, []), false);
-  assert.equal(canWorldStep({ x: 800, y: -2368 }, { x: 800, y: -2384 }, 16, []), false);
-  assert.equal(canWorldStep({ x: 800, y: 896 }, { x: 800, y: -1200 }, 16, []), false);
-  assert.equal(canWorldStep({ x: 1584, y: 592 }, { x: 1600, y: 592 }, 16,
-    [{ x: 1596, y: 580, width: 8, height: 24 }]), false);
-  assert.equal(canWorldStep({ x: 800, y: -1200 }, { x: 816, y: -1200 }, 16,
-    [{ x: 808, y: -1210, width: 4, height: 20 }]), false);
-});
-
-test('checks diagonal seam intersections rather than teleporting to an entry', () => {
-  assert.equal(canWorldStep({ x: 1584, y: 480 }, { x: 1600, y: 496 }, 16, []), true);
-  assert.equal(canWorldStep({ x: 1600, y: 496 }, { x: 1584, y: 480 }, 16, []), true);
-  assert.equal(canWorldStep({ x: 1584, y: 496 }, { x: 1600, y: 480 }, 16, []), false);
-  assert.equal(canWorldStep({ x: 800, y: 0 }, { x: 816, y: -16 }, 16, []), true);
+  assert.equal(zoneAt({x: 800, y: 1184}), undefined);
+  assert.equal(canWorldStep({x: 800, y: 1176}, {x: 800, y: 1192}, 16, []), false);
+  assert.equal(canWorldStep({x: -232, y: 0}, {x: -216, y: 0}, 16, [{x:-225,y:-10,width:4,height:20}]), false);
 });
 
 test('blocks narrow obstacles between endpoints and stops at map bounds', () => {
