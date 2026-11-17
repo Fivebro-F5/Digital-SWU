@@ -7,7 +7,7 @@
  <tile id="1">
   <image source="../../one_road_scene_v14/assets/xingshu_a_pixel.png" width="1536" height="1024"/>
  </tile>
- <tile id="2">
-  <image source="../../0fc31b9f-792b-469f-b51c-48cbf0eac4ed.png" width="971" height="1620"/>
+ <tile id="3">
+  <image source="bd/0fc31b9f-792b-469f-b51c-48cbf0eac4ed.png" width="971" height="1620"/>
  </tile>
 </tileset>
