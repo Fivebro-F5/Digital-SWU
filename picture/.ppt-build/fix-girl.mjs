@@ -1,0 +1,18 @@
+import fs from 'node:fs/promises';import path from 'node:path';import sharp from 'sharp';
+const root=process.cwd(), out=path.join(root,'output/characters/girl-run-fixed');await fs.mkdir(out,{recursive:true});
+const src='C:/Users/zhaoyaning/.codex/generated_images/01a1e718-4c6f-7192-bf10-7ab6ae195046/exec-3ede4305-fb93-4c37-880d-aa8a2f77ce07.png';await fs.copyFile(src,path.join(out,'source.png'));
+const m=await sharp(src).metadata();const cw=Math.floor(m.width/4),ch=Math.floor(m.height/4);const dirs=['down','left','up','right'],parts=[];
+for(let row=0;row<4;row++)for(let col=0;col<4;col++){
+ let {data,info}=await sharp(src).extract({left:col*cw,top:row*ch,width:cw,height:ch}).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+ for(let i=3;i<data.length;i+=4)data[i]=data[i]<160?0:255;
+ let l=cw,t=ch,r=0,b=0;for(let y=0;y<ch;y++)for(let x=0;x<cw;x++)if(data[(y*cw+x)*4+3]){l=Math.min(l,x);r=Math.max(r,x);t=Math.min(t,y);b=Math.max(b,y);}
+ parts.push({data,info,box:{left:l,top:t,width:r-l+1,height:b-t+1},row,col});
+}
+const scale=76/Math.max(...parts.map(x=>x.box.height));const composites=[];const records=[];
+async function replace(rel,buf){let dest=path.join(root,rel),back=path.join(out,'backup',rel);await fs.mkdir(path.dirname(back),{recursive:true});await fs.copyFile(dest,back);await fs.writeFile(dest,buf);}
+for(const z of parts){let w=Math.round(z.box.width*scale),h=Math.round(z.box.height*scale);let sprite=await sharp(z.data,{raw:z.info}).extract(z.box).resize(w,h,{kernel:'nearest'}).png().toBuffer();let frame=await sharp({create:{width:96,height:96,channels:4,background:'#00000000'}}).composite([{input:sprite,left:48-Math.floor(w/2),top:88-h}]).png().toBuffer();let idx=String(z.col).padStart(3,'0'),dir=dirs[z.row];await replace(`character-pack/girl/01-teal/frames/run/${dir}/${idx}.png`,frame);await replace(`角色单帧/girl/01-teal/run/girl-01-teal-run-${dir}-${idx}.png`,frame);await fs.writeFile(path.join(out,`${dir}-${idx}.png`),frame);composites.push({input:frame,left:z.col*96,top:z.row*96});records.push({dir,frame:z.col,width:96,height:96,bottom:88});}
+let sheet=await sharp({create:{width:384,height:384,channels:4,background:'#00000000'}}).composite(composites).png().toBuffer();await replace('character-pack/girl/01-teal/run.png',sheet);await fs.writeFile(path.join(out,'run.png'),sheet);
+await fs.writeFile(path.join(out,'preview.html'),`<!doctype html><meta charset="utf-8"><title>女角色四向跑步</title><style>body{background:#e9e5d7;font:20px sans-serif;padding:30px}section{display:flex;gap:30px}canvas{width:192px;height:192px;image-rendering:pixelated}p{text-align:center}</style><h1>女角色四向跑步</h1><section>${dirs.map(d=>`<div><canvas id="${d}" width="96" height="96"></canvas><p>${d}</p></div>`).join('')}</section><p>蓝绿色女角色 · 96×96 · 12 fps</p><script>const im=new Image();im.src='run.png';im.onload=()=>{let n=0;setInterval(()=>{['down','left','up','right'].forEach((d,r)=>{let c=document.getElementById(d).getContext('2d');c.clearRect(0,0,96,96);c.drawImage(im,(n%4)*96,r*96,96,96,0,0,96,96)});n++},1000/12)}</script>`);
+await fs.writeFile(path.join(out,'validation.json'),JSON.stringify({frames:records,scale,scope:'girl/01-teal run only; 33 PNG files updated; no gameplay code changes'},null,2));
+await fs.writeFile(path.join(out,'README.md'),'# 女角色跑步修正\n\n仅更新 girl/01-teal 的 run 图集和两套单帧目录，原文件保存在 backup。其余配色、walk、idle、男角色、鸟角色及 PPT 未改动。\n\n内置 imagegen 提示词概要：保留女角色黑色马尾与蓝绿服装，严格参照男角色 walk 的直立小步交替动作；四行依次 down/left/up/right，每行四帧，无前倾冲刺与夸张跳步。生成后用 Sharp 做透明阈值、统一比例最近邻缩放、96×96 装帧及脚底 88 对齐。\n\n验证：16 帧尺寸与图集布局已检查；preview.html 用于四向循环预览。尚未在 Phaser 中验证女角色播放；当前主场景加载鸟角色。未改变协议、坐标或业务范围。\n');console.log(out);
+
