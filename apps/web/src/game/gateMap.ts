@@ -1,10 +1,11 @@
-import map10 from '../../../../picture/pixel_swu_ground_6zones_v1/maps_final/10_final.tmx?raw';
-import map04 from '../../../../picture/pixel_swu_ground_6zones_v1/maps_final/04_final.tmx?raw';
-import map11 from '../../../../picture/pixel_swu_ground_6zones_v1/maps_final/11_final.tmx?raw';
-import map06 from '../../../../picture/pixel_swu_ground_6zones_v1/maps_final/06_final.tmx?raw';
-import map00 from '../../../../picture/pixel_swu_ground_6zones_v1/maps_final/00_final.tmx?raw';
-import map07 from '../../../../picture/pixel_swu_ground_6zones_v1/maps_final/07_final.tmx?raw';
+import map10 from '../../../../picture/final/maps_final/10_final.tmx?raw';
+import map04 from '../../../../picture/final/maps_final/04_final.tmx?raw';
+import map11 from '../../../../picture/final/maps_final/11_final.tmx?raw';
+import map06 from '../../../../picture/final/maps_final/06_final.tmx?raw';
+import map00 from '../../../../picture/final/maps_final/00_final.tmx?raw';
+import map07 from '../../../../picture/final/maps_final/07_final.tmx?raw';
 import { zoneOffsets, type CampusZone, type Point, type Rect } from './campus';
+import { mapAssets, tilesetSources, resolveMapAsset, decodeTileGid } from './mapAssets';
 const zones = {
   '10': {name: '西北区', tmx: map10},
   '04': {name: '北部中区', tmx: map04},
@@ -51,24 +52,41 @@ export function readGateMap(zone: CampusZone) {
       gids.slice(y * columns, (y + 1) * columns).map((gid) => gid || -1),
     );
   });
-  const tilesets = [...root.querySelectorAll('map > tileset')].map((entry) => {
+  const mapPath = `../../../../picture/final/maps_final/${zone}_final.tmx`;
+  const tilesets: { firstGid: number; tileCount: number; source: string }[] = [];
+  const images = new Map<number, { source: string; originX: number; originY: number; ground: boolean }>();
+  for (const entry of root.querySelectorAll('map > tileset')) {
     const firstGid = number(entry, 'firstgid');
     const external = entry.getAttribute('source');
-    const source = external === '../assets/stone_stairs_seamless_16.tsx'
-      ? '../assets/stone_stairs_seamless_16.png' : entry.querySelector('image')?.getAttribute('source');
-    const tileCount = external ? 1 : number(entry, 'tilecount');
-    if (!source || !tileCount) throw new Error(`地图图块集缺少图像或尺寸：${external ?? firstGid}`);
-    return { firstGid, tileCount, source };
-  });
-  const images = new Map<number, string>();
-  for (const tile of root.querySelectorAll('tileset > tile')) {
-    const source = tile.querySelector('image')?.getAttribute('source');
-    if (source) images.set(number(tile.parentElement!, 'firstgid') + number(tile, 'id'), source);
+    const file = external ? resolveMapAsset(mapPath, external) : mapPath;
+    if (external && !tilesetSources[file]) throw new Error(`图块集不存在：${file}`);
+    const definition = external ? new DOMParser().parseFromString(tilesetSources[file], 'application/xml').documentElement : entry;
+    const atlas = definition.querySelector(':scope > image');
+    if (atlas) {
+      const source = resolveMapAsset(file, atlas.getAttribute('source')!);
+      if (!mapAssets[source]) throw new Error(`地形图集不存在：${source}`);
+      tilesets.push({ firstGid, tileCount: number(definition, 'tilecount'), source });
+    }
+    const alignment = definition.getAttribute('objectalignment') || 'bottomleft';
+    const originX = alignment.includes('left') ? 0 : alignment.includes('right') ? 1 : 0.5;
+    const originY = alignment.includes('top') ? 0 : alignment.includes('bottom') ? 1 : 0.5;
+    for (const tile of definition.querySelectorAll(':scope > tile')) {
+      const image = tile.querySelector('image');
+      if (!image) continue;
+      const source = resolveMapAsset(file, image.getAttribute('source')!);
+      // 用户允许缺失的装饰图片跳过；不会影响其余地图加载。
+      if (!mapAssets[source]) { console.warn(`跳过缺失的地图图片：${source}`); continue; }
+      images.set(firstGid + number(tile, 'id'), { source, originX, originY, ground: file.includes('02_Flowers_Shrubs') });
+    }
   }
-  const sprites = [...root.querySelectorAll('objectgroup > object[gid]')].map((object) => ({
-    ...rectangle(object),
-    source: images.get(number(object, 'gid')),
-  }));
+  const sprites = [...root.querySelectorAll('objectgroup > object[gid]')].flatMap((object) => {
+    if (object.getAttribute('visible') === '0' || object.parentElement?.getAttribute('visible') === '0') return [];
+    const flags = decodeTileGid(number(object, 'gid'));
+    const image = images.get(flags.gid);
+    if (!image) return [];
+    return [{ ...rectangle(object), ...image, ...flags, rotation: number(object, 'rotation'),
+      opacity: Number(object.parentElement?.getAttribute('opacity') ?? 1) }];
+  });
   const collisions = [...root.querySelectorAll('objectgroup[name="Collisions"] > object')].map(rectangle);
   const interactions = [...root.querySelectorAll('objectgroup[name="Interactions"] > object')].map((object) => ({
     ...rectangle(object), title: property(object, 'title'), message: property(object, 'message'),

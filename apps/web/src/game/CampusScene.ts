@@ -67,9 +67,7 @@ type BirdAction = keyof typeof birdActions;
 const birdFrameKey = (animation: string, frame: number) =>
   `${animation}-${String(frame).padStart(3, '0')}`;
 // 新版入口 TMX 的地形图集位于 maps 的同级 assets 目录。
-const mapAssets = import.meta.glob<string>('../../../../picture/pixel_swu_ground_6zones_v1/assets/*.png', {
-  eager: true, query: '?url', import: 'default',
-});
+import { mapAssets } from './mapAssets';
 
 export class CampusScene extends Phaser.Scene {
   static readonly BASE_ZOOM = 1.5;
@@ -357,7 +355,7 @@ export class CampusScene extends Phaser.Scene {
     ]));
     for (const source of assets) {
       // TMX 以 maps 为基准，Vite 的资源键以当前源文件为基准。
-      const url = source && mapAssets[`../../../../picture/pixel_swu_ground_6zones_v1/${source.replace(/^\.\.\//, '')}`];
+      const url = source && mapAssets[source];
       if (!source || !url) throw new Error(`含弘门地图素材缺失：${source}`);
       this.load.image(source, url);
     }
@@ -378,8 +376,10 @@ export class CampusScene extends Phaser.Scene {
         if (ground) this.mapObjects.push(ground.setDepth(-10000));
       }
       for (const sprite of map.sprites) {
-        this.mapObjects.push(this.add.image(sprite.x, sprite.y, sprite.source!).setOrigin(0, 1)
-          .setDisplaySize(sprite.width, sprite.height).setDepth(sprite.y));
+        this.mapObjects.push(this.add.image(sprite.x, sprite.y, sprite.source!).setOrigin(sprite.originX, sprite.originY)
+          .setDisplaySize(sprite.width, sprite.height).setFlip(sprite.flipX, sprite.flipY)
+          .setAngle(sprite.rotation).setAlpha(sprite.opacity)
+          .setDepth(sprite.ground ? -9000 : sprite.y));
       }
     }
     this.refreshRenderBounds();
@@ -519,7 +519,7 @@ export class CampusScene extends Phaser.Scene {
     this.player = this.add.sprite(this.position.x, this.position.y, 'bird-original-idle-down-000')
       .setOrigin(0.5, 88 / 96)
       // 将 96 × 96 的动画帧缩放为 48 × 48 游戏像素。
-      .setScale(0.5)
+      .setScale(1)
       .setDepth(this.position.y);
     this.playPlayer('idle');
   }

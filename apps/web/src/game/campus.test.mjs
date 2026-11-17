@@ -86,3 +86,15 @@ test('projects the whole world, negative regions and viewport with one uniform s
     assert.equal(camera.height, 480 * transform.scale);
   }
 });
+
+
+test('final map resources resolve relative to their owning TMX or TSX', async () => {
+  const { resolveMapAsset, decodeTileGid } = await import('./mapAssetUtils.ts');
+  const base = '../../../../picture/final/maps_final/00_final.tmx';
+  const tsx = resolveMapAsset(base, 'SWU_Beautiful_Campus_Sprites/01_Trees.tsx');
+  assert.equal(resolveMapAsset(tsx, '01_Trees/oak.png'), '../../../../picture/final/maps_final/SWU_Beautiful_Campus_Sprites/01_Trees/oak.png');
+  assert.equal(resolveMapAsset(base, '../assets/ground_tiles_16.png'), '../../../../picture/final/assets/ground_tiles_16.png');
+  assert.equal(resolveMapAsset(resolveMapAsset(base, 'building.tsx'), '../../one_road_scene_v14/assets/hanhong_gate_only_pixel.png'), '../../../../picture/one_road_scene_v14/assets/hanhong_gate_only_pixel.png');
+  assert.deepEqual(decodeTileGid(0x80000000 + 349), { gid: 349, flipX: true, flipY: false });
+  assert.deepEqual(decodeTileGid(349), { gid: 349, flipX: false, flipY: false });
+});
