@@ -8,6 +8,6 @@
   <image source="../../one_road_scene_v14/assets/xingshu_a_pixel.png" width="1536" height="1024"/>
  </tile>
  <tile id="2">
-  <image source="../../0fc31b9f-792b-469f-b51c-48cbf0eac4ed.png" width="971" height="1620"/>
+  <image source="a81dccc551d4fc184a051b6db39f1f1d.png" width="971" height="1620"/>
  </tile>
 </tileset>

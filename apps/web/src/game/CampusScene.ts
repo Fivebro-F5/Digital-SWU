@@ -379,7 +379,7 @@ export class CampusScene extends Phaser.Scene {
         this.mapObjects.push(this.add.image(sprite.x, sprite.y, sprite.source!).setOrigin(sprite.originX, sprite.originY)
           .setDisplaySize(sprite.width, sprite.height).setFlip(sprite.flipX, sprite.flipY)
           .setAngle(sprite.rotation).setAlpha(sprite.opacity)
-          .setDepth(sprite.ground ? -9000 : sprite.y));
+          .setDepth(sprite.ground ? -9000 : sprite.y + sprite.depthOffset));
       }
     }
     this.refreshRenderBounds();

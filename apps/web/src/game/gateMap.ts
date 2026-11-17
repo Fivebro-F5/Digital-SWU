@@ -85,6 +85,8 @@ export function readGateMap(zone: CampusZone) {
     const image = images.get(flags.gid);
     if (!image) return [];
     return [{ ...rectangle(object), ...image, ...flags, rotation: number(object, 'rotation'),
+      // Tiled 可单独校正重叠素材的绘制顺序，不改变位置或碰撞坐标。
+      depthOffset: Number(property(object, 'renderDepthOffset')) || 0,
       opacity: Number(object.parentElement?.getAttribute('opacity') ?? 1) }];
   });
   const collisions = [...root.querySelectorAll('objectgroup[name="Collisions"] > object')].map(rectangle);

@@ -1949,7 +1949,11 @@
   </objectgroup>
   <objectgroup id="12" name="建筑物">
     <object id="8" gid="322" x="397" y="1851" width="1279.21" height="434" />
-    <object id="1831" gid="324" x="883" y="1106" width="291" height="508" />
+    <object id="1831" gid="324" x="883" y="1106" width="291" height="508">
+      <properties>
+        <property name="renderDepthOffset" type="float" value="161" />
+      </properties>
+    </object>
   </objectgroup>
   <objectgroup id="13" name="Collisions">
     <object id="1832" name="auto_foot_423_0" type="solid" x="0.924" y="29.842" width="84.000" height="16.800" />
