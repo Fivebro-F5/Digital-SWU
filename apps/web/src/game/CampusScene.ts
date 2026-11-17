@@ -50,7 +50,7 @@ export interface GameHooks {
   onNearby: (name: string | null, description?: string) => void;
   onMessage: (title: string, body: string) => void;
   onStatus: (status: GameStatus) => void;
-  isDialogOpen: () => boolean;
+  isOverlayOpen: () => boolean;
 }
 
 const birdFrameUrls = import.meta.glob<string>(
@@ -432,7 +432,7 @@ export class CampusScene extends Phaser.Scene {
     if (this.moving || !this.keys) return;
     const pressed = (direction: Direction, alternate: string) =>
       Number(Boolean(this.held[direction] || this.keys[direction.toUpperCase()].isDown || this.keys[alternate].isDown));
-    const direction = this.hooks.isDialogOpen() ? null : directionFromAxes(
+    const direction = this.hooks.isOverlayOpen() ? null : directionFromAxes(
       pressed('right', 'D') - pressed('left', 'A'), pressed('down', 'S') - pressed('up', 'W'),
     );
     if (!direction) {
@@ -489,7 +489,7 @@ export class CampusScene extends Phaser.Scene {
   }
 
   interact(): void {
-    if (this.moving || this.hooks.isDialogOpen()) return;
+    if (this.moving || this.hooks.isOverlayOpen()) return;
     const zone = this.nearby();
     if (zone) this.hooks.onMessage(zone.title, zone.message);
   }

@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, shallowRef } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref, shallowRef, watch } from 'vue';
 import type Phaser from 'phaser';
 import type { HealthStatus } from '@digital-swu/contracts';
 import type { CampusScene, DebugSnapshot, GameStatus, GameHooks, GridMode, ObjectDebugMode } from './game/CampusScene';
 import CampusDialogue from './components/CampusDialogue.vue';
 import CampusMinimap from './components/CampusMinimap.vue';
+import CommunityPanel from './components/community/CommunityPanel.vue';
+import PixelIcon from './components/community/PixelIcon.vue';
 import type { MinimapSnapshot } from './game/minimap';
 import type { Direction } from './game/campus';
 
@@ -14,6 +16,8 @@ const minimapCollapsed = ref(false);
 const minimapSnapshot = shallowRef<MinimapSnapshot | null>(null);
 const minimapOverview = shallowRef<HTMLCanvasElement | null>(null);
 const apiStatus = ref('检查中');
+const communityOpen = ref(false);
+const communityEntry = ref<HTMLButtonElement | null>(null);
 const nearby = ref<{ name: string; description: string } | null>(null);
 const selected = ref<{ title: string; body: string } | null>(null);
 const status = ref<GameStatus>({ scene: '含弘门', position: { x: 0, y: 0 }, facing: 'down', sprint: false });
@@ -133,8 +137,31 @@ function paintDebugOverlay(): void {
   overlayFrame = window.requestAnimationFrame(paintDebugOverlay);
 }
 
+// 社群面板快捷键：P 开关，Esc 关闭；输入框内打字时不触发，对话打开时 P 不生效。
+function onGlobalKey(event: KeyboardEvent): void {
+  if (event.code === 'Escape' && communityOpen.value) {
+    communityOpen.value = false;
+    return;
+  }
+  const target = event.target as HTMLElement | null;
+  if (target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return;
+  if (event.repeat) return;
+  if (event.code === 'KeyP' && !selected.value) {
+    communityOpen.value = !communityOpen.value;
+    return;
+  }
+}
+
+watch(communityOpen, async (value) => {
+  if (!value) {
+    await nextTick();
+    communityEntry.value?.focus({ preventScroll: true });
+  }
+});
+
 onMounted(async () => {
   window.addEventListener('mouseup', stopPan);
+  window.addEventListener('keydown', onGlobalKey);
   try {
     const [{ default: PhaserRuntime }, { CampusScene: GateScene }] = await Promise.all([import('phaser'), import('./game/CampusScene')]);
     if (disposed || !canvasHost.value) return;
@@ -142,7 +169,7 @@ onMounted(async () => {
       onNearby: (name, description = '') => { nearby.value = name ? { name, description } : null; },
       onMessage: (title, body) => { selected.value = { title, body }; },
       onStatus: (next) => { status.value = next; },
-      isDialogOpen: () => selected.value !== null,
+      isOverlayOpen: () => selected.value !== null || communityOpen.value,
     };
     game = new PhaserRuntime.Game({ type: PhaserRuntime.AUTO, parent: canvasHost.value, width: viewSize().width, height: viewSize().height, backgroundColor: '#92bd70', pixelArt: true, roundPixels: true, scene: [new GateScene(hooks)], scale: { mode: PhaserRuntime.Scale.FIT, autoCenter: PhaserRuntime.Scale.CENTER_BOTH } });
     canvasObserver = new ResizeObserver(syncViewport);
@@ -157,7 +184,7 @@ onMounted(async () => {
     apiStatus.value = data.status === 'ok' ? '已连接' : '不可用';
   } catch { if (apiStatus.value !== '场景加载失败') apiStatus.value = '未连接'; }
 });
-onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopPan); if (debugTimer !== undefined) clearInterval(debugTimer); if (overlayFrame !== undefined) cancelAnimationFrame(overlayFrame); canvasObserver?.disconnect(); game?.destroy(true); });
+onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopPan); window.removeEventListener('keydown', onGlobalKey); if (debugTimer !== undefined) clearInterval(debugTimer); if (overlayFrame !== undefined) cancelAnimationFrame(overlayFrame); canvasObserver?.disconnect(); game?.destroy(true); });
 </script>
 
 <template>
@@ -171,6 +198,8 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
         <div class="panel-heading"><span>01 / GAME VIEWPORT · {{ debug?.mapName ?? status.scene }} · {{ debug?.zoneId ?? '—' }}</span><div class="viewport-toolbar"><label for="resolution">Canvas 尺寸</label><select id="resolution" v-model="resolution" @change="changeResolution"><option value="auto">随父级（原画）</option><option value="384x240">384 × 240</option><option value="768x480">768 × 480</option><option value="1152x720">1152 × 720</option><option value="1536x960">1536 × 960</option><option value="1920x1200">1920 × 1200</option><option value="2560x1600">2560 × 1600</option></select><label for="zoom-input">ZOOM</label><input id="zoom-input" type="number" inputmode="decimal" step="any" aria-label="镜头缩放倍数" :value="zoomInput" @change="changeZoom" @keyup.enter="changeZoom" /><label for="grid-mode">Tile 轮廓</label><select id="grid-mode" v-model="gridMode" @change="changeGridMode"><option value="off">关闭</option><option value="category">按类别</option><option value="cell">逐格</option></select><label for="collision-mode">碰撞框</label><select id="collision-mode" v-model="collisionMode"><option value="off">关闭</option><option value="on">显示</option></select><label for="object-debug-mode">对象调试框</label><select id="object-debug-mode" v-model="objectDebugMode"><option value="off">关闭</option><option value="interaction">交互与传送</option><option value="entity">特殊实体</option><option value="all">全部</option></select><button type="button" @click="resetCamera">复位视角</button></div></div>
         <div class="game-screen">
           <div ref="canvasHost" tabindex="-1" class="canvas-host" :class="{ dragging }" aria-label="俯视角像素校园画布" @wheel.prevent="onWheel" @mousedown="onMouseDown" @mousemove="onMouseMove" @auxclick.prevent><canvas ref="overlayCanvas" class="debug-overlay" aria-hidden="true" /><CampusMinimap v-model:collapsed="minimapCollapsed" :snapshot="minimapSnapshot" :overview="minimapOverview" /></div>
+          <button v-if="!communityOpen" ref="communityEntry" class="community-entry" type="button" aria-label="打开社群面板（快捷键 P）" title="社群（P）" @click="communityOpen = true"><PixelIcon name="chat" />社群<kbd>P</kbd></button>
+          <CommunityPanel v-model:open="communityOpen" />
           <CampusDialogue v-if="selected" :title="selected.title" :body="selected.body" @close="selected = null; canvasHost?.focus({ preventScroll: true })" />
           <button v-else-if="nearby" class="nearby-prompt" type="button" @click="activeScene()?.interact()">
             <kbd>E</kbd> 查看 · {{ nearby.name }}
@@ -214,7 +243,7 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
           <dt>场景对象</dt><dd>{{ debug?.sceneObjects ?? '—' }}</dd>
           <dt>API 健康状态</dt><dd>{{ apiStatus }}</dd>
         </dl></section>
-        <section class="debug-card input-card"><h2><span>05</span> 输入测试 / INPUT</h2><p>组合 WASD / 方向键八向移动 · Shift 疾跑 · E / 空格交互</p><div class="controls" aria-label="屏幕方向键">
+        <section class="debug-card input-card"><h2><span>05</span> 输入测试 / INPUT</h2><p>组合 WASD / 方向键八向移动 · Shift 疾跑 · E / 空格交互 · P 社群</p><div class="controls" aria-label="屏幕方向键">
           <button class="up" type="button" aria-label="向上" @pointerdown="setDirection('up', true)" @pointerup="setDirection('up', false)" @pointerleave="setDirection('up', false)" @pointercancel="setDirection('up', false)">↑</button>
           <button class="left" type="button" aria-label="向左" @pointerdown="setDirection('left', true)" @pointerup="setDirection('left', false)" @pointerleave="setDirection('left', false)" @pointercancel="setDirection('left', false)">←</button>
           <button class="down" type="button" aria-label="向下" @pointerdown="setDirection('down', true)" @pointerup="setDirection('down', false)" @pointerleave="setDirection('down', false)" @pointercancel="setDirection('down', false)">↓</button>
@@ -233,4 +262,15 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
   background: #fff3cf; color: #294440; box-shadow: 3px 3px #344c48; font-weight: bold;
 }
 .nearby-prompt kbd { padding: 0 3px; color: #fff3cf; background: #344c48; }
+.community-entry {
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 4;
+  display: flex; align-items: center; gap: 6px; padding: 16px 10px;
+  writing-mode: vertical-rl;
+  color: #f3f3d7; background: #2c463b; border: 2px solid #8fa98b; border-right: none;
+  font-family: 'Fusion Pixel SWU', 'Microsoft YaHei', sans-serif; font-size: 14px;
+  font-weight: 700; letter-spacing: 0.2em; cursor: pointer;
+}
+.community-entry:hover { background: #36594c; }
+.community-entry kbd { writing-mode: horizontal-tb; padding: 0 3px; font-size: 10px; color: #2c463b; background: #f3f3d7; }
+.community-entry .pixel-icon { width: 16px; height: 16px; }
 </style>
