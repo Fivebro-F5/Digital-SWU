@@ -1,0 +1,118 @@
+{
+  "frames": [
+    {
+      "dir": "down",
+      "frame": 0,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "down",
+      "frame": 1,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "down",
+      "frame": 2,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "down",
+      "frame": 3,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "left",
+      "frame": 0,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "left",
+      "frame": 1,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "left",
+      "frame": 2,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "left",
+      "frame": 3,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "up",
+      "frame": 0,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "up",
+      "frame": 1,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "up",
+      "frame": 2,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "up",
+      "frame": 3,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "right",
+      "frame": 0,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "right",
+      "frame": 1,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "right",
+      "frame": 2,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    },
+    {
+      "dir": "right",
+      "frame": 3,
+      "width": 96,
+      "height": 96,
+      "bottom": 88
+    }
+  ],
+  "scale": 0.304,
+  "scope": "girl/01-teal run only; 33 PNG files updated; no gameplay code changes"
+}
