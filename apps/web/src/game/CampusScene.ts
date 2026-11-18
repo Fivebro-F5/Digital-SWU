@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 // 六区共用连续的全局脚底坐标。
 import { canWorldStep, zoneAt, zoneOffsets, worldBounds, directionFromAxes, facingForMove, step, type CampusZone, type Direction, type Point } from './campus';
 import { placeGateMap } from './gateMap';
+import { chooseRoadRoute, createRoadNetwork, type RoadNode } from './roadNpc';
 import type { MinimapSnapshot } from './minimap';
 
 export interface GameStatus { scene: string; position: Point; facing: Direction; sprint: boolean }
@@ -42,13 +43,16 @@ export interface DebugSnapshot {
   loadedTextures: number;
   declaredImages: number;
   sceneObjects: number;
+  npcCount: number;
+  movingNpcCount: number;
 }
 export type GridMode = 'off' | 'category' | 'cell';
 export type ObjectDebugMode = 'off' | 'interaction' | 'entity' | 'all';
 type GridSegment = { x1: number; y1: number; x2: number; y2: number };
 export interface GameHooks {
-  onNearby: (name: string | null, description?: string) => void;
+  onNearby: (name: string | null, description?: string, action?: string) => void;
   onMessage: (title: string, body: string) => void;
+  onNpcChat: (id: string, name: string) => void;
   onStatus: (status: GameStatus) => void;
   isOverlayOpen: () => boolean;
 }
@@ -64,6 +68,7 @@ const birdActions = {
   run: { frames: 4, frameRate: 15, repeat: -1 },
 } as const;
 type BirdAction = keyof typeof birdActions;
+type RoadNpc = { id: string; name: string; sprite: Phaser.GameObjects.Sprite; position: RoadNode; route: RoadNode[]; readyAt: number; moving: boolean; facing: Direction };
 const birdFrameKey = (animation: string, frame: number) =>
   `${animation}-${String(frame).padStart(3, '0')}`;
 // 新版入口 TMX 的地形图集位于 maps 的同级 assets 目录。
@@ -71,7 +76,7 @@ import { mapAssets } from './mapAssets';
 
 export class CampusScene extends Phaser.Scene {
   static readonly BASE_ZOOM = 1.5;
-  // 九区一次加载到同一场景，跨缝时仅更新当前区域名称。
+  // 六区一次加载到同一场景，跨缝时仅更新当前区域名称。
   private readonly maps = Object.fromEntries(
     (Object.keys(zoneOffsets) as CampusZone[]).map((zone) => [zone, placeGateMap(zone, zoneOffsets[zone])]),
   ) as Record<CampusZone, ReturnType<typeof placeGateMap>>;
@@ -85,6 +90,20 @@ export class CampusScene extends Phaser.Scene {
   };
   private readonly interactions = this.mapInteractions.length ? this.mapInteractions : [this.guide];
   private readonly worldCollisions = this.worldMaps.flatMap((map) => map.collisions);
+  private readonly roadNetwork = createRoadNetwork(
+    (Object.entries(this.maps) as [CampusZone, ReturnType<typeof placeGateMap>][]).flatMap(([zone, map]) =>
+      map.roadCells.filter((cell) => canWorldStep(cell, cell, map.tileSize, map.collisions)).map((cell) => ({ ...cell, zone }))),
+    (from, to) => {
+      const fromZone = zoneAt(from)!;
+      const toZone = zoneAt(to)!;
+      const collisions = fromZone === toZone ? this.maps[fromZone].collisions :
+        [...this.maps[fromZone].collisions, ...this.maps[toZone].collisions];
+      return canWorldStep(from, to, 16, collisions);
+    },
+  );
+  private readonly npcs: RoadNpc[] = [];
+  private lastNearbyKey = '';
+  private lastNpcPromptAt = 0;
   private zone: CampusZone = '00';
   private get map() { return this.maps[this.zone]; }
   private readonly mapObjects: Phaser.GameObjects.GameObject[] = [];
@@ -344,6 +363,7 @@ export class CampusScene extends Phaser.Scene {
       loadedTextures: Object.keys(this.textures.list).filter((key) => !key.startsWith('__')).length,
       declaredImages: Object.keys(birdFrameUrls).length + new Set(Object.values(this.maps).flatMap((entry) => [...entry.tilesets.map((tileset) => tileset.source), ...entry.sprites.map((sprite) => sprite.source)])).size,
       sceneObjects: this.children.length,
+      npcCount: this.npcs.length, movingNpcCount: this.npcs.filter((npc) => npc.moving).length,
     };
   }
 
@@ -408,6 +428,7 @@ export class CampusScene extends Phaser.Scene {
     this.position = { ...this.map.spawn };
     this.velocity = { x: 0, y: 0 };
     this.createPlayer();
+    this.createNpcs();
     this.displayWidth = this.game.canvas.getBoundingClientRect().width || this.cameras.main.width;
     this.setZoom(1);
     // 非整数缩放时 Phaser 的逐对象取整会让地形和角色分别跳像素。
@@ -428,7 +449,12 @@ export class CampusScene extends Phaser.Scene {
   // 按键可组合为八向移动；角色动画仍使用四个朝向。
   setDirection(direction: Direction, pressed: boolean): void { this.held[direction] = pressed; }
 
-  update(): void {
+  update(time: number): void {
+    this.updateNpcs(time);
+    if (time - this.lastNpcPromptAt >= 150) {
+      this.lastNpcPromptAt = time;
+      this.updateNearbyPrompt();
+    }
     if (this.moving || !this.keys) return;
     const pressed = (direction: Direction, alternate: string) =>
       Number(Boolean(this.held[direction] || this.keys[direction.toUpperCase()].isDown || this.keys[alternate].isDown));
@@ -480,6 +506,81 @@ export class CampusScene extends Phaser.Scene {
     });
   }
 
+  private createNpcs(): void {
+    const zones: CampusZone[] = ['00', '04', '10', '11', '06', '07'];
+    const occupied: RoadNode[] = [];
+    for (let zoneIndex = 0; zoneIndex < zones.length; zoneIndex++) {
+      const zone = zones[zoneIndex];
+      const candidates = this.roadNetwork.byZone.get(zone) ?? [];
+      const quota = 8 + Number(zoneIndex < 2);
+      if (!candidates.length) throw new Error(`地图 ${zone} 没有可供路人行走的道路格。`);
+      for (let localIndex = 0; localIndex < quota; localIndex++) {
+        let position: RoadNode | undefined;
+        if (zone === '00' && localIndex === 0) {
+          const preferred = [...candidates].sort((a, b) =>
+            Math.abs(Math.hypot(a.x - this.position.x, a.y - this.position.y) - 80) -
+            Math.abs(Math.hypot(b.x - this.position.x, b.y - this.position.y) - 80));
+          position = preferred.find((node) => this.roadNetwork.neighbors(node).length > 0);
+        }
+        for (let attempt = 0; !position && attempt < 500; attempt++) {
+          const candidate = candidates[Math.floor(Math.random() * candidates.length)];
+          if (occupied.some((node) => node.x === candidate.x && node.y === candidate.y)) continue;
+          if (attempt < 400 && occupied.some((node) => node.zone === zone && Math.hypot(node.x - candidate.x, node.y - candidate.y) < 96)) continue;
+          if (this.roadNetwork.neighbors(candidate).length) position = candidate;
+        }
+        if (!position) throw new Error(`地图 ${zone} 无法安置全部路人 NPC。`);
+        occupied.push(position);
+        const id = `npc-${String(this.npcs.length + 1).padStart(2, '0')}`;
+        const name = `路人 ${String(this.npcs.length + 1).padStart(2, '0')}`;
+        const sprite = this.add.sprite(position.x, position.y, 'bird-original-idle-down-000')
+          .setOrigin(0.5, 88 / 96).setScale(1).setDepth(position.y)
+          .setInteractive({ useHandCursor: true });
+        sprite.play('bird-original-idle-down');
+        sprite.setData('npcId', id);
+        sprite.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+          if (pointer.button === 0 && !this.hooks.isOverlayOpen()) this.hooks.onNpcChat(id, name);
+        });
+        this.npcs.push({ id, name, sprite, position, route: [], readyAt: this.time.now + Math.random() * 1800, moving: false, facing: 'down' });
+      }
+    }
+  }
+
+  private updateNpcs(time: number): void {
+    if (this.hooks.isOverlayOpen()) return;
+    for (const npc of this.npcs) {
+      if (npc.moving || time < npc.readyAt) continue;
+      if (!npc.route.length) npc.route = chooseRoadRoute(this.roadNetwork, npc.position, Math.random);
+      const next = npc.route.shift();
+      if (!next) { npc.readyAt = time + 1200; continue; }
+      const direction = directionFromAxes(next.x - npc.position.x, next.y - npc.position.y);
+      if (!direction) continue;
+      npc.facing = facingForMove(direction);
+      npc.moving = true;
+      npc.sprite.play(`bird-original-walk-${npc.facing}`, true);
+      this.tweens.add({
+        targets: npc.sprite, x: next.x, y: next.y, duration: 240,
+        onUpdate: () => npc.sprite.setDepth(npc.sprite.y),
+        onComplete: () => {
+          npc.position = next;
+          npc.moving = false;
+          npc.sprite.play(`bird-original-idle-${npc.facing}`, true);
+          npc.readyAt = this.time.now + (npc.route.length ? 80 : 500 + Math.random() * 900);
+          this.updateNearbyPrompt();
+        },
+      });
+    }
+  }
+
+  private nearbyNpc(): RoadNpc | undefined {
+    let nearest: RoadNpc | undefined;
+    let nearestDistance = this.map.tileSize * 2.25;
+    for (const npc of this.npcs) {
+      const distance = Math.hypot(npc.sprite.x - this.position.x, npc.sprite.y - this.position.y);
+      if (distance < nearestDistance) { nearest = npc; nearestDistance = distance; }
+    }
+    return nearest;
+  }
+
   // 在脚下或面前一格的 TMX 对话区域按 E 触发互动。
   private nearby() {
     const ahead = step(this.position, this.facing, this.map.tileSize);
@@ -490,13 +591,24 @@ export class CampusScene extends Phaser.Scene {
 
   interact(): void {
     if (this.moving || this.hooks.isOverlayOpen()) return;
+    const npc = this.nearbyNpc();
+    if (npc) { this.hooks.onNpcChat(npc.id, npc.name); return; }
     const zone = this.nearby();
     if (zone) this.hooks.onMessage(zone.title, zone.message);
   }
 
+  private updateNearbyPrompt(): void {
+    const npc = this.nearbyNpc();
+    const zone = npc ? undefined : this.nearby();
+    const key = npc?.id ?? (zone ? `area:${zone.title}` : 'none');
+    if (key === this.lastNearbyKey) return;
+    this.lastNearbyKey = key;
+    if (npc) this.hooks.onNearby(npc.name, '按 E 或点击角色开始聊天。', '对话');
+    else this.hooks.onNearby(zone?.title ?? null, zone ? '按 E 查看介绍。' : undefined, '查看');
+  }
+
   private report(sprint: boolean): void {
-    const zone = this.nearby();
-    this.hooks.onNearby(zone?.title ?? null, zone ? '按 E 查看介绍。' : undefined);
+    this.updateNearbyPrompt();
     // 状态栏显示当前区域及全局游戏脚底坐标。
     this.hooks.onStatus({ scene: this.map.name, position: { ...this.position }, facing: this.facing, sprint });
   }

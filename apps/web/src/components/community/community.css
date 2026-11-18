@@ -161,8 +161,8 @@
 .community-panel .badge { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 4px; background: var(--warm); color: #fff; font-size: 12px; }
 .community-panel .chat-window { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; }
 .community-panel .chat-window.empty { display: grid; place-items: center; text-align: center; color: var(--muted); }
-.community-panel .chat-head { display: flex; align-items: center; gap: 8px; min-height: 55px; padding: 8px 10px; border-bottom: 2px solid var(--line); background: #e7eaca; }
-.community-panel .chat-head .chat-identity { min-width: 0; }
+.community-panel .chat-head { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; min-height: 55px; padding: 8px 10px; border-bottom: 2px solid var(--line); background: #e7eaca; }
+.community-panel .chat-head .chat-identity { flex: 1; min-width: 100px; }
 .community-panel .chat-head strong, .community-panel .chat-head small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .community-panel .chat-head small { color: var(--muted); font-size: 12px; }
 .community-panel .chat-back { display: none; border: 2px solid var(--line); background: var(--surface); }

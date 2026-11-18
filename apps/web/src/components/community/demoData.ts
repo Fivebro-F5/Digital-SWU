@@ -28,12 +28,15 @@ export interface ChatMessage {
 export interface Conversation {
   id: string;
   name: string;
-  kind: 'friend' | 'group';
+  kind: 'friend' | 'group' | 'temporary';
+  npcId?: string;
   avatarColor: string;
   lastTime: string;
   unread?: number;
   messages: ChatMessage[];
 }
+
+export interface NpcChatTarget { id: string; name: string }
 
 export interface FriendRequest {
   id: number;

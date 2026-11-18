@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { acceptRequest, addFriend, conversations, createGroup, friendRequests, openConversation, rejectRequest, sendMessage } from './store';
+import { computed, ref, watch } from 'vue';
+import { acceptRequest, addFriend, befriendNpc, conversations, createGroup, friendRequests, openConversation, openNpcConversation, rejectRequest, sendMessage } from './store';
+import type { NpcChatTarget } from './demoData';
 import PixelIcon from './PixelIcon.vue';
 
+const props = defineProps<{ chatRequest: NpcChatTarget | null }>();
 const activeId = ref<string | null>(conversations[0]?.id ?? null);
 const draft = ref('');
 const addingFriend = ref(false);
@@ -11,6 +13,7 @@ const mobileView = ref<'list' | 'conversation'>('list');
 
 const friends = computed(() => conversations.filter((conversation) => conversation.kind === 'friend'));
 const groups = computed(() => conversations.filter((conversation) => conversation.kind === 'group'));
+const temporary = computed(() => conversations.filter((conversation) => conversation.kind === 'temporary'));
 const active = computed(() => conversations.find((conversation) => conversation.id === activeId.value) ?? null);
 
 function select(id: string): void {
@@ -43,6 +46,12 @@ function submitAddFriend(): void {
   newFriendName.value = '';
   addingFriend.value = false;
 }
+
+watch(() => props.chatRequest, (target) => {
+  if (!target) return;
+  const conversation = openNpcConversation(target);
+  select(conversation.id);
+}, { immediate: true });
 </script>
 
 <template>
@@ -83,15 +92,24 @@ function submitAddFriend(): void {
             <span v-else class="conv-time">{{ conversation.lastTime }}</span>
           </button>
         </section>
+        <section v-if="temporary.length">
+          <h3>临时对话</h3>
+          <button v-for="conversation in temporary" :key="conversation.id" type="button" class="conv" :class="{ active: conversation.id === activeId }" @click="select(conversation.id)">
+            <span class="avatar">{{ conversation.name.slice(0, 1) }}</span>
+            <span class="conv-meta"><strong>{{ conversation.name }}</strong><small>{{ conversation.messages.at(-1)?.body ?? '路上遇见的同学' }}</small></span>
+            <span class="conv-time">{{ conversation.lastTime }}</span>
+          </button>
+        </section>
       </nav>
       <section v-if="active" class="chat-window" :aria-label="`与 ${active.name} 的会话`">
         <header class="chat-head">
           <button type="button" class="chat-back icon-button" aria-label="返回会话列表" @click="mobileView = 'list'"><PixelIcon name="back" /></button>
           <span class="avatar small" :class="{ group: active.kind === 'group' }">{{ active.name.slice(0, 1) }}</span>
-          <div class="chat-identity"><strong>{{ active.name }}</strong><small>{{ active.kind === 'group' ? '群聊' : '好友' }} · 本地演示</small></div>
+          <div class="chat-identity"><strong>{{ active.name }}</strong><small>{{ active.kind === 'group' ? '群聊' : active.kind === 'temporary' ? '临时对话' : '好友' }} · 本地演示</small></div>
+          <button v-if="active.kind === 'temporary'" type="button" class="pixel-btn ghost small chat-add-friend" @click="befriendNpc(active)"><PixelIcon name="plus" />添加好友</button>
         </header>
         <div class="messages">
-          <p v-if="!active.messages.length" class="messages-empty">暂无消息，说点什么吧。</p>
+          <p v-if="!active.messages.length" class="messages-empty">{{ active.kind === 'temporary' ? '这是临时对话。添加好友后会保留在好友列表。' : '暂无消息，说点什么吧。' }}</p>
           <div v-for="message in active.messages" :key="message.id" class="message" :class="{ self: message.self }">
             <span v-if="!message.self" class="message-sender">{{ message.sender }}</span>
             <span class="bubble">{{ message.body }}</span>

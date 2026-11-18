@@ -6,6 +6,7 @@ import type { CampusScene, DebugSnapshot, GameStatus, GameHooks, GridMode, Objec
 import CampusDialogue from './components/CampusDialogue.vue';
 import CampusMinimap from './components/CampusMinimap.vue';
 import CommunityPanel from './components/community/CommunityPanel.vue';
+import type { NpcChatTarget } from './components/community/demoData';
 import PixelIcon from './components/community/PixelIcon.vue';
 import type { MinimapSnapshot } from './game/minimap';
 import type { Direction } from './game/campus';
@@ -17,8 +18,9 @@ const minimapSnapshot = shallowRef<MinimapSnapshot | null>(null);
 const minimapOverview = shallowRef<HTMLCanvasElement | null>(null);
 const apiStatus = ref('检查中');
 const communityOpen = ref(false);
+const npcChatRequest = ref<NpcChatTarget | null>(null);
 const communityEntry = ref<HTMLButtonElement | null>(null);
-const nearby = ref<{ name: string; description: string } | null>(null);
+const nearby = ref<{ name: string; description: string; action: string } | null>(null);
 const selected = ref<{ title: string; body: string } | null>(null);
 const status = ref<GameStatus>({ scene: '含弘门', position: { x: 0, y: 0 }, facing: 'down', sprint: false });
 const debug = ref<DebugSnapshot | null>(null);
@@ -166,8 +168,9 @@ onMounted(async () => {
     const [{ default: PhaserRuntime }, { CampusScene: GateScene }] = await Promise.all([import('phaser'), import('./game/CampusScene')]);
     if (disposed || !canvasHost.value) return;
     const hooks: GameHooks = {
-      onNearby: (name, description = '') => { nearby.value = name ? { name, description } : null; },
+      onNearby: (name, description = '', action = '查看') => { nearby.value = name ? { name, description, action } : null; },
       onMessage: (title, body) => { selected.value = { title, body }; },
+      onNpcChat: (id, name) => { npcChatRequest.value = { id, name }; communityOpen.value = true; },
       onStatus: (next) => { status.value = next; },
       isOverlayOpen: () => selected.value !== null || communityOpen.value,
     };
@@ -199,10 +202,10 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
         <div class="game-screen">
           <div ref="canvasHost" tabindex="-1" class="canvas-host" :class="{ dragging }" aria-label="俯视角像素校园画布" @wheel.prevent="onWheel" @mousedown="onMouseDown" @mousemove="onMouseMove" @auxclick.prevent><canvas ref="overlayCanvas" class="debug-overlay" aria-hidden="true" /><CampusMinimap v-model:collapsed="minimapCollapsed" :snapshot="minimapSnapshot" :overview="minimapOverview" /></div>
           <button v-if="!communityOpen" ref="communityEntry" class="community-entry" type="button" aria-label="打开社群面板（快捷键 P）" title="社群（P）" @click="communityOpen = true"><PixelIcon name="chat" />社群<kbd>P</kbd></button>
-          <CommunityPanel v-model:open="communityOpen" />
+          <CommunityPanel v-model:open="communityOpen" :chat-request="npcChatRequest" />
           <CampusDialogue v-if="selected" :title="selected.title" :body="selected.body" @close="selected = null; canvasHost?.focus({ preventScroll: true })" />
           <button v-else-if="nearby" class="nearby-prompt" type="button" @click="activeScene()?.interact()">
-            <kbd>E</kbd> 查看 · {{ nearby.name }}
+            <kbd>E</kbd> {{ nearby.action }} · {{ nearby.name }}
           </button>
         </div>
         <div class="viewport-stats"><span>CANVAS {{ debug?.viewportWidth ?? viewSize().width }} × {{ debug?.viewportHeight ?? viewSize().height }}</span><span>FPS {{ fixed(debug?.fps, 0) }}</span><span>{{ debug?.renderer ?? '—' }}</span><span>ZOOM {{ fixed(debug?.cameraZoom, 2) }}×</span><span v-if="collisionMode === 'on'">红框 TMX 碰撞区 · 青框 贴图范围 · 黄十字 脚底判定点</span><span v-if="objectDebugMode !== 'off'">黄框 交互 · 蓝框 传送 · 紫框 特殊实体/占位</span></div>
@@ -230,6 +233,7 @@ onUnmounted(() => { disposed = true; window.removeEventListener('mouseup', stopP
           <dt>交互区域</dt><dd>{{ debug?.interactionAreas ?? '—' }}</dd>
           <dt>传送区域</dt><dd>{{ debug?.portalAreas ?? '—' }}</dd>
           <dt>特殊实体/占位</dt><dd>{{ debug?.specialEntityAreas ?? '—' }}</dd>
+          <dt>路人 NPC / 移动中</dt><dd>{{ debug?.npcCount ?? '—' }} / {{ debug?.movingNpcCount ?? '—' }}</dd>
           <dt>镜头滚动 X / Y</dt><dd>{{ fixed(debug?.cameraX) }} / {{ fixed(debug?.cameraY) }} px</dd>
           <dt>画面中心 X / Y</dt><dd>{{ fixed(debug?.cameraCenterX) }} / {{ fixed(debug?.cameraCenterY) }} px</dd>
           <dt>镜头模式</dt><dd>{{ debug?.cameraMode ?? '—' }}</dd>

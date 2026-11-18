@@ -5,7 +5,7 @@ import { reactive } from 'vue';
 import {
   demoConversations, demoFriendRequests, demoNotifications, demoPosts, demoProfile,
   groupAvatarPalette,
-  type CommunityPost, type Conversation, type DemoProfile,
+  type CommunityPost, type Conversation, type DemoProfile, type NpcChatTarget,
 } from './demoData';
 
 export const profile = reactive<DemoProfile>({ ...demoProfile });
@@ -50,6 +50,26 @@ export function openConversation(conversation: Conversation): void {
   conversation.unread = 0;
 }
 
+export function openNpcConversation(target: NpcChatTarget): Conversation {
+  const existing = conversations.find((item) => item.npcId === target.id) ??
+    conversations.find((item) => item.kind === 'friend' && item.name === target.name);
+  if (existing) {
+    existing.npcId = target.id;
+    openConversation(existing);
+    return existing;
+  }
+  const conversation: Conversation = {
+    id: `temporary-${target.id}`, npcId: target.id, name: target.name,
+    kind: 'temporary', avatarColor: '#d4bc81', lastTime: '刚刚', messages: [],
+  };
+  conversations.unshift(conversation);
+  return conversation;
+}
+
+export function befriendNpc(conversation: Conversation): void {
+  if (conversation.kind === 'temporary' && conversation.npcId) conversation.kind = 'friend';
+}
+
 export function createGroup(): Conversation {
   const conversation: Conversation = {
     id: `group-demo-${Date.now()}`,
@@ -64,6 +84,8 @@ export function createGroup(): Conversation {
 }
 
 export function addFriend(name: string): Conversation {
+  const temporary = conversations.find((item) => item.kind === 'temporary' && item.name === name);
+  if (temporary) { befriendNpc(temporary); return temporary; }
   const conversation: Conversation = {
     id: `friend-demo-${Date.now()}`,
     name,

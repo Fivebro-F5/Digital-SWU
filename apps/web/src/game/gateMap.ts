@@ -52,6 +52,12 @@ export function readGateMap(zone: CampusZone) {
       gids.slice(y * columns, (y + 1) * columns).map((gid) => gid || -1),
     );
   });
+  const roadLayerIndex = [...root.querySelectorAll('map > layer')].findIndex((layer) => layer.getAttribute('name') === 'Roads');
+  if (roadLayerIndex < 0) throw new Error(`地图 ${zone} 缺少 Roads 图层，无法生成路人 NPC。`);
+  const roadCells: Point[] = [];
+  layers[roadLayerIndex].forEach((row, y) => row.forEach((gid, x) => {
+    if (gid >= 0) roadCells.push({ x: x * tileSize + tileSize / 2, y: y * tileSize + tileSize / 2 });
+  }));
   const mapPath = `../../../../picture/final/maps_final/${zone}_final.tmx`;
   const tilesets: { firstGid: number; tileCount: number; source: string }[] = [];
   const images = new Map<number, { source: string; originX: number; originY: number; ground: boolean }>();
@@ -105,7 +111,7 @@ export function readGateMap(zone: CampusZone) {
   return {
     name,
     backgroundColor: root.getAttribute('backgroundcolor') ?? '#95C679',
-    tileSize, width: columns * tileSize, height: rows * tileSize, layers, tilesets, sprites, collisions, interactions, portals, specialEntities,
+    tileSize, width: columns * tileSize, height: rows * tileSize, layers, roadCells, tilesets, sprites, collisions, interactions, portals, specialEntities,
     spawn: spawnPoint, terrain: terrain.getAttribute('source')!, firstGid: number(terrain.parentElement!, 'firstgid'),
   };
 }
@@ -117,7 +123,7 @@ export function placeGateMap(zone: CampusZone, offset: Point) {
   if (map.width !== zoneOffsets[zone].width || map.height !== zoneOffsets[zone].height || map.tileSize !== 16) {
     throw new Error(`地图 ${zone} 尺寸与六区拼接布局不匹配，请同步更新布局。`);
   }
-  return { ...map, offset, spawn: translate(map.spawn), sprites: map.sprites.map(translate),
+  return { ...map, offset, spawn: translate(map.spawn), roadCells: map.roadCells.map(translate), sprites: map.sprites.map(translate),
     collisions: map.collisions.map(translate), interactions: map.interactions.map(translate),
     portals: map.portals.map(translate), specialEntities: map.specialEntities.map(translate) };
 }

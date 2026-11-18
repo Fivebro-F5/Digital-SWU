@@ -5,11 +5,13 @@ import FeedTab from './FeedTab.vue';
 import ProfileTab from './ProfileTab.vue';
 import SettingsTab from './SettingsTab.vue';
 import PixelIcon from './PixelIcon.vue';
+import type { NpcChatTarget } from './demoData';
 import './community.css';
 import { markNotificationsRead, notifications } from './store';
 
 type TabKey = 'feed' | 'chat' | 'profile' | 'settings';
 
+const props = defineProps<{ chatRequest: NpcChatTarget | null }>();
 const open = defineModel<boolean>('open', { required: true });
 const tab = ref<TabKey>('feed');
 const bellOpen = ref(false);
@@ -62,6 +64,7 @@ watch(open, async (value) => {
     panel.value?.focus({ preventScroll: true });
   }
 });
+watch(() => props.chatRequest, (target) => { if (target) switchTab('chat'); });
 </script>
 
 <template>
@@ -103,7 +106,7 @@ watch(open, async (value) => {
     </div>
     <div class="community-body">
       <div v-show="tab === 'feed'" id="community-tab-feed" role="tabpanel" aria-labelledby="community-tab-button-feed" class="community-tab-panel"><FeedTab /></div>
-      <div v-show="tab === 'chat'" id="community-tab-chat" role="tabpanel" aria-labelledby="community-tab-button-chat" class="community-tab-panel"><ChatTab /></div>
+      <div v-show="tab === 'chat'" id="community-tab-chat" role="tabpanel" aria-labelledby="community-tab-button-chat" class="community-tab-panel"><ChatTab :chat-request="chatRequest" /></div>
       <div v-show="tab === 'profile'" id="community-tab-profile" role="tabpanel" aria-labelledby="community-tab-button-profile" class="community-tab-panel"><ProfileTab @edit-profile="switchTab('settings')" /></div>
       <div v-show="tab === 'settings'" id="community-tab-settings" role="tabpanel" aria-labelledby="community-tab-button-settings" class="community-tab-panel"><SettingsTab /></div>
     </div>
