@@ -533,7 +533,8 @@ export class CampusScene extends Phaser.Scene {
         const id = `npc-${String(this.npcs.length + 1).padStart(2, '0')}`;
         const name = `路人 ${String(this.npcs.length + 1).padStart(2, '0')}`;
         const sprite = this.add.sprite(position.x, position.y, 'bird-original-idle-down-000')
-          .setOrigin(0.5, 88 / 96).setScale(1).setDepth(position.y)
+            .setOrigin(this.player.originX, this.player.originY)
+            .setScale(this.player.scaleX, this.player.scaleY).setDepth(position.y)
           .setInteractive({ useHandCursor: true });
         sprite.play('bird-original-idle-down');
         sprite.setData('npcId', id);
@@ -630,7 +631,6 @@ export class CampusScene extends Phaser.Scene {
     }
     this.player = this.add.sprite(this.position.x, this.position.y, 'bird-original-idle-down-000')
       .setOrigin(0.5, 88 / 96)
-      // 将 96 × 96 的动画帧缩放为 48 × 48 游戏像素。
       .setScale(1)
       .setDepth(this.position.y);
     this.playPlayer('idle');
